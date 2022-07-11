@@ -1,0 +1,111 @@
+--------------------
+API name: Admin: Login: https://openrainbow.net/api/rainbow/authentication/v1.0/login
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Public-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Free-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Public2-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private2-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private3-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private4-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=Rainbow&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=luke.autochrome1@auto.test.openrainbow.net&companyId=5f48be7d629ec243cb5076f0
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=rey.autochrome2@auto.test.openrainbow.net&companyId=5f48be7d629ec243cb5076f0
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=leia.autochrome3@auto.test.openrainbow.net&companyId=5f48be7d629ec243cb5076f0
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=han.autochrome4@auto.test.openrainbow.net&companyId=5f48be7d629ec243cb5076f0
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=Rainbow&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=katniss.autochrome101@auto.test.openrainbow.net&companyId=56e68bdaf39fa6b4311652b9
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Free-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=tris.autochrome102@auto.test.openrainbow.net&companyId=5f7ad722def1d311e66fa955
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Public2-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=clarke.autochrome60@auto.test.openrainbow.net&companyId=5f7ad723def1d311e66fa95b
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Public2-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=sylvanas.autochrome50@auto.test.openrainbow.net&companyId=5f7ad723def1d311e66fa95b
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private2-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=jon.autochrome20@auto.test.openrainbow.net&companyId=5f7ad723def1d311e66fa961
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private2-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=sansa.autochrome21@auto.test.openrainbow.net&companyId=5f7ad723def1d311e66fa961
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private3-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=rick.autochrome30@auto.test.openrainbow.net&companyId=5f7ad7245cc5e511f447a160
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private3-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=daryl.autochrome31@auto.test.openrainbow.net&companyId=5f7ad7245cc5e511f447a160
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private4-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=hulk.autochrome40@auto.test.openrainbow.net&companyId=5f7ad725def1d311e66fa966
+    -API result: 200
+--------------------
+API name: Admin: Get all company info: /api/rainbow/admin/v1.0/companies?name=AUTOCHROME-Private4-Company&format=small&limit=100&offset=0&sortField=name&sortOrder=-1
+    -API result:200
+--------------------
+API name: Admin: Get all user info: https://openrainbow.net/api/rainbow/admin/v1.0/users?loginName=thor.autochrome41@auto.test.openrainbow.net&companyId=5f7ad725def1d311e66fa966
+    -API result: 200

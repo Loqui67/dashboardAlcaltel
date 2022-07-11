@@ -1,0 +1,346 @@
+
+.form-check-label {
+  float: left;
+}
+
+.App {
+  text-align: center;
+}
+
+.padding {
+  margin: 10px;
+}
+
+
+.screenCell {
+  width: 40%;
+}
+
+.screenCell img {
+  width: 100%;
+  cursor: pointer;
+}
+
+.imageContainer {
+  justify-content: space-between;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.errorMessage p {
+  font-size: medium;
+  color: red;
+}
+
+.divider
+{
+position: relative;
+margin-top: 20px;
+  margin-bottom: 20px;
+height: 1px;
+}
+
+.div-transparent:before
+{
+content: "";
+position: absolute;
+top: 0;
+left: 5%;
+right: 5%;
+width: 90%;
+height: 1px;
+background-image: linear-gradient(to left, transparent, rgb(48,49,51), transparent);
+}
+
+
+
+.dividerVertical
+{
+position: relative;
+margin-left: 20px;
+  margin-right: 20px;
+width: 1px;
+}
+
+.div-transparentVertical:before
+{
+content: "";
+position: absolute;
+left: 0;
+top: 5%;
+bottom: 5%;
+height: 90%;
+width: 1px;
+background-image: linear-gradient(to top, transparent, rgb(48,49,51), transparent);
+}
+
+
+
+
+.DownPart {
+margin-top: 50px;
+}
+
+.main {
+  justify-content: space-between;
+  height: auto;
+}
+
+
+.bg-green {
+  background-color: rgba(23, 222, 23, 0.4);
+}
+
+.bg-red {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.bg-orange {
+  background-color: rgba(253, 186, 80, 0.4);
+}
+
+.bg-grey {
+  background-color: rgba(173, 181, 189, 0.4);
+}
+
+.bg-green:hover {
+  background-color: rgba(23, 222, 23, 0.6);
+}
+
+.bg-red:hover {
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
+.bg-orange:hover {
+  background-color: rgba(253, 186, 80, 0.7);
+}
+
+.bg-grey:hover {
+  background-color: rgba(173, 181, 189, 0.7);
+}
+
+.green {
+  color: rgba(23, 222, 23, 1);
+}
+
+.red {
+  color: red;
+}
+
+.orange {
+  color: #efab17;
+}
+
+.grey {
+  color: #b7b1b1;
+}
+
+.buttonForTests:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+
+.buttonForTests {
+  width: 90%;
+  border: solid;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+.buttonForTests.bg-green {
+  border-color: rgb(23, 222, 23);
+}
+
+.buttonForTests.bg-red {
+  border-color: rgb(255, 0, 0);
+}
+
+.buttonForTests.bg-orange {
+  border-color: rgb(253, 186, 80);
+}
+
+.buttonForTests.bg-grey {
+  border-color: rgb(173, 181, 189);
+}
+
+
+.buttonForTests span.green {
+  color: rgb(24, 175, 24);
+}
+
+.buttonForTests span.red {
+  color: rgb(202, 23, 23);
+}
+
+.buttonForTests span.orange {
+  color: rgb(214, 139, 18);
+}
+
+.buttonForTests span.grey {
+  color: rgb(160, 164, 168);
+}
+
+
+.Tests .input input {
+  width: 100%;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.Tests .select .selectState {
+  width: 100%;
+}
+
+.selectClient {
+  width: 15%;
+}
+
+.selectTS {
+  width: 15%;
+}
+
+.selectDate {
+  width: 15%;
+}
+
+.Tests {
+  width: 30%;
+}
+
+
+.details {
+  width: 70%;
+  margin-left: 10px;
+  border: none;
+}
+
+
+#show_image_popup img {
+  max-width: 100%;
+  height: auto;
+}
+
+.login, .Register, .editPassword {
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+.margin-top {
+  margin-top: 10px;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
+
+.margin-side {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.blue {
+  color: #0d6efd;
+}
+
+.margin-top-xl {
+  margin-top: 30px;
+}
+
+.no-underline a {
+  text-decoration: none;
+}
+
+.dropdown {
+  margin: 10px;
+}
+
+.navbar-nav {
+  justify-content: center;
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.center {
+  justify-content: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.firstPart {
+  width: 40%;
+}
+
+.secondPart {
+  width: 60%;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.image:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+  opacity: 0.60;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+.active {
+  background-color: white;
+}
+
+#usernameTooltip {
+  color: white;
+  margin-top: 0.25rem;
+  font-size: .875em;
+}
+
+.button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.padding {
+  margin: 10px;
+}
+
+.padding2 {
+  margin: 2px 2px;
+}
+
+.padding3 {
+  padding: 0.375rem 0.75rem;
+}
+
+.underline {
+text-decoration: underline;
+}
+
+.copied {
+  color: #b7b1b1;
+}
+
+.redirectTestRail {
+  height: 20%;
+}
