@@ -204,6 +204,18 @@ app.get("/clientDistinct", (req, res) => {
     );
 });
 
+app.get("/clientVersion", (req, res) => {
+    const clientChoose = req.query.clientChoose;
+    db.query("CALL clientVersion(?);"
+        ,clientChoose, (err, result) => {
+            if (err) {
+                console.log("/clientVersion");
+            } else {
+                res.send(result);
+            }
+        }
+    );
+});
 
 app.get("/step", (req, res) => {
     const name = req.query.name;
@@ -367,7 +379,7 @@ app.get("/login", (req, res) => {
     if (req.session.user) {
         res.send({ loggedIn: true, user: req.session.user });
     } else {
-        res.send({ loggedIn: false, user: "" });
+        res.send({ loggedIn: false, user: []});
     }
 });
 
@@ -387,7 +399,7 @@ app.post("/login", (req, res) => {
                     bcrypt.compare(password, result[0].password, (error, response) => {
                         if (response) {
                             req.session.user = result;
-                            res.send({username: result[0].username, admin: result[0].isAdmin});
+                            res.send({username: result[0].username, admin: result[0].isAdmin, message: ""});
                         } else {
                             res.send({ message: "Wrong username/password combination!" });
                         }

@@ -5,6 +5,8 @@ class Utils {
     passwordMinSize : number = 8;
     passwordMaxSize : number = 30;
 
+    statsURL: string = "http://ns3053040.ip-137-74-95.eu:3000/stats"
+    loginURL: string = "http://ns3053040.ip-137-74-95.eu:3000/login"
 
     testToColor(toTest : string) {
         switch (toTest) {
@@ -100,6 +102,25 @@ class Utils {
         });
         return result
     }
+
+
+    statsPath() {
+        return this.statsURL;
+    }
+
+    loginPath() {
+        return this.loginURL;
+    }
+
+    redirectStats() {
+        window.location.href = this.statsPath();
+    }
+
+    redirectLogin() {
+        window.location.href = this.loginPath();
+    }
+
+
 
 }
 

@@ -7,7 +7,6 @@ import { Dispatch, SetStateAction } from "react";
 import ChooseCharts from "../Charts/ChooseCharts";
 import SelectTS from "../Search Options-Results/SelectTS"
 import SelectDate from "../Search Options-Results/SelectDate";
-import SelectClient from "../Search Options-Results/SelectClient";
 
 /* ------------------- Classes ------------------- */
 
@@ -27,7 +26,7 @@ interface Props {
     clientDistinct : Array<{id_client: number, client_name: string}>
     date : Array<{date: string}>;
     dateWithTS : Array<{date: string, id_testsSuites: number}>;
-    setClientChoose : Dispatch<SetStateAction<{name: string, type: string}>>;
+    setClientChoose : Dispatch<SetStateAction<string>>;
     setTestSuiteChoose : Dispatch<SetStateAction<number>>;
     setDateChoose : Dispatch<SetStateAction<string>>;
 
@@ -50,13 +49,6 @@ function StatsGraphPartStructure(props : Props) {
     return (
         <div className="UpPart">
             <div className="d-flex flex-row padding">
-                <div className="selectClient padding">
-                    <label>Choose a client</label>
-                    <SelectClient
-                        clientDistinct = {props.clientDistinct}
-                        setClientChoose = {props.setClientChoose}
-                    />
-                </div>
                 <div className="selectTS padding">
                     <label>Choose a test suite</label>
                     <SelectTS

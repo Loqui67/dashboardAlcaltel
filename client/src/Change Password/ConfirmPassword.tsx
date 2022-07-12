@@ -17,27 +17,32 @@ interface Props {
     setStep : Dispatch<SetStateAction<boolean>>;
 }
 
+interface isPasswordCorrectType {
+    state: boolean, 
+    message: string
+}
+
 function ConfirmPassword({username, setStep} : Props) {
 
     const [password, setPassword] = useState('')
-    const [isPasswordCorrect, setIsPasswordCorrect] = useState<{state: boolean; message: string}>({state: false, message: ""})
+    const [isPasswordCorrect, setIsPasswordCorrect] = useState<isPasswordCorrectType>({state: false, message: ""})
 
     const submitPassword = useCallback(async () => {
         const query = new GetFromDatabase(0, "", "");
-        setIsPasswordCorrect(await query.ConfirmPassword(username, password));
+        setIsPasswordCorrect(await query.ConfirmPassword(username, password)); //vérifie que le mot de passe est correct
     }, [username, password])
 
 
     useEffect(() => {
         if (isPasswordCorrect.state === true) {
-            setStep(true)
+            setStep(true)  //pour passer a l'étape de maj du mot de passe
         }
     }, [isPasswordCorrect, setStep])
 
     return (
         <>
             {
-                isPasswordCorrect.message !== "" && (
+                isPasswordCorrect.message !== "" && (       //on affiche une alerte si le mot de passe est incorrect, ou en cas d'erreur
                     <Alert variant={"danger"} className='alert'>
                         {
                             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>

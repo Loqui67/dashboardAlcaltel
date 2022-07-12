@@ -19,6 +19,7 @@ import RegisterPage from './RegisterPage';
 /* ------------------- Classes ------------------- */
 
 import GetFromDatabase from '../classes/GetFromDatabase';
+import Utils from '../classes/Utils';
 
 /* ------------------- React ------------------- */
 
@@ -31,35 +32,48 @@ import { Route, Routes } from "react-router-dom";
 
 function App() {
 
-    const loginPath = 'http://ns3053040.ip-137-74-95.eu:3000/login';
-    const statsPath = 'http://ns3053040.ip-137-74-95.eu:3000/stats';
 
-    const [loginStatus, setLoginStatus] = useState<{username : string, admin : boolean, isLogged : boolean}>({username: "", isLogged: false, admin: false});
-    const [isLogged, setIsLogged] = useState<{loggedIn : boolean, user: Array<any>}>({loggedIn: false, user: []});
+    interface loginStatusType {
+        username: string, 
+        admin: boolean, 
+        isLogged: boolean,
+        message: string
+    }
+
+    interface isLoggedType {
+        loggedIn: boolean, 
+        user: Array<any>
+    }
+
+
+    const [loginStatus, setLoginStatus] = useState<loginStatusType>({username: "", isLogged: false, admin: false, message: ""});
+    const [isLogged, setIsLogged] = useState<isLoggedType>({loggedIn: false, user: []});
 
 
     const isLoggedIn = useCallback(async () => {
+        const utils = new Utils()
         const query = new GetFromDatabase(0, "", "");
-        if (loginStatus.username === "" && window.location.href !== loginPath) {
+        if (loginStatus.username === "" && window.location.href !== utils.loginPath()) {
             setIsLogged(await query.isLogged())
             if (isLogged.loggedIn) {
-                setLoginStatus({username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true})
+                setLoginStatus({username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: ""})
             }
         }
-        else if (!loginStatus.isLogged && window.location.href === loginPath) {
-            setIsLogged(await query.isLogged())
-            if (isLogged.loggedIn) {
-                window.location.href = statsPath;
-                setLoginStatus({username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true})
-            } else {
-                setLoginStatus({username: "", isLogged : false, admin: false})
+        else if (!loginStatus.isLogged && window.location.href === utils.loginPath()) {
+            const a:isLoggedType = await query.isLogged()
+            if (a.loggedIn) {
+                setIsLogged(a);
+                console.log(a)
+                console.log(isLogged)
+                //utils.redirectStats();
+                setLoginStatus({username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: ""})
             }
         }
     }, [isLogged, loginStatus])
 
     useEffect(() => {
         isLoggedIn()
-    }, [isLoggedIn])
+    }, [isLoggedIn, isLogged, loginStatus])
 
     return (
         <div className="App">

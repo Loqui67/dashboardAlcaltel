@@ -5,6 +5,7 @@ import {  Dispatch, SetStateAction, useState, useCallback } from 'react';
 /* ------------------- Classes ------------------- */
 
 import GetFromDatabase from '../classes/GetFromDatabase';
+import Utils from '../classes/Utils';
 
 /* ------------------- Composants Bootstrap ------------------- */
 
@@ -23,33 +24,36 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faEye } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
-  loginStatus: {error ?: boolean, message ?: string, username : string, admin : boolean, isLogged: boolean};
-  setLoginStatus : Dispatch<SetStateAction<{error ?: boolean, message ?: string, username : string, admin : boolean, isLogged: boolean}>>;
+  loginStatus: {error ?: boolean, message: string, username : string, admin : boolean, isLogged: boolean};
+  setLoginStatus : Dispatch<SetStateAction<{error ?: boolean, message: string, username : string, admin : boolean, isLogged: boolean}>>;
 }
 
+interface Ilogin {
+  error ?: boolean, 
+  message: string, 
+  username: string, 
+  admin: boolean
+}
 
 function LoginPage({ loginStatus, setLoginStatus } : Props) {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [login, setLogin] = useState<{error ?: boolean, message ?: string, username: string, admin : boolean}>({username: "", admin: false})
 
   library.add(faUser, faEye)
 
-
-  const statsPath = 'http://ns3053040.ip-137-74-95.eu:3000/stats'
-
   const tryLogin = useCallback(async () => {
     const query = new GetFromDatabase(0, "", "");
-    setLogin(await query.login(username, password));
-    if (login.message) {
+    const utils = new Utils();
+    const login: Ilogin = await query.login(username, password)
+    if (login.message !== "") {
       setLoginStatus({ error: true, message: login.message, username:"", isLogged: false , admin: false});
     } else {
-      setLoginStatus({ username: login.username, admin: login.admin, isLogged: true });
-      window.location.href = statsPath;
+      setLoginStatus({ username: login.username, admin: login.admin, isLogged: true, message: ""});
+      utils.redirectStats();
     }
-  }, [login, password, username, setLoginStatus]);
+  }, [password, username, setLoginStatus]);
 
 
   const renderTooltip = (props: any) => (
@@ -58,12 +62,11 @@ function LoginPage({ loginStatus, setLoginStatus } : Props) {
     </Tooltip>
   );
   
-
   return (
     <div className="center d-flex flex-column login margin-top-xl">
       <h2>Login to your account !</h2>
       {
-        loginStatus.message && (
+        loginStatus.message !== "" && (
           <Alert variant="danger" className='alert'>
             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
             <p>

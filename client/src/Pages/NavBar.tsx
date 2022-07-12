@@ -7,22 +7,23 @@ import { Dispatch, SetStateAction } from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import { Nav, Container, Button } from "react-bootstrap";
 
-/* ------------------- Librairies tierces ------------------- */
+/* ------------------- Classes ------------------- */
 
-import Axios from 'axios';
+import GetFromDatabase from '../classes/GetFromDatabase';
 
 
 
 interface Props {
-    setLoginStatus: Dispatch<SetStateAction<{admin:boolean, username: string, isLogged: boolean}>>
+    setLoginStatus: Dispatch<SetStateAction<{admin:boolean, username: string, isLogged: boolean, message: string}>>
     loginStatus: {admin:boolean, username: string, isLogged: boolean}
 }
 
 function NavBar(props : Props) {
 
     async function logout() {
-        props.setLoginStatus({username:"", isLogged: false, admin: false})
-       Axios.get("http://ns3053040.ip-137-74-95.eu:3001/logout")
+        const query = new GetFromDatabase(0, "", "");
+        props.setLoginStatus({username:"", isLogged: false, admin: false, message: ""})
+       query.logout();
     }
 
     return (
@@ -39,19 +40,19 @@ function NavBar(props : Props) {
                         ) : null
                     }
                     {
-                        props.loginStatus.username !== undefined && (
+                        props.loginStatus.username !== "" && (
                             <Nav.Link href="/editPassword">Edit password</Nav.Link>
                         )
                     }
                 </Nav>
                     {
-                        props.loginStatus.username !== undefined && (
+                        props.loginStatus.username !== "" && (
                             <Navbar.Text>{`Logged as ${props.loginStatus.username}`}</Navbar.Text>
                         )
                     }
             </Container>
             {
-                props.loginStatus.username !== undefined && (
+                props.loginStatus.username !== "" && (
                     <Button variant="outline-dark" className="margin-right" onClick={logout}>Log Out</Button>
                 )
             }

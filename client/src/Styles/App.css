@@ -205,15 +205,7 @@ margin-top: 50px;
   width: 100%;
 }
 
-.selectClient {
-  width: 15%;
-}
-
-.selectTS {
-  width: 15%;
-}
-
-.selectDate {
+.selectClient, .selectClientVersion, .selectTS, .selectDate {
   width: 15%;
 }
 

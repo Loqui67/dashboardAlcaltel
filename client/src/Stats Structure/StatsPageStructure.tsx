@@ -12,6 +12,10 @@ import VersionTitle from "./VersionTitle";
 
 import GetFromDatabase from '../classes/GetFromDatabase';
 
+/* ------------------- Fonctions ------------------- */
+
+import { useOutletCntxtStats } from "../Pages/Stats";
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { Outlet, useParams, useOutletContext } from "react-router-dom";
@@ -77,16 +81,6 @@ function StatsPageStructure() {
         model: string
     }>
     
-    type clientDistinctType = Array<{
-        id_client: number, 
-        client_name: string
-    }>
-    
-    type clientChooseType = {
-        name: string, 
-        type: string
-    }
-    
     type versionType = Array<{
         id_version: number, 
         version_name: string, 
@@ -119,6 +113,9 @@ function StatsPageStructure() {
         verif: string
     }>
 
+    const { clientDistinct } = useOutletCntxtStats();
+    const { clientChoose } = useOutletCntxtStats();
+    const { setClientChoose } = useOutletCntxtStats();
 
     const [testSuite, setTestSuite] = useState<testSuiteType>([]);
     const [testSuiteChoose, setTestSuiteChoose] = useState<number>(0);
@@ -130,8 +127,6 @@ function StatsPageStructure() {
     const [versionWithLogs, setVersionWithLogs] = useState<versionWithLogsType>([]);
     const [client, setClient] = useState<clientType>([]);
     const [allClientID, setAllClientID] = useState<Array<number>>([])
-    const [clientDistinct, setClientDistinct] = useState<clientDistinctType>([]);
-    const [clientChoose, setClientChoose] = useState<clientChooseType>({name: "Chrome", type: "Web"});
     const [version, setVersion] = useState<versionType>([]);
     const [date, setDate] = useState<dateType>([])
     const [dateWithTS, setDateWithTS] = useState<dateWithTSType>([])
@@ -145,7 +140,7 @@ function StatsPageStructure() {
     const allDateRequest = useCallback(async () => {
         let idNumber : number;
         id !== undefined ? idNumber = parseInt(id) : idNumber = 0
-        const query = new GetFromDatabase(idNumber, clientChoose.name, dateChoose)
+        const query = new GetFromDatabase(idNumber, clientChoose, dateChoose)
         if (dateChoose !== "") {
             setTestStateCountWithDate(await query.getTestStateCountWithDate())
         }
@@ -156,13 +151,12 @@ function StatsPageStructure() {
     const allRequest = useCallback(async () => {
         let idNumber : number;
         id !== undefined ? idNumber = parseInt(id) : idNumber = 0       
-        const query = new GetFromDatabase(idNumber, clientChoose.name, "")
+        const query = new GetFromDatabase(idNumber, clientChoose, "")
         setTestSuiteFromVersion(await query.getTestSuitesFromVersion());
         setVersionWithLogs(await query.getVersionWithLogs());
         setTestStateCount(await query.getTestStateCount());
         setTestState(await query.getTestState());
         setClient(await query.getClient());
-        setClientDistinct(await query.getClientDistinct());
         setVersion(await query.getVersion());
         setTestSuite(await query.getTestSuites());
         setDateWithTS(await query.getDateWithTS())
@@ -181,7 +175,7 @@ function StatsPageStructure() {
     useEffect(() => {
         const arr: Array<number> = [];
         client.forEach(client => {
-            if (client.client_name === clientChoose.name) {
+            if (client.client_name === clientChoose) {
                 arr.push(client.id_client)
             }
         })
@@ -257,4 +251,4 @@ type ContextType = {
 
 export function useOutletCntxt() {
     return useOutletContext<ContextType>();
-  }
+}

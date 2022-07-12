@@ -46,10 +46,11 @@ function EnterNewPassword (props : Props) {
 
 
     useEffect(() => {
+        const utils = new Utils()
         check();
         if (isUpdated.state === true) {
             setTimeout(() => {
-                window.location.href = "http://ns3053040.ip-137-74-95.eu:3000/stats"
+                utils.redirectStats();
             }, 2000)
         }
     }, [isUpdated, check])

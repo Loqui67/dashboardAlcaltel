@@ -1,3 +1,7 @@
+/* ------------------- Classes ------------------- */
+
+import Utils from "./Utils";
+
 /* ------------------- Librairies tierces ------------------- */
 
 import Axios from "axios";
@@ -10,6 +14,7 @@ class GetFromDatabase {
     client : string;
     date : string;
 
+    utils = new Utils()
 
     constructor(id : number, client : string, date : string) {
         this.id = id;
@@ -121,6 +126,15 @@ class GetFromDatabase {
         return (response.data[0]);
     }
 
+    async getClientVersion(clientChoose: string) {
+        const response = await Axios.get(`${this.adress}clientVersion`, {
+            params: {
+                clientChoose: clientChoose
+            }
+        });
+        return (response.data[0]);
+    }
+
     async getState() {
         const response = await Axios.get(`${this.adress}state`);
         return (response.data[0]);
@@ -161,17 +175,14 @@ class GetFromDatabase {
 
 
     async isLogged() {
-        const loginPath = 'http://ns3053040.ip-137-74-95.eu:3000/login';
-        const statsPath = 'http://ns3053040.ip-137-74-95.eu:3000/stats';
 
         const response = await Axios.get(`${this.adress}login`);
 
-
-        if (!response.data.loggedIn && window.location.href !== loginPath) {
-            window.location.href = loginPath;
+        if (!response.data.loggedIn && window.location.href !== this.utils.loginPath()) {
+            this.utils.redirectLogin();
         } 
-        if (response.data.loggedIn && window.location.href === loginPath) {
-            window.location.href = statsPath;
+        if (response.data.loggedIn && window.location.href === this.utils.loginPath()) {
+            this.utils.redirectStats();
         }
         return response.data;
     }
@@ -184,6 +195,10 @@ class GetFromDatabase {
         })
         return response.data;
     }
+    async logout() {
+        Axios.get("http://ns3053040.ip-137-74-95.eu:3001/logout")
+    }
+
 }
 
 export default GetFromDatabase;
