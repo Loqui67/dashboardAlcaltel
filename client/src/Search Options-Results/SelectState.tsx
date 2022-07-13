@@ -2,6 +2,11 @@
 
 import { Dispatch, SetStateAction } from 'react';
 
+/* ------------------- Composants Bootstrap ------------------- */
+
+import Form from 'react-bootstrap/Form'
+
+
 interface Props {
     state : Array<{id_state: number, currentState: string}>;
     setStateChoose : Dispatch<SetStateAction<number>>;
@@ -11,7 +16,7 @@ interface Props {
 function SelectState(props : Props) {
 
     return (
-        <select defaultValue={0} id="state" className={"select-state form-select"} onChange={e => props.setStateChoose(parseInt(e.target.value))}>
+        <Form.Select defaultValue={0} id="state" className={"select-state form-select margin-top"} onChange={(e: any) => props.setStateChoose(parseInt(e.target.value))}>
             <option value={0}>All</option>
             {
                 props.state.map((state, key) => {
@@ -25,7 +30,7 @@ function SelectState(props : Props) {
                     }
                 })
             }
-        </select>
+        </Form.Select>
     )
 }
 

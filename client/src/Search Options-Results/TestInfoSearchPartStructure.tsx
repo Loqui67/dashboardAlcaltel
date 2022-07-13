@@ -21,6 +21,7 @@ interface Props {
     state: Array<{id_state: number, currentState: string}>
     testSuiteChoose: number
     allClientID: Array<number>
+    clientVersionChoose: number
     dateChoose: string
 }
 
@@ -36,12 +37,20 @@ function TestInfoStructure(props : Props) {
         props.testState
         .filter(filter => (filter.id_testsSuites === props.testSuiteChoose || props.testSuiteChoose === 0 ))
         .filter(data => {
-            return props.allClientID.map(test => {
-                if(test === data.id_client) {
-                 return data
+            if (props.clientVersionChoose === 0) {
+                return props.allClientID.map(test => {
+                    if(test === data.id_client) {
+                        return data
+                    }
+                    return null
+                })
+            }
+            else {
+                if (data.id_client === props.clientVersionChoose) {
+                    return data
                 }
                 return null
-            })
+            }
         })
         .filter(search => {
             if (searchTerm === "") {
@@ -131,18 +140,13 @@ function TestInfoStructure(props : Props) {
                     disabledLinkClassName={"disabled"}
                     breakLabel="..."
                     breakLinkClassName={"btn btn-outline-primary"}
-                    renderOnZeroPageCount={undefined}
+                    renderOnZeroPageCount={() => null}
                     pageRangeDisplayed={1}
                     disableInitialCallback={true}
                 />
             </div>
         </div>
     )
-
-
-
-
-
 }
 
 export default TestInfoStructure;

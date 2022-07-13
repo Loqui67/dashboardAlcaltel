@@ -114,6 +114,7 @@ function StatsPageStructure() {
     }>
 
     const { clientDistinct } = useOutletCntxtStats();
+    const { clientVersionChoose } = useOutletCntxtStats();
     const { clientChoose } = useOutletCntxtStats();
     const { setClientChoose } = useOutletCntxtStats();
 
@@ -186,10 +187,11 @@ function StatsPageStructure() {
 
     return (
         <div className={"StatsContainerOne"}>
-
+            <div className="divider div-transparent" />
             <VersionTitle
                 version={version}
                 id={id !== undefined ? parseInt(id) : 0}
+                clientChoose={clientChoose}
             />
             <div className="divider div-transparent" />
 
@@ -208,12 +210,14 @@ function StatsPageStructure() {
                 dateWithTS={dateWithTS}
                 testSuiteFromVersionWithDate={testSuiteFromVersionWithDate}
                 testStateCountWithDate={testStateCountWithDate}
+                clientVersionChoose={clientVersionChoose}
             />
 
             <div className="divider div-transparent" />
             <div className={"d-flex flex-row DownPart padding"}>
                 <TestInfoStructure
                     allClientID={allClientID}
+                    clientVersionChoose={clientVersionChoose}
                     testSuiteChoose={testSuiteChoose}
                     testState={testState}
                     dateChoose={dateChoose}

@@ -6,6 +6,11 @@ import Utils from "../classes/Utils"
 
 import { Dispatch, SetStateAction } from 'react';
 
+/* ------------------- Composants Bootstrap ------------------- */
+
+import Form from 'react-bootstrap/Form'
+
+
 interface Props {
     testSuiteFromVersion : Array<{id_testsSuites : number, testsSuites_name : string}>;
     setTestSuiteChoose : Dispatch<SetStateAction<number>>;
@@ -17,7 +22,7 @@ function SelectTS(props : Props) {
     const space = new Utils();
 
     return (
-        <select id="TS" defaultValue={0} className={"selectTestSuite form-select padding3"} onChange={(e) => {props.setTestSuiteChoose(parseInt(e.target.value)); props.setDateChoose("")}}>
+        <Form.Select id="TS" defaultValue={0} className={"selectTestSuite form-select margin-top"} onChange={(e: any) => {props.setTestSuiteChoose(parseInt(e.target.value)); props.setDateChoose("")}}>
             <option value={0}>All</option>
             {
                 props.testSuiteFromVersion.map((testSuite, key) => {    
@@ -27,7 +32,7 @@ function SelectTS(props : Props) {
                     )
                 })
             }
-        </select>
+        </Form.Select>
     )
 }
 

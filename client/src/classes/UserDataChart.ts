@@ -16,7 +16,7 @@ class UserDataChart {
     testSuiteFromVersionWithDate : Array<{id_testsSuites : number, testsSuites_name : string, id_client : number}>;
     testStateCountWithDate : Array<{passed : number, failed : number, skipped : number}>;
     allClientID : Array<number>;
-
+    clientVersionChoose: number;
 
     constructor
         (
@@ -27,7 +27,8 @@ class UserDataChart {
             dateChoose : string,
             testSuiteFromVersionWithDate : Array<{id_testsSuites : number, testsSuites_name : string, id_client : number}>,
             testStateCountWithDate : Array<{passed : number, failed : number, skipped : number}>,
-            allClientID :  Array<number>
+            allClientID :  Array<number>,
+            clientVersionChoose: number
         ) {
         this.testStateCount = testStateCount;
         this.testSuiteFromVersion = testSuiteFromVersion;
@@ -37,6 +38,7 @@ class UserDataChart {
         this.testSuiteFromVersionWithDate = testSuiteFromVersionWithDate;
         this.testStateCountWithDate = testStateCountWithDate;
         this.allClientID = allClientID;
+        this.clientVersionChoose = clientVersionChoose;
     }
 
     getValuesPiePassed() {
@@ -121,12 +123,20 @@ class UserDataChart {
                         && data.id_testsSuites === element.id_testsSuites
                         && (convertDate.getDateAndDeleteHourOnDbFormat(data.date) === this.dateChoose || this.dateChoose === "")
                 ).filter((data : dataMap) => {
-                    return this.allClientID.map(test => {
-                        if(test === data.id_client) {
+                    if (this.clientVersionChoose === 0) {
+                        return this.allClientID.map(test => {
+                            if(test === data.id_client) {
+                                return data
+                            }
+                            return null
+                        })
+                    }
+                    else {
+                        if (data.id_client === this.clientVersionChoose) {
                             return data
                         }
                         return null
-                    })
+                    }
                 })
             }).map(data => data.length)
         })
@@ -143,24 +153,40 @@ class UserDataChart {
         let labels;
         if (this.dateChoose === "") {
             labels = this.testSuiteFromVersion.filter((data : dataMap) => {
-                return this.allClientID.map(test => {
-                    if(test === data.id_client) {
+                if (this.clientVersionChoose === 0) {
+                    return this.allClientID.map(test => {
+                        if(test === data.id_client) {
+                            return data
+                        }
+                        return null
+                    })
+                }
+                else {
+                    if (data.id_client === this.clientVersionChoose) {
                         return data
                     }
                     return null
-                })
+                }
             })
                 .map((testSuiteFromVersion : dataMap) => testSuiteFromVersion.testsSuites_name);
         } else {
             labels = this.testSuiteFromVersionWithDate.filter(
                 (filter : dataMap) => convertDate.getDateAndDeleteHourOnDbFormat(filter.date) === this.dateChoose
             ).filter((data : dataMap) => {
-                return this.allClientID.map(test => {
-                    if(test === data.id_client) {
+                if (this.clientVersionChoose === 0) {
+                    return this.allClientID.map(test => {
+                        if(test === data.id_client) {
+                            return data
+                        }
+                        return null
+                    })
+                }
+                else {
+                    if (data.id_client === this.clientVersionChoose) {
                         return data
                     }
                     return null
-                })
+                }
             })
                 .map((testSuiteFromVersion : dataMap) => testSuiteFromVersion.testsSuites_name);
         }
@@ -220,12 +246,20 @@ class UserDataChart {
             && data.currentState === state
             && (convertDate.getDateAndDeleteHourOnDbFormat(data.date) === this.dateChoose || this.dateChoose === "")
         ).filter((data : dataMap) => {
-            return this.allClientID.map(test => {
-                if(test === data.id_client) {
+            if (this.clientVersionChoose === 0) {
+                return this.allClientID.map(test => {
+                    if(test === data.id_client) {
+                        return data
+                    }
+                    return null
+                })
+            }
+            else {
+                if (data.id_client === this.clientVersionChoose) {
                     return data
                 }
                 return null
-            })
+            }
         }).length
         })
     }
@@ -239,12 +273,20 @@ class UserDataChart {
         }
         const labels = this.testSuiteFromVersion.filter((filter : dataMap) => (filter.id_testsSuites === this.testSuiteChoose || this.testSuiteChoose === 0))
         .filter((data : dataMap) => {
-            return this.allClientID.map(test => {
-                if(test === data.id_client) {
+            if (this.clientVersionChoose === 0) {
+                return this.allClientID.map(test => {
+                    if(test === data.id_client) {
+                        return data
+                    }
+                    return null
+                })
+            }
+            else {
+                if (data.id_client === this.clientVersionChoose) {
                     return data
                 }
                 return null
-            })
+            }
         })
             .map((testSuiteFromVersion : dataMap) => testSuiteFromVersion.testsSuites_name)
 

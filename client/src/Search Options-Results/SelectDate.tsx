@@ -6,6 +6,11 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 
 import Utils from "../classes/Utils"
 
+/* ------------------- Composants Bootstrap ------------------- */
+
+import Form from 'react-bootstrap/Form'
+
+
 interface Props {
     date : Array<{date: string}>;
     dateWithTS : Array<{date: string, id_testsSuites: number}>;
@@ -24,7 +29,7 @@ function SelectDate(props : Props) {
 
 
     return (
-        <select id="date" defaultValue={""} className={"select-date form-select"} onChange={e => props.setDateChoose(e.target.value)}>
+        <Form.Select id="date" defaultValue={""} className={"select-date form-select margin-top"} onChange={(e: any) => props.setDateChoose(e.target.value)}>
             <option value={""}>All</option>
             {
                 props.testSuiteChoose === 0 ?
@@ -40,7 +45,7 @@ function SelectDate(props : Props) {
                     )
                 })
             }
-        </select>
+        </Form.Select>
     )
 }
 

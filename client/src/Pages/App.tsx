@@ -6,6 +6,7 @@ import '../Styles/App.css';
 
 import StatsPageStructure from "../Stats Structure/StatsPageStructure";
 import TestAllInformation from '../Test Information/TestAllInformation';
+import AllStatsOptions from '../Stats Structure/AllStatsOptions';
 import NavBar from "./NavBar";
 
 /* ------------------- Pages ------------------- */
@@ -28,6 +29,8 @@ import { useState, useCallback, useEffect } from 'react';
 /* ------------------- librairies tierces ------------------- */
 
 import { Route, Routes } from "react-router-dom";
+
+
 
 
 function App() {
@@ -65,7 +68,7 @@ function App() {
                 setIsLogged(a);
                 console.log(a)
                 console.log(isLogged)
-                //utils.redirectStats();
+                utils.redirectStats();
                 setLoginStatus({username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: ""})
             }
         }
@@ -88,8 +91,10 @@ function App() {
                 <Route path="/login" element={<LoginPage loginStatus={loginStatus} setLoginStatus={setLoginStatus}/>}/>
                 <Route path="/editPassword" element={<ChangePassword username={loginStatus.username}/>}/>
                 <Route path="/stats" element={<Stats/>}>
-                    <Route path=":id" element={<StatsPageStructure/>}>
-                        <Route path=":testRunID" element={<TestAllInformation/>}/>
+                    <Route path=":client" element={<AllStatsOptions/>}>
+                        <Route path=":id" element={<StatsPageStructure/>}>
+                            <Route path=":testRunID" element={<TestAllInformation/>}/>
+                        </Route>
                     </Route>
                 </Route>
             </Routes>

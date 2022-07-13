@@ -15,24 +15,25 @@ import UserDataChart from "../classes/UserDataChart";
 
 
 interface Props {
-    testStateCount : Array<{passed : number, failed : number, skipped : number}>;
-    testSuiteFromVersion : Array<{id_testsSuites : number, testsSuites_name : string, id_client : number}>;
-    testState : Array<{currentState: string, id_testsSuites: number, date: string, id_client: number}>;
-    testSuiteChoose : number;
-    dateChoose : string;
-    testSuiteFromVersionWithDate : Array<{id_testsSuites : number, testsSuites_name : string, id_client : number}>;
-    testStateCountWithDate : Array<{passed : number, failed : number, skipped : number}>;
-    allClientID : Array<number>;
-    clientDistinct : Array<{id_client: number, client_name: string}>
-    date : Array<{date: string}>;
-    dateWithTS : Array<{date: string, id_testsSuites: number}>;
-    setClientChoose : Dispatch<SetStateAction<string>>;
-    setTestSuiteChoose : Dispatch<SetStateAction<number>>;
-    setDateChoose : Dispatch<SetStateAction<string>>;
+    testStateCount: Array<{passed: number, failed: number, skipped: number}>;
+    testSuiteFromVersion: Array<{id_testsSuites: number, testsSuites_name: string, id_client: number}>;
+    testState: Array<{currentState: string, id_testsSuites: number, date: string, id_client: number}>;
+    testSuiteChoose: number;
+    dateChoose: string;
+    testSuiteFromVersionWithDate: Array<{id_testsSuites: number, testsSuites_name: string, id_client: number}>;
+    testStateCountWithDate: Array<{passed: number, failed: number, skipped: number}>;
+    allClientID: Array<number>;
+    clientVersionChoose: number;
+    clientDistinct: Array<{id_client: number, client_name: string}>;
+    date: Array<{date: string}>;
+    dateWithTS: Array<{date: string, id_testsSuites: number}>;
+    setClientChoose: Dispatch<SetStateAction<string>>;
+    setTestSuiteChoose: Dispatch<SetStateAction<number>>;
+    setDateChoose: Dispatch<SetStateAction<string>>;
 
 }
 
-function StatsGraphPartStructure(props : Props) {
+function StatsGraphPartStructure(props: Props) {
 
     const userDataChart = new UserDataChart(
         props.testStateCount,
@@ -42,7 +43,8 @@ function StatsGraphPartStructure(props : Props) {
         props.dateChoose,
         props.testSuiteFromVersionWithDate,
         props.testStateCountWithDate,
-        props.allClientID
+        props.allClientID,
+        props.clientVersionChoose
     );
 
 

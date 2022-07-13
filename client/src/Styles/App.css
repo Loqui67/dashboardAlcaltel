@@ -201,11 +201,11 @@ margin-top: 50px;
   padding: 0.375rem 0.75rem;
 }
 
-.Tests .select .selectState {
+.Tests .select .selectState, .dropVersion button {
   width: 100%;
 }
 
-.selectClient, .selectClientVersion, .selectTS, .selectDate {
+.selectClient, .selectClientVersion, .selectTS, .selectDate, .selectVersion {
   width: 15%;
 }
 

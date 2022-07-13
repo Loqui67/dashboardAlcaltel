@@ -120,7 +120,9 @@ class Utils {
         window.location.href = this.loginPath();
     }
 
-
+    redirectTo(URL: string) {
+        window.location.href = URL;
+    }
 
 }
 

@@ -1,32 +1,42 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
+/* ------------------- Classes ------------------- */
+
+import Utils from "../classes/Utils";
+
+/* ------------------- Composants Bootstrap ------------------- */
+
+import Form from 'react-bootstrap/Form'
 
 interface Props {
-    clientDistinct : Array<{id_client: number, client_name: string}>;
-    setClientChoose : Dispatch<SetStateAction<string>>;
+    clientDistinct: Array<{ id_client: number, client_name: string }>;
+    setClientChoose: Dispatch<SetStateAction<string>>;
+    clientChoose: string
+    client: string | undefined
 }
 
+function SelectClient(props: Props) {
 
-function SelectClient(props : Props) {
+    const [defaultValue, setDefaultValue] = useState<string>();
 
+    useEffect(() => {
+        props.client === undefined ? setDefaultValue("Chrome") : setDefaultValue(props.clientChoose)
+    }, [props.client, props.clientChoose])
+
+    const utils = new Utils();
     return (
-        <select defaultValue={"Chrome"} className={"select-client form-select padding3"} id={"client"} 
-        onChange={e => props.setClientChoose(e.target.value)}>
-            <option value={"Chrome"}>Chrome</option>
+        <Form.Select defaultValue={defaultValue} className={"select-client form-select margin-top"} id={"client"} value={defaultValue}
+            onChange={(e: any) => { props.setClientChoose(e.target.value); utils.redirectTo(`${utils.statsPath()}/${e.target.value}`) }}>
             {
                 props.clientDistinct.map((client, key) => {
-                    if(key !== 0) {
-                        return (
-                            <option key={`${client.id_client}-${key}`} value={client.client_name}>{client.client_name}</option>
-                        )
-                    }
-                    else {
-                        return null;
-                    }
+                    return (
+                        <option key={`${client.id_client}-${key}`} value={client.client_name}>{client.client_name}</option>
+                    )
                 })
             }
-        </select>
+        </Form.Select>
     )
 }
 

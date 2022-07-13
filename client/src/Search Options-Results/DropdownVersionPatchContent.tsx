@@ -1,6 +1,6 @@
 /* ------------------- Composants Bootstrap ------------------- */
 
-import {Dropdown, DropdownButton} from "react-bootstrap";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 
 /* ------------------- React ------------------- */
 
@@ -12,53 +12,54 @@ import GetFromDatabase from "../classes/GetFromDatabase";
 
 /* ------------------- Librairies tierces ------------------- */
 
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+
+interface Props {
+    clientChoose: string
+}
 
 
-function DropdownVersionPatchContent() {
+function DropdownVersionPatchContent(props: Props) {
 
-    const [version, setVersion] = useState<Array<{id_version: number, version_name: string, patch: number}>>([]);
+    const [versionFromClient, setVersionFromClient] = useState<Array<{ id_version: number, version_name: string, patch: number }>>([]);
 
-    const query = useMemo(() => new GetFromDatabase(0, "", ""), []) 
+    const query = useMemo(() => new GetFromDatabase(0, props.clientChoose, ""), [props.clientChoose])
     let name = "";
-    let idVersion;
 
-    const getVersion = useCallback(async () => {
-        setVersion(await query.getVersion());
-    }, [query, setVersion]);
+    const getVersionFromClient = useCallback(async () => {
+        setVersionFromClient(await query.getVersionFromClient());
+    }, [query, setVersionFromClient]);
 
     useEffect(() => {
-        getVersion();
-    }, [getVersion])
+        getVersionFromClient();
+    }, [getVersionFromClient])
+
 
 
     return (
-        <div className="d-flex flex-row">
-            <DropdownButton title={"select web client"} className={"no-underline"} drop={"down"}>
-                {
-                    version.map((value, key)=> {
-                        if (name !== value.version_name) {
-                            name = value.version_name;
-                            return (
-                                <DropdownButton key={key} title={`Web client ${name}`} className={"no-underline padding size"} drop={"end"}>
-                                    {
-                                        version.filter(names => names.version_name === name).map((patches, key) => {
-                                            idVersion = patches.id_version;
-                                            return (
-                                                <Link key={`${name}-${key}`} to={`${idVersion}`}>
-                                                    <Dropdown.Item as="button">{`Web client ${name}.${patches.patch}`}</Dropdown.Item>
-                                                </Link>
-                                            )
-                                        })
-                                    }
-                                </DropdownButton>
-                            )
-                        }
-                        return null;
-                    })
-                }
-            </DropdownButton>
-        </div>
+        <DropdownButton title={"select client version"} className={"no-underline dropVersion"} drop={"down"} variant="primary">
+            {
+                versionFromClient.map((value, key) => {
+                    if (name !== value.version_name) {
+                        name = value.version_name;
+                        return (
+                            <DropdownButton key={key} title={`client version ${name}`} className={"no-underline padding size"} drop={"end"} variant="primary">
+                                {
+                                    versionFromClient.filter(names => names.version_name === name).map((patches, key) => {
+                                        return (
+                                            <Link key={`${name}-${key}`} to={`${patches.id_version}`}>
+                                                <Dropdown.Item as="button">{`client version ${name}.${patches.patch}`}</Dropdown.Item>
+                                            </Link>
+                                        )
+                                    })
+                                }
+                            </DropdownButton>
+                        )
+                    }
+                    return null;
+                })
+            }
+        </DropdownButton>
     )
 }
 

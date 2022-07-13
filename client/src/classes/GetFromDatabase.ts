@@ -22,15 +22,46 @@ class GetFromDatabase {
         this.date = date;
     }
 
-    async getVersion() {
-        const response = await Axios.get(`${this.adress}version`);
+
+
+    async getClient() {
+        const response = await Axios.get(`${this.adress}client`);
         return (response.data[0]);
     }
 
-    async getLastVersion() {
-        const response = await Axios.get(`${this.adress}lastVersion`);
+    async getClientDistinct() {
+        const response = await Axios.get(`${this.adress}clientDistinct`);
         return (response.data[0]);
     }
+
+    async getClientVersion(clientChoose: string) {
+        const response = await Axios.get(`${this.adress}clientVersion`, {
+            params: {
+                clientChoose: clientChoose
+            }
+        });
+        return (response.data[0]);
+    }
+
+    async getDate() {
+        const response = await Axios.get(`${this.adress}date`, {
+            params: {
+                id: this.id
+            }
+        });
+        return (response.data[0]);
+    }
+
+    async getDateWithTS() {
+        const response = await Axios.get(`${this.adress}dateWithTS`, {
+            params: {
+                id: this.id
+            }
+        });
+        return (response.data[0]);
+    }
+
+    
 
     async getHistory(name : string, id : number | string) {
         const response = await Axios.get(`${this.adress}testHistory`, {
@@ -75,12 +106,19 @@ class GetFromDatabase {
         return (response.data[0]);
     }
 
-    async getVersionWithLogs() {
-        const response = await Axios.get(`${this.adress}versionWithLogs`, {
+    
+    async getTestState() {
+        const response = await Axios.get(`${this.adress}testState`, {
             params: {
-                id: this.id,
+                id: this.id
             }
         });
+        return (response.data[0]);
+    }
+
+
+    async getState() {
+        const response = await Axios.get(`${this.adress}state`);
         return (response.data[0]);
     }
 
@@ -107,56 +145,36 @@ class GetFromDatabase {
     }
 
 
-    async getTestState() {
-        const response = await Axios.get(`${this.adress}testState`, {
+
+
+    async getVersion() {
+        const response = await Axios.get(`${this.adress}version`);
+        return (response.data[0]);
+    }
+
+    async getLastVersion() {
+        const response = await Axios.get(`${this.adress}lastVersion`);
+        return (response.data[0]);
+    }
+
+    async getVersionWithLogs() {
+        const response = await Axios.get(`${this.adress}versionWithLogs`, {
             params: {
-                id: this.id
+                id: this.id,
             }
         });
         return (response.data[0]);
     }
 
-    async getClient() {
-        const response = await Axios.get(`${this.adress}client`);
-        return (response.data[0]);
-    }
-
-    async getClientDistinct() {
-        const response = await Axios.get(`${this.adress}clientDistinct`);
-        return (response.data[0]);
-    }
-
-    async getClientVersion(clientChoose: string) {
-        const response = await Axios.get(`${this.adress}clientVersion`, {
+    async getVersionFromClient() {
+        const response = await Axios.get(`${this.adress}versionFromClient`, {
             params: {
-                clientChoose: clientChoose
+                client: this.client,
             }
         });
         return (response.data[0]);
     }
 
-    async getState() {
-        const response = await Axios.get(`${this.adress}state`);
-        return (response.data[0]);
-    }
-
-    async getDate() {
-        const response = await Axios.get(`${this.adress}date`, {
-            params: {
-                id: this.id
-            }
-        });
-        return (response.data[0]);
-    }
-
-    async getDateWithTS() {
-        const response = await Axios.get(`${this.adress}dateWithTS`, {
-            params: {
-                id: this.id
-            }
-        });
-        return (response.data[0]);
-    }
 
     async registerUser(username : string, password : string, admin : boolean) {
         const response = await Axios.post(`${this.adress}register`, { username: username, password: password, admin: admin });

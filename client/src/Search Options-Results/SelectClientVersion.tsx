@@ -2,6 +2,11 @@
 
 import { Dispatch, SetStateAction } from "react";
 
+/* ------------------- Composants Bootstrap ------------------- */
+
+import Form from 'react-bootstrap/Form'
+
+
 interface Props {
     clientVersion : Array<{id_client: number, version: string}>;
     setClientVersionChoose : Dispatch<SetStateAction<number>>;
@@ -11,8 +16,8 @@ interface Props {
 function SelectClientVersion(props : Props) {
 
     return (
-        <select defaultValue={"Chrome"} className={"select-client-version form-select padding3"} id={"clientVersion"} 
-        onChange={e => props.setClientVersionChoose(parseInt(e.target.value))}>
+        <Form.Select defaultValue={"Chrome"} className={"select-client-version form-select margin-top"} id={"clientVersion"} 
+        onChange={(e: any) => props.setClientVersionChoose(parseInt(e.target.value))}>
             <option value={0}>All</option>
             {
                 props.clientVersion.map((client, key) => {
@@ -26,7 +31,7 @@ function SelectClientVersion(props : Props) {
                     }
                 })
             }
-        </select>
+        </Form.Select>
     )
 }
 
