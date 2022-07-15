@@ -1,4 +1,9 @@
+/* ------------------- React ------------------- */
+
+import { useMemo } from "react";
+
 /* ------------------- Classes ------------------- */
+
 
 import Utils from "../classes/Utils";
 
@@ -11,7 +16,7 @@ interface Props {
 
 function TestSelectedDetails(props : Props) {
 
-    const convertDate = new Utils()
+    const convertDate = useMemo(() => new Utils(), [])
     return (
         <div className="firstPart">
             <p className="strong">{props.test.purpose}</p>

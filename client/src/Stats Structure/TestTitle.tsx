@@ -1,5 +1,6 @@
 /* ------------------- Classes ------------------- */
 
+import { useMemo } from "react";
 import Utils from "../classes/Utils";
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 
 function TestTitle(props : Props) {
 
-    const space = new Utils()
+    const space = useMemo(() => new Utils(), []);
 
     return (
         <div className="d-flex flex-column justify-content-start title">

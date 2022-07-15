@@ -1,3 +1,7 @@
+/* ------------------- React ------------------- */
+
+import { useMemo } from "react";
+
 /* ------------------- Classes ------------------- */
 
 import Utils from "../classes/Utils";
@@ -5,6 +9,7 @@ import Utils from "../classes/Utils";
 /* ------------------- Librairies tierces ------------------- */
 
 import { Link } from "react-router-dom";
+
 
 interface Props {
     pageVisited : number;
@@ -21,7 +26,7 @@ interface dataMap {
 
 function TestSearchResult(props : Props) {
 
-    const utils = new Utils()
+    const utils = useMemo(() => new Utils(),[]);
 
     return (
         <>

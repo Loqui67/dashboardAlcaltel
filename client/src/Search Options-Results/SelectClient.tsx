@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 
 /* ------------------- Classes ------------------- */
 
@@ -25,7 +25,8 @@ function SelectClient(props: Props) {
         props.client === undefined ? setDefaultValue("Chrome") : setDefaultValue(props.clientChoose)
     }, [props.client, props.clientChoose])
 
-    const utils = new Utils();
+    const utils = useMemo(() => new Utils(), []) 
+
     return (
         <Form.Select defaultValue={defaultValue} className={"select-client form-select margin-top"} id={"client"} value={defaultValue}
             onChange={(e: any) => { props.setClientChoose(e.target.value); utils.redirectTo(`${utils.statsPath()}/${e.target.value}`) }}>

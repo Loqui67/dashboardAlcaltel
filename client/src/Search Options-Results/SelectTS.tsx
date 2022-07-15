@@ -4,7 +4,7 @@ import Utils from "../classes/Utils"
 
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 
 /* ------------------- Composants Bootstrap ------------------- */
 
@@ -19,7 +19,7 @@ interface Props {
 
 function SelectTS(props : Props) {
 
-    const space = new Utils();
+    const space = useMemo(() => new Utils(),[]);
 
     return (
         <Form.Select id="TS" defaultValue={0} className={"selectTestSuite form-select margin-top"} onChange={(e: any) => {props.setTestSuiteChoose(parseInt(e.target.value)); props.setDateChoose("")}}>

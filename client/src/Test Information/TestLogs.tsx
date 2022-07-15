@@ -4,7 +4,7 @@ import Modale from "./modale";
 
 /* ------------------- React ------------------- */
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 interface Props {
     versionWithLogs: Array<{ id_testRun: number, date: string, error_message: string, screenshot_luke: string, screenshot_rey: string }>
@@ -17,7 +17,7 @@ function TestLogs(props: Props) {
     const [imageModale, setImageModale] = useState<string>("");
     const [screenshotClient, setScreenshotClient] = useState<string>("");
 
-    const prefix = "http://ns3053040.ip-137-74-95.eu:3001/SeleniumReports/";
+    const prefix = useMemo(() => "http://ns3053040.ip-137-74-95.eu:3001/SeleniumReports/", []);
 
 
     function modale(screenshotClient: string, date: string, imageName: string) {

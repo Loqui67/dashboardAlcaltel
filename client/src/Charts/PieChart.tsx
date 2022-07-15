@@ -1,27 +1,31 @@
 /* ------------------- React ------------------- */
 
-import React from "react";
+import React, { useMemo } from "react";
 
 /* ------------------- Librairies tierces ------------------- */
 
 import { ChartOptions, ChartData } from 'chart.js'
-import {Doughnut} from "react-chartjs-2"
+import { Doughnut } from "react-chartjs-2"
 import 'chart.js/auto'
-  
 
-const options: ChartOptions<'doughnut'>= {
-    maintainAspectRatio: false,
-    responsive: true,
 
-}
+
 
 interface Props {
-    chartData : ChartData<'doughnut'>;
+    chartData: ChartData<'doughnut'>;
 }
 
-function PieChart({chartData} : Props) {
-    return(
-        <Doughnut data={chartData} options={options}/>
+function PieChart({ chartData }: Props) {
+
+    const options: ChartOptions<'doughnut'> = useMemo(() => {
+        return {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+    }, [])
+
+    return (
+        <Doughnut data={chartData} options={options} />
     );
 }
 

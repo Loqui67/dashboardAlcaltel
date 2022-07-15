@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 
 /* ------------------- Classes ------------------- */
 
@@ -21,8 +21,7 @@ interface Props {
 
 function SelectDate(props : Props) {
 
-    const convertDate = new Utils()
-
+    const convertDate = useMemo(() => new Utils(), []) 
     useEffect (() => {
         (document.getElementById("date") as HTMLInputElement).value = props.dateChoose;
     }, [props.dateChoose])

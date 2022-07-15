@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import React, {useState} from "react";
+import React, { useMemo, useState } from "react";
 
 /* ------------------- Composants ------------------- */
 
@@ -17,88 +17,88 @@ import Utils from "../classes/Utils"
 import ReactPaginate from 'react-paginate'
 
 interface Props {
-    testState : Array<{currentState: string, id_test: number, id_testRun: number, id_testsSuites: number, id_client: number, name: string, date: string, id_state: number}>
-    state: Array<{id_state: number, currentState: string}>
+    testState: Array<{ currentState: string, id_test: number, id_testRun: number, id_testsSuites: number, id_client: number, name: string, date: string, id_state: number }>
+    state: Array<{ id_state: number, currentState: string }>
     testSuiteChoose: number
     allClientID: Array<number>
     clientVersionChoose: number
     dateChoose: string
 }
 
-function TestInfoStructure(props : Props) {
+function TestInfoStructure(props: Props) {
 
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(0)
     const [stateChoose, setStateChoose] = useState<number>(0)
-    
-    const utils = new Utils();
 
-    let search : Array<{currentState: string, id_test: number, id_testRun: number, name: string}> =
-        props.testState
-        .filter(filter => (filter.id_testsSuites === props.testSuiteChoose || props.testSuiteChoose === 0 ))
-        .filter(data => {
-            if (props.clientVersionChoose === 0) {
-                return props.allClientID.map(test => {
-                    if(test === data.id_client) {
+    const utils = useMemo(() => new Utils(), []);
+
+    let search: Array<{ currentState: string, id_test: number, id_testRun: number, name: string }> = useMemo(() => {
+        return props.testState
+            .filter(filter => (filter.id_testsSuites === props.testSuiteChoose || props.testSuiteChoose === 0))
+            .filter(data => {
+                if (props.clientVersionChoose === 0) {
+                    return props.allClientID.map(test => {
+                        if (test === data.id_client) {
+                            return data
+                        }
+                        return null
+                    })
+                }
+                else {
+                    if (data.id_client === props.clientVersionChoose) {
                         return data
                     }
                     return null
-                })
-            }
-            else {
-                if (data.id_client === props.clientVersionChoose) {
-                    return data
                 }
-                return null
-            }
-        })
-        .filter(search => {
-            if (searchTerm === "") {
-                return search;
-            }
-            else if (search.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                return search;
-            }
-            else {
-                return null;
-            }
-                
-        })
-        .filter(date => {
-            if (props.dateChoose === "") {
-                return date;
-            }
-            else if (props.dateChoose === utils.getDateAndDeleteHourOnDbFormat(date.date)) {
-                return date;
-            }
-            else {
-                return null;
-            }
-        })   
-        .filter(state => {
-            if (stateChoose === 0) {
-                return state;
-            }
-            else if (stateChoose === state.id_state) {
-                return state;
-            }
-            else {
-                return null;
-            }
-        });
+            })
+            .filter(search => {
+                if (searchTerm === "") {
+                    return search;
+                }
+                else if (search.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return search;
+                }
+                else {
+                    return null;
+                }
 
+            })
+            .filter(date => {
+                if (props.dateChoose === "") {
+                    return date;
+                }
+                else if (props.dateChoose === utils.getDateAndDeleteHourOnDbFormat(date.date)) {
+                    return date;
+                }
+                else {
+                    return null;
+                }
+            })
+            .filter(state => {
+                if (stateChoose === 0) {
+                    return state;
+                }
+                else if (stateChoose === state.id_state) {
+                    return state;
+                }
+                else {
+                    return null;
+                }
+            });
+    }, [props.clientVersionChoose, props.allClientID, props.dateChoose, props.testState,props.testSuiteChoose, searchTerm, stateChoose, utils])
 
-    const userPerPage : number = 10;
-    const pageVisited : number = pageNumber * userPerPage;
+    const userPerPage: number = 10;
+    const pageVisited: number = pageNumber * userPerPage;
 
-    const pageCount : number = Math.ceil(search.length / userPerPage)
-    
+    const pageCount: number = Math.ceil(search.length / userPerPage)
+
 
     type Page = {
-        selected : number;
+        selected: number;
     }
 
-    const changePage = ({selected} : Page) => {
+    const changePage = ({ selected }: Page) => {
         setPageNumber(selected);
     }
 
@@ -109,7 +109,7 @@ function TestInfoStructure(props : Props) {
     return (
         <div className="Tests">
             <div className={"d-flex flex-row input padding3 padding"}>
-                <input type={"text"} placeholder={"Search..."} onChange={(e) => {setSearchTerm(e.target.value)}}/>
+                <input type={"text"} placeholder={"Search..."} onChange={(e) => { setSearchTerm(e.target.value) }} />
             </div>
             <div className={"d-flex flex-row select padding3 padding filter justify-content-space-between"}>
                 <div className="d-flex flex-column justify-content-start selectState">
@@ -121,9 +121,9 @@ function TestInfoStructure(props : Props) {
                 </div>
             </div>
             <TestSearchResult
-                pageVisited = {pageVisited}
-                search = {search}
-                userPerPage = {userPerPage}
+                pageVisited={pageVisited}
+                search={search}
+                userPerPage={userPerPage}
             />
             <div className="d-flex flex-row justify-content-center pagination padding">
                 <ReactPaginate
