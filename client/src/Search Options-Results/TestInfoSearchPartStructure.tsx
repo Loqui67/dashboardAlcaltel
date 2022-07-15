@@ -33,60 +33,67 @@ function TestInfoStructure(props: Props) {
 
     const utils = useMemo(() => new Utils(), []);
 
-    let search: Array<{ currentState: string, id_test: number, id_testRun: number, name: string }> = useMemo(() => {
-        return props.testState
-            .filter(filter => (filter.id_testsSuites === props.testSuiteChoose || props.testSuiteChoose === 0))
-            .filter(data => {
-                if (props.clientVersionChoose === 0) {
-                    return props.allClientID.map(test => {
-                        if (test === data.id_client) {
-                            return data
-                        }
-                        return null
-                    })
-                }
-                else {
-                    if (data.id_client === props.clientVersionChoose) {
-                        return data
+
+
+    const testSuiteFilter: any = useMemo(() => {
+        if (props.testSuiteChoose === 0) {
+            return props.testState;
+        } else {
+            return props.testState.filter(filter => filter.id_testsSuites === props.testSuiteChoose)
+        }
+    }, [props.testState, props.testSuiteChoose])
+
+
+    const searchTermFilter: any = useMemo(() => {
+
+        if (searchTerm === "") {
+            return testSuiteFilter
+        } else {
+            return testSuiteFilter.filter((search: { name: string }) => search.name.toLowerCase().includes(searchTerm.replace(/\s/g, '').toLowerCase()))
+        }
+    }, [testSuiteFilter, searchTerm])
+
+
+    const clientVersionFilter: any = useMemo(() => {
+        return searchTermFilter.filter((clientVersion: { id_client: number }) => {
+            if (props.clientVersionChoose === 0) {
+                return props.allClientID.map(test => {
+                    if (test === clientVersion.id_client) {
+                        return clientVersion
                     }
                     return null
-                }
-            })
-            .filter(search => {
-                if (searchTerm === "") {
-                    return search;
-                }
-                else if (search.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    return search;
-                }
-                else {
-                    return null;
-                }
+                })
+            }
+            else if (clientVersion.id_client === props.clientVersionChoose) {
+                return clientVersion
+            }
+            return null
+        })
+    }, [searchTermFilter, props.allClientID, props.clientVersionChoose])
 
-            })
-            .filter(date => {
-                if (props.dateChoose === "") {
-                    return date;
-                }
-                else if (props.dateChoose === utils.getDateAndDeleteHourOnDbFormat(date.date)) {
-                    return date;
-                }
-                else {
-                    return null;
-                }
-            })
-            .filter(state => {
-                if (stateChoose === 0) {
-                    return state;
-                }
-                else if (stateChoose === state.id_state) {
-                    return state;
-                }
-                else {
-                    return null;
-                }
-            });
-    }, [props.clientVersionChoose, props.allClientID, props.dateChoose, props.testState,props.testSuiteChoose, searchTerm, stateChoose, utils])
+
+    const dateFilter: any = useMemo(() => {
+        if (props.dateChoose === "") {
+            return clientVersionFilter;
+        } else {
+            return clientVersionFilter.filter((date: { date: string }) => props.dateChoose === utils.getDateAndDeleteHourOnDbFormat(date.date))
+        }
+    }, [clientVersionFilter, props.dateChoose, utils])
+
+
+    const stateFilter: any = useMemo(() => {
+        if (stateChoose === 0) {
+            return dateFilter;
+        } else {
+            return dateFilter.filter((state: { id_state: number }) => stateChoose === state.id_state)
+        }
+    }, [dateFilter, stateChoose])
+
+
+    const search: Array<{ currentState: string, id_test: number, id_testRun: number, name: string }> = useMemo(() => {
+        return stateFilter
+    }, [stateFilter])
+
 
     const userPerPage: number = 10;
     const pageVisited: number = pageNumber * userPerPage;
