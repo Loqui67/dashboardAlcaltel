@@ -12,17 +12,17 @@ import Form from 'react-bootstrap/Form'
 
 
 interface Props {
-    date : Array<{date: string}>;
-    dateWithTS : Array<{date: string, id_testsSuites: number}>;
-    setDateChoose : Dispatch<SetStateAction<string>>;
-    dateChoose : string;
-    testSuiteChoose : number;
+    date: Array<{ date: string }>;
+    dateWithTS: Array<{ date: string, id_testsSuites: number }>;
+    setDateChoose: Dispatch<SetStateAction<string>>;
+    dateChoose: string;
+    testSuiteChoose: number;
 }
 
-function SelectDate(props : Props) {
+function SelectDate(props: Props) {
 
-    const convertDate = useMemo(() => new Utils(), []) 
-    useEffect (() => {
+    const convertDate = useMemo(() => new Utils(), [])
+    useEffect(() => {
         (document.getElementById("date") as HTMLInputElement).value = props.dateChoose;
     }, [props.dateChoose])
 
@@ -31,17 +31,17 @@ function SelectDate(props : Props) {
             <option value={""}>All</option>
             {
                 props.testSuiteChoose === 0 ?
-                props.date.map((date, key) => {
-                    return (
-                        <option key={`${date.date}-${key}`} value={convertDate.getDateAndDeleteHourOnDbFormat(date.date)}>{convertDate.convertDateFromDbToRightFormat(date.date)}</option>
-                    )
-                })
-                :
-                props.dateWithTS.filter(date => date.id_testsSuites === props.testSuiteChoose).map((date, key) => {
-                    return (
-                        <option key={`${date.date}-${key}`} value={convertDate.getDateAndDeleteHourOnDbFormat(date.date)}>{convertDate.convertDateFromDbToRightFormat(date.date)}</option>
-                    )
-                })
+                    props.date.map((date, key) => {
+                        return (
+                            <option key={`${date.date}-${key}`} value={convertDate.getDateAndDeleteHourOnDbFormat(date.date)}>{convertDate.convertDateFromDbToRightFormat(date.date)}</option>
+                        )
+                    })
+                    :
+                    props.dateWithTS.filter(date => date.id_testsSuites === props.testSuiteChoose).map((date, key) => {
+                        return (
+                            <option key={`${date.date}-${key}`} value={convertDate.getDateAndDeleteHourOnDbFormat(date.date)}>{convertDate.convertDateFromDbToRightFormat(date.date)}</option>
+                        )
+                    })
             }
         </Form.Select>
     )

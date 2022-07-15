@@ -4,11 +4,11 @@ import { useMemo } from "react";
 import Utils from "../classes/Utils";
 
 interface Props {
-    TxtColor : string;
-    test : {name: string, currentState: string};
+    TxtColor: string;
+    test: { name: string, currentState: string };
 }
 
-function TestTitle(props : Props) {
+function TestTitle(props: Props) {
 
     const space = useMemo(() => new Utils(), []);
 
@@ -16,7 +16,7 @@ function TestTitle(props : Props) {
         <div className="d-flex flex-column justify-content-start title">
             <h3>
                 <span className={`${props.TxtColor} strong`}>
-                    {props.test.name.slice(0,6)}&nbsp;/&nbsp;
+                    {props.test.name.slice(0, 6)}&nbsp;/&nbsp;
                 </span>
                 {`${space.formatStringToUpperAndLowerCase(props.test.name.slice(7))} :`}
             </h3>

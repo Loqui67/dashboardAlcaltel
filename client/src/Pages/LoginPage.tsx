@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import {  Dispatch, SetStateAction, useState, useCallback } from 'react';
+import { Dispatch, SetStateAction, useState, useCallback } from 'react';
 
 /* ------------------- Classes ------------------- */
 
@@ -24,20 +24,20 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faEye } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
-  loginStatus: {error ?: boolean, message: string, username : string, admin : boolean, isLogged: boolean};
-  setLoginStatus : Dispatch<SetStateAction<{error ?: boolean, message: string, username : string, admin : boolean, isLogged: boolean}>>;
+  loginStatus: { error?: boolean, message: string, username: string, admin: boolean, isLogged: boolean };
+  setLoginStatus: Dispatch<SetStateAction<{ error?: boolean, message: string, username: string, admin: boolean, isLogged: boolean }>>;
 }
 
 interface Ilogin {
-  error ?: boolean, 
-  message: string, 
-  username: string, 
+  error?: boolean,
+  message: string,
+  username: string,
   admin: boolean,
   auth: boolean,
-  token:string
+  token: string
 }
 
-function LoginPage({ loginStatus, setLoginStatus } : Props) {
+function LoginPage({ loginStatus, setLoginStatus }: Props) {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -50,10 +50,10 @@ function LoginPage({ loginStatus, setLoginStatus } : Props) {
     const utils = new Utils();
     const login: Ilogin = await query.login(username, password)
     if (!login.auth) {
-      setLoginStatus({ error: true, message: login.message, username:"", isLogged: login.auth, admin: false});
+      setLoginStatus({ error: true, message: login.message, username: "", isLogged: login.auth, admin: false });
     } else {
       localStorage.setItem("token", login.token)
-      setLoginStatus({ username: login.username, admin: login.admin, isLogged: login.auth, message: ""});
+      setLoginStatus({ username: login.username, admin: login.admin, isLogged: login.auth, message: "" });
       utils.redirectStats();
     }
   }, [password, username, setLoginStatus]);
@@ -64,7 +64,7 @@ function LoginPage({ loginStatus, setLoginStatus } : Props) {
       Show password
     </Tooltip>
   );
-  
+
   return (
     <div className="center d-flex flex-column login margin-top-xl">
       <h2>Login to your account !</h2>
@@ -85,7 +85,7 @@ function LoginPage({ loginStatus, setLoginStatus } : Props) {
             placeholder="Username"
             aria-label="Username"
             aria-describedby="UsernameInput"
-            onChange={(e : React.ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value) }}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value) }}
           />
         </InputGroup>
         <InputGroup className="mb-3">
@@ -94,8 +94,8 @@ function LoginPage({ loginStatus, setLoginStatus } : Props) {
             aria-label="Password"
             type={showPassword ? "text" : "password"}
             aria-describedby="passwordInput"
-            onChange={(e : React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
-            onKeyPress={(e : React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && tryLogin()}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
+            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && tryLogin()}
           />
           <OverlayTrigger
             placement="right"

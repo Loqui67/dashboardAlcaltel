@@ -10,7 +10,7 @@ import ConfirmPassword from '../Change Password/ConfirmPassword';
 interface Props {
     username: string;
 }
-function ChangePassword(props : Props) {
+function ChangePassword(props: Props) {
 
     const [step, setStep] = useState(false)
 
@@ -19,10 +19,10 @@ function ChangePassword(props : Props) {
             <h2>Change your password</h2>
             <div className="editPassword d-flex flex-column margin-top-xl">
                 {
-                    !step ? 
-                    <ConfirmPassword username = {props.username} setStep={setStep}/> 
-                    :
-                    <EnterNewPassword username = {props.username}/>
+                    !step ?
+                        <ConfirmPassword username={props.username} setStep={setStep} />
+                        :
+                        <EnterNewPassword username={props.username} />
                 }
             </div>
         </div>

@@ -9,14 +9,14 @@ Axios.defaults.withCredentials = true;
 
 class GetFromDatabase {
 
-    adress : string = "http://ns3053040.ip-137-74-95.eu:3001/";
-    id : number;
-    client : string;
-    date : string;
+    adress: string = "http://ns3053040.ip-137-74-95.eu:3001/";
+    id: number;
+    client: string;
+    date: string;
 
     utils = new Utils()
 
-    constructor(id : number, client : string, date : string) {
+    constructor(id: number, client: string, date: string) {
         this.id = id;
         this.client = client;
         this.date = date;
@@ -61,9 +61,9 @@ class GetFromDatabase {
         return (response.data[0]);
     }
 
-    
 
-    async getHistory(name : string, id : number | string) {
+
+    async getHistory(name: string, id: number | string) {
         const response = await Axios.get(`${this.adress}testHistory`, {
             params: {
                 name: name,
@@ -73,7 +73,7 @@ class GetFromDatabase {
         return (response.data[0]);
     }
 
-    async getStep(name : string) {
+    async getStep(name: string) {
         const response = await Axios.get(`${this.adress}step`, {
             params: {
                 name: name
@@ -106,7 +106,7 @@ class GetFromDatabase {
         return (response.data[0]);
     }
 
-    
+
     async getTestState() {
         const response = await Axios.get(`${this.adress}testState`, {
             params: {
@@ -176,17 +176,17 @@ class GetFromDatabase {
     }
 
 
-    async registerUser(username : string, password : string, admin : boolean) {
+    async registerUser(username: string, password: string, admin: boolean) {
         const response = await Axios.post(`${this.adress}register`, { username: username, password: password, admin: admin });
         return (response.data)
     }
 
-    async ConfirmPassword(username : string, password : string) {
+    async ConfirmPassword(username: string, password: string) {
         const response = await Axios.post(`${this.adress}confirmPassword`, { username: username, password: password });
         return (response.data)
     }
 
-    async UpdatePassword(username : string, password : string) {
+    async UpdatePassword(username: string, password: string) {
         const response = await Axios.put(`${this.adress}updatePassword`, { username: username, password: password });
         return (response.data)
     }
@@ -198,7 +198,7 @@ class GetFromDatabase {
 
         if (!response.data.loggedIn && window.location.href !== this.utils.loginPath()) {
             this.utils.redirectLogin();
-        } 
+        }
         if (response.data.loggedIn && window.location.href === this.utils.loginPath()) {
             this.utils.redirectStats();
         }
@@ -206,7 +206,7 @@ class GetFromDatabase {
     }
 
 
-    async login(username : string, password : string) {
+    async login(username: string, password: string) {
         const response = await Axios.post(`${this.adress}login`, {
             username: username,
             password: password,
@@ -217,11 +217,13 @@ class GetFromDatabase {
         Axios.get(`${this.adress}logout`)
     }
 
-    async checkJWT(){
+    async checkJWT() {
         let a = localStorage.getItem('token')
-        const response = await Axios.get(`${this.adress}isUserAuth`, {headers : {
-            "x-access-token": a === null ? "" : a
-        }})
+        const response = await Axios.get(`${this.adress}isUserAuth`, {
+            headers: {
+                "x-access-token": a === null ? "" : a
+            }
+        })
         if (response.data.auth === true) {
             return true;
         } else {

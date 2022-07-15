@@ -57,13 +57,13 @@ function TestAllInformation() {
 
     const [isCopied, setIsCopied] = useState(false);
 
-    const getHistory = useCallback(async (name : string, id : number) => {
+    const getHistory = useCallback(async (name: string, id: number) => {
         if (await query.checkJWT()) {
-            setTestHistory(await query.getHistory(name, id)) 
+            setTestHistory(await query.getHistory(name, id))
         }
     }, [setTestHistory, query])
 
-    const getStep = useCallback(async (name : string) => {
+    const getStep = useCallback(async (name: string) => {
         if (await query.checkJWT()) {
             setTestStep(await query.getStep(name));
         }
@@ -95,7 +95,7 @@ function TestAllInformation() {
     return (
         <div className={"details"}>
             {
-                testState.filter((tests: {id_testRun: number}) => testRunID !== undefined ? tests.id_testRun === parseInt(testRunID) : tests.id_testRun === 0)
+                testState.filter((tests: { id_testRun: number }) => testRunID !== undefined ? tests.id_testRun === parseInt(testRunID) : tests.id_testRun === 0)
                     .map((test, key: number) => {
                         let TxtColor = utils.testToColor(test.currentState);
                         return (
@@ -113,9 +113,9 @@ function TestAllInformation() {
                                     <div className="dividerVertical div-transparentVertical" />
                                     {
                                         testStep[0] !== undefined &&
-                                            <TestSteps
-                                                testStep={testStep}
-                                            />
+                                        <TestSteps
+                                            testStep={testStep}
+                                        />
                                     }
                                 </div>
                                 <div className="d-flex flex-column link margin-top">

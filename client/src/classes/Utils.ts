@@ -1,14 +1,14 @@
 class Utils {
 
-    usernameMinSize : number = 5;
-    usernameMaxSize : number = 20;
-    passwordMinSize : number = 8;
-    passwordMaxSize : number = 30;
+    usernameMinSize: number = 5;
+    usernameMaxSize: number = 20;
+    passwordMinSize: number = 8;
+    passwordMaxSize: number = 30;
 
     statsURL: string = "http://ns3053040.ip-137-74-95.eu:3000/stats"
     loginURL: string = "http://ns3053040.ip-137-74-95.eu:3000/login"
 
-    testToColor(toTest : string) {
+    testToColor(toTest: string) {
         switch (toTest) {
             case "passed":
                 return "green";
@@ -25,15 +25,15 @@ class Utils {
         }
     }
 
-    convertDateFromDbToRightFormat(date : string) {
+    convertDateFromDbToRightFormat(date: string) {
         return `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(2, 4)}`
     }
 
-    getDateAndDeleteHourOnDbFormat(date : string | undefined) {
+    getDateAndDeleteHourOnDbFormat(date: string | undefined) {
         return date !== undefined ? date.slice(0, 10) : "";
     }
 
-    hasSpecialCharacters(string : string) {
+    hasSpecialCharacters(string: string) {
         const format = /[ !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
 
         if (format.test(string)) {
@@ -43,7 +43,7 @@ class Utils {
         }
     }
 
-    verifUsername(username : string) {
+    verifUsername(username: string) {
         if (username.length >= this.usernameMinSize && username.length <= this.usernameMaxSize) {
             return true
         } else {
@@ -51,7 +51,7 @@ class Utils {
         }
     }
 
-    verifPassword(password : string) {
+    verifPassword(password: string) {
         if (password.length >= this.passwordMinSize && password.length <= this.passwordMaxSize) {
             return true
         } else {
@@ -59,12 +59,12 @@ class Utils {
         }
     }
 
-/*     isNumeric(str : string) {
-        if (typeof str != "string") return false
-        return !isNaN(str) && !isNaN(parseFloat(str))
-    } */
+    /*     isNumeric(str : string) {
+            if (typeof str != "string") return false
+            return !isNaN(str) && !isNaN(parseFloat(str))
+        } */
 
-    isUpperCase(toTest : string) {
+    isUpperCase(toTest: string) {
 
         if (toTest !== undefined) {
             if (toTest === toTest.toUpperCase()) {
@@ -74,7 +74,7 @@ class Utils {
         return false
     }
 
-    isLowerCase(toTest : string) {
+    isLowerCase(toTest: string) {
         if (toTest !== undefined) {
             if (toTest === toTest.toLowerCase()) {
                 return true
@@ -83,7 +83,7 @@ class Utils {
         return false
     }
 
-    formatStringToUpperAndLowerCase(toTest : string) {
+    formatStringToUpperAndLowerCase(toTest: string) {
         let result = "";
         toTest.split('').forEach((element, index) => {
             if (index === 0) {

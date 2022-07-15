@@ -14,17 +14,17 @@ import GetFromDatabase from '../classes/GetFromDatabase';
 
 
 interface Props {
-    setLoginStatus: Dispatch<SetStateAction<{admin:boolean, username: string, isLogged: boolean, message: string}>>
-    loginStatus: {admin:boolean, username: string, isLogged: boolean}
+    setLoginStatus: Dispatch<SetStateAction<{ admin: boolean, username: string, isLogged: boolean, message: string }>>
+    loginStatus: { admin: boolean, username: string, isLogged: boolean }
 }
 
-function NavBar(props : Props) {
+function NavBar(props: Props) {
 
     async function logout() {
         localStorage.removeItem("token")
         const query = new GetFromDatabase(0, "", "");
-        props.setLoginStatus({username:"", isLogged: false, admin: false, message: ""})
-       query.logout();
+        props.setLoginStatus({ username: "", isLogged: false, admin: false, message: "" })
+        query.logout();
     }
 
     return (
@@ -46,11 +46,11 @@ function NavBar(props : Props) {
                         )
                     }
                 </Nav>
-                    {
-                        props.loginStatus.username !== "" && (
-                            <Navbar.Text>{`Logged as ${props.loginStatus.username}`}</Navbar.Text>
-                        )
-                    }
+                {
+                    props.loginStatus.username !== "" && (
+                        <Navbar.Text>{`Logged as ${props.loginStatus.username}`}</Navbar.Text>
+                    )
+                }
             </Container>
             {
                 props.loginStatus.username !== "" && (

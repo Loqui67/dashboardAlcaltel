@@ -19,11 +19,11 @@ interface Props {
     username: string;
 }
 
-function EnterNewPassword (props : Props) {
+function EnterNewPassword(props: Props) {
 
     const [password, setPassword] = useState('')
     const [passwordConfirm, setPasswordConfirm] = useState('')
-    const [isUpdated, setIsUpdated] = useState<{state : boolean, message : string}>({state: false, message: ""})
+    const [isUpdated, setIsUpdated] = useState<{ state: boolean, message: string }>({ state: false, message: "" })
     const [isPasswordOk, setIsPasswordOk] = useState(false)
 
     const changeUserPassword = useCallback(async () => {
@@ -55,7 +55,7 @@ function EnterNewPassword (props : Props) {
         }
     }, [isUpdated, check])
 
-    const renderPasswordTooltip = (props : any) => (
+    const renderPasswordTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
             <small id="passwordTooltip">
                 Password size must be 8-30 characters long.
@@ -63,7 +63,7 @@ function EnterNewPassword (props : Props) {
         </Tooltip>
     );
 
-    const renderConfirmPasswordTooltip = (props : any) => (
+    const renderConfirmPasswordTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
             <small id="confirmPasswordTooltip">
                 Confirm your password by entering it again.
@@ -96,7 +96,7 @@ function EnterNewPassword (props : Props) {
                         placeholder="New password"
                         aria-label="New password"
                         aria-describedby="passwordInput"
-                        onChange={(e : React.ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)} }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
                         type="password" />
                 </InputGroup>
             </OverlayTrigger>
@@ -110,13 +110,13 @@ function EnterNewPassword (props : Props) {
                         placeholder="Confirm new password"
                         aria-label="Confirm new password"
                         aria-describedby="confirmPasswordInput"
-                        onChange={(e : React.ChangeEvent<HTMLInputElement>) => {setPasswordConfirm(e.target.value)} }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPasswordConfirm(e.target.value) }}
                         type="password" />
                 </InputGroup>
             </OverlayTrigger>
-            <button 
-                className={isPasswordOk ? "margin-top btn btn-primary" : "margin-top btn btn-primary disabled"} 
-                onClick={()=> changeUserPassword()}>
+            <button
+                className={isPasswordOk ? "margin-top btn btn-primary" : "margin-top btn btn-primary disabled"}
+                onClick={() => changeUserPassword()}>
                 Change password
             </button>
         </>

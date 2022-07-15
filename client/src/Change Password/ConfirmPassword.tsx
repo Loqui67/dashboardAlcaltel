@@ -13,19 +13,19 @@ import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'reac
 import GetFromDatabase from '../classes/GetFromDatabase';
 
 interface Props {
-    username : string
-    setStep : Dispatch<SetStateAction<boolean>>;
+    username: string
+    setStep: Dispatch<SetStateAction<boolean>>;
 }
 
 interface isPasswordCorrectType {
-    state: boolean, 
+    state: boolean,
     message: string
 }
 
-function ConfirmPassword({username, setStep} : Props) {
+function ConfirmPassword({ username, setStep }: Props) {
 
     const [password, setPassword] = useState('')
-    const [isPasswordCorrect, setIsPasswordCorrect] = useState<isPasswordCorrectType>({state: false, message: ""})
+    const [isPasswordCorrect, setIsPasswordCorrect] = useState<isPasswordCorrectType>({ state: false, message: "" })
 
     const submitPassword = useCallback(async () => {
         const query = new GetFromDatabase(0, "", "");
@@ -60,12 +60,12 @@ function ConfirmPassword({username, setStep} : Props) {
                     placeholder="Actual password"
                     aria-label="Actual password"
                     aria-describedby="passwordInput"
-                    onChange={(e : React.ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)} }
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
                     type="password" />
             </InputGroup>
-            <button 
-                className={"margin-top btn btn-primary"} 
-                onClick={()=> submitPassword()}>
+            <button
+                className={"margin-top btn btn-primary"}
+                onClick={() => submitPassword()}>
                 Confirm actual password
             </button>
         </>

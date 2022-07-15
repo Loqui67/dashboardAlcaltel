@@ -22,7 +22,7 @@ import { Outlet, useParams, useOutletContext } from "react-router-dom";
 
 
 function StatsPageStructure() {
- 
+
     let { id } = useParams<string>();
 
     type testSuiteType = Array<{
@@ -31,91 +31,91 @@ function StatsPageStructure() {
     }>
 
     type testSuiteFromVersionType = Array<{
-        id_testsSuites : number, 
-        testsSuites_name : string, 
-        id_client : number
+        id_testsSuites: number,
+        testsSuites_name: string,
+        id_client: number
     }>
 
     type testSuiteFromVersionWithDateType = Array<{
-        id_testsSuites : number, 
-        testsSuites_name : string, 
-        id_client : number,
+        id_testsSuites: number,
+        testsSuites_name: string,
+        id_client: number,
         date: string
     }>
 
     type testStateCountType = Array<{
-        passed : number, 
-        failed : number, 
-        skipped : number
+        passed: number,
+        failed: number,
+        skipped: number
     }>
 
     type testStateCountWithDateType = Array<{
-        passed : number, 
-        failed : number, 
-        skipped : number
+        passed: number,
+        failed: number,
+        skipped: number
     }>
 
     type testStateType = Array<{
-        id_test: number, 
-        id_state: number, 
-        currentState: string, 
-        id_testsSuites: number, 
-        date: string, 
-        id_client: number, 
-        id_testRun: number, 
-        name: string, 
+        id_test: number,
+        id_state: number,
+        currentState: string,
+        id_testsSuites: number,
+        date: string,
+        id_client: number,
+        id_testRun: number,
+        name: string,
         purpose: string
     }>
-    
+
     type versionWithLogsType = Array<{
-        id_testRun: number, 
-        date: string, 
-        error_message: string, 
-        screenshot_luke: string, 
+        id_testRun: number,
+        date: string,
+        error_message: string,
+        screenshot_luke: string,
         screenshot_rey: string
     }>
-    
+
     type clientType = Array<{
-        version: string, 
-        id_client: number, 
-        client_name: string, 
+        version: string,
+        id_client: number,
+        client_name: string,
         model: string
     }>
 
-    type clientVersionType = Array<{ 
+    type clientVersionType = Array<{
         id_client: number,
-         version: string
+        version: string
     }>
-    
+
     type versionType = Array<{
-        id_version: number, 
-        version_name: string, 
+        id_version: number,
+        version_name: string,
         patch: number
     }>
-    
+
     type dateType = Array<{
         date: string
     }>
-    
+
     type dateWithTSType = Array<{
-        date: string, 
+        date: string,
         id_testsSuites: number
     }>
-    
+
     type stateType = Array<{
-        id_state: number, 
+        id_state: number,
         currentState: string
     }>
-    
+
     type testHistoryType = Array<{
-        version_name: string, 
-        patch: number, 
-        currentState:string
+        version_name: string,
+        patch: number,
+        currentState: string
     }>
-    
+
     type testStepType = Array<{
-        description: string, 
-        testRailLink: string, 
+        description: string,
+        testRailLink: string,
         verif: string
     }>
 
@@ -146,7 +146,7 @@ function StatsPageStructure() {
 
 
     const allDateRequest = useCallback(async () => {
-        let idNumber : number;
+        let idNumber: number;
         id !== undefined ? idNumber = parseInt(id) : idNumber = 0
         const query = new GetFromDatabase(idNumber, clientChoose, dateChoose)
         if (await query.checkJWT()) {
@@ -159,8 +159,8 @@ function StatsPageStructure() {
     }, [dateChoose, id, clientChoose])
 
     const allRequest = useCallback(async () => {
-        let idNumber : number;
-        id !== undefined ? idNumber = parseInt(id) : idNumber = 0  
+        let idNumber: number;
+        id !== undefined ? idNumber = parseInt(id) : idNumber = 0
         const query = new GetFromDatabase(idNumber, clientChoose, "")
         if (await query.checkJWT()) {
             setClientVersion(await query.getClientVersion(clientChoose));
@@ -256,15 +256,15 @@ function StatsPageStructure() {
 export default StatsPageStructure;
 
 
-type ContextType = { 
-    testState:Array<{id_test: number, id_state: number, currentState: string, id_testsSuites: number, date: string, id_client: number, id_testRun: number, name: string, purpose: string}>
-    client:Array<{version: string, id_client: number, client_name: string, model: string}>
-    testSuite:Array<{id_testsSuites: number, testsSuites_name: string}>
-    versionWithLogs:Array<{id_testRun: number, date: string, error_message: string, screenshot_luke: string, screenshot_rey: string}>
-    testStep:Array<{description: string, testRailLink: string, verif: string}>
-    testHistory:Array<{version_name: string, patch: number, currentState:string}>
-    setTestStep:Dispatch<SetStateAction<Array<{description: string, testRailLink: string, verif: string}>>>
-    setTestHistory:Dispatch<SetStateAction<Array<{version_name: string, patch: number, currentState:string}>>>
+type ContextType = {
+    testState: Array<{ id_test: number, id_state: number, currentState: string, id_testsSuites: number, date: string, id_client: number, id_testRun: number, name: string, purpose: string }>
+    client: Array<{ version: string, id_client: number, client_name: string, model: string }>
+    testSuite: Array<{ id_testsSuites: number, testsSuites_name: string }>
+    versionWithLogs: Array<{ id_testRun: number, date: string, error_message: string, screenshot_luke: string, screenshot_rey: string }>
+    testStep: Array<{ description: string, testRailLink: string, verif: string }>
+    testHistory: Array<{ version_name: string, patch: number, currentState: string }>
+    setTestStep: Dispatch<SetStateAction<Array<{ description: string, testRailLink: string, verif: string }>>>
+    setTestHistory: Dispatch<SetStateAction<Array<{ version_name: string, patch: number, currentState: string }>>>
 };
 
 export function useOutletCntxt() {

@@ -25,7 +25,7 @@ function SelectClient(props: Props) {
         props.client === undefined ? setDefaultValue("Chrome") : setDefaultValue(props.clientChoose)
     }, [props.client, props.clientChoose])
 
-    const utils = useMemo(() => new Utils(), []) 
+    const utils = useMemo(() => new Utils(), [])
 
     return (
         <Form.Select defaultValue={defaultValue} className={"select-client form-select margin-top"} id={"client"} value={defaultValue}

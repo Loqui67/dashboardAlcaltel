@@ -16,7 +16,7 @@ interface Props {
 
 function BarChart({ chartData }: Props) {
 
-    
+
     const options: ChartOptions<'bar'> = useMemo(() => {
         return {
             layout: {

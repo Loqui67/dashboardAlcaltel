@@ -121,46 +121,46 @@ class UserDataChart {
                 return this.testSuiteFromVersion.map((element: dataMap) => {
                     return this.testState.filter(
                         (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
-                        ).filter((data: dataMap) => {
-                            if (this.clientVersionChoose === 0) {
-                                return this.allClientID.map(test => {
-                                    if (test === data.id_client) {
-                                        return data
-                                    }
-                                    return null
-                                })
-                            }
-                            else {
-                                if (data.id_client === this.clientVersionChoose) {
+                    ).filter((data: dataMap) => {
+                        if (this.clientVersionChoose === 0) {
+                            return this.allClientID.map(test => {
+                                if (test === data.id_client) {
                                     return data
                                 }
                                 return null
+                            })
+                        }
+                        else {
+                            if (data.id_client === this.clientVersionChoose) {
+                                return data
                             }
-                        })
+                            return null
+                        }
+                    })
                 }).map(data => data.length)
             })
-            
+
         } else {
             return this.state.map(state => {
                 return this.testSuiteFromVersionWithDate.filter(data => this.dateChoose === data.date).map((element: dataMap) => {
                     return this.testState.filter(
                         (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
-                        ).filter((data: dataMap) => {
-                            if (this.clientVersionChoose === 0) {
-                                return this.allClientID.map(test => {
-                                    if (test === data.id_client) {
-                                        return data
-                                    }
-                                    return null
-                                })
-                            }
-                            else {
-                                if (data.id_client === this.clientVersionChoose) {
+                    ).filter((data: dataMap) => {
+                        if (this.clientVersionChoose === 0) {
+                            return this.allClientID.map(test => {
+                                if (test === data.id_client) {
                                     return data
                                 }
                                 return null
+                            })
+                        }
+                        else {
+                            if (data.id_client === this.clientVersionChoose) {
+                                return data
                             }
-                        })
+                            return null
+                        }
+                    })
                 }).map(data => data.length)
             })
         }

@@ -1,4 +1,3 @@
-
 .form-check-label {
   float: left;
 }
@@ -34,53 +33,49 @@
   color: red;
 }
 
-.divider
-{
-position: relative;
-margin-top: 20px;
+.divider {
+  position: relative;
+  margin-top: 20px;
   margin-bottom: 20px;
-height: 1px;
+  height: 1px;
 }
 
-.div-transparent:before
-{
-content: "";
-position: absolute;
-top: 0;
-left: 5%;
-right: 5%;
-width: 90%;
-height: 1px;
-background-image: linear-gradient(to left, transparent, rgb(48,49,51), transparent);
+.div-transparent:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  width: 90%;
+  height: 1px;
+  background-image: linear-gradient(to left, transparent, rgb(48, 49, 51), transparent);
 }
 
 
 
-.dividerVertical
-{
-position: relative;
-margin-left: 20px;
+.dividerVertical {
+  position: relative;
+  margin-left: 20px;
   margin-right: 20px;
-width: 1px;
+  width: 1px;
 }
 
-.div-transparentVertical:before
-{
-content: "";
-position: absolute;
-left: 0;
-top: 5%;
-bottom: 5%;
-height: 90%;
-width: 1px;
-background-image: linear-gradient(to top, transparent, rgb(48,49,51), transparent);
+.div-transparentVertical:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5%;
+  bottom: 5%;
+  height: 90%;
+  width: 1px;
+  background-image: linear-gradient(to top, transparent, rgb(48, 49, 51), transparent);
 }
 
 
 
 
 .DownPart {
-margin-top: 50px;
+  margin-top: 50px;
 }
 
 .main {
@@ -138,7 +133,7 @@ margin-top: 50px;
 }
 
 .buttonForTests:hover {
-  box-shadow: 0 0 11px rgba(33,33,33,.2);
+  box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
 .buttonForTests {
@@ -157,7 +152,7 @@ margin-top: 50px;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   border-radius: 0.25rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 
@@ -201,11 +196,16 @@ margin-top: 50px;
   padding: 0.375rem 0.75rem;
 }
 
-.Tests .select .selectState, .dropVersion button {
+.Tests .select .selectState,
+.dropVersion button {
   width: 100%;
 }
 
-.selectClient, .selectClientVersion, .selectTS, .selectDate, .selectVersion {
+.selectClient,
+.selectClientVersion,
+.selectTS,
+.selectDate,
+.selectVersion {
   width: 15%;
 }
 
@@ -226,7 +226,9 @@ margin-top: 50px;
   height: auto;
 }
 
-.login, .Register, .editPassword {
+.login,
+.Register,
+.editPassword {
   margin-left: auto;
   margin-right: auto;
   width: 30%;
@@ -290,7 +292,7 @@ margin-top: 50px;
 }
 
 .image:hover {
-  box-shadow: 0 0 11px rgba(33,33,33,.2);
+  box-shadow: 0 0 11px rgba(33, 33, 33, .2);
   opacity: 0.60;
 }
 
@@ -326,7 +328,7 @@ margin-top: 50px;
 }
 
 .underline {
-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .copied {
