@@ -11,6 +11,8 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 
+const jwt = require('jsonwebtoken')
+
 app.use(cors({
     origin: ["http://ns3053040.ip-137-74-95.eu:3000"],
     methods: ["GET", "POST", "PUT"],
@@ -317,6 +319,26 @@ app.get("/SeleniumReports/:folder/:image", (req, res) => {
     res.sendFile(img, { root: "C:/Dashboard/dashboard_with_database/server/SeleniumReports" })
 });
 
+const verifyJWT = (req, res, next) => {
+    const token = req.headers["x-access-token"]
+    if (!token) {
+        res.send({auth: false})
+    } else {
+        jwt.verify(token, 'Pcloud123!', (err, decoded) => {
+            if (err) {
+                res.send({auth: false})
+            } else {
+                req.userId = decoded.id;
+                next();
+            }
+        })
+    }
+}
+
+app.get('/isUserAuth', verifyJWT, (req, res) => {
+    res.send({auth: true})
+})
+
 
 app.get("/login", (req, res) => {
     if (req.session.user) {
@@ -342,14 +364,18 @@ app.post("/login", (req, res) => {
                 if (result.length > 0) {
                     bcrypt.compare(password, result[0].password, (error, response) => {
                         if (response) {
+/*                             const id = result[0].id_users;
+                            const token = jwt.sign({id}, "Pcloud123!", {
+                                expiresIn: "1d"
+                            }) */
                             req.session.user = result;
-                            res.send({ username: result[0].username, admin: result[0].isAdmin, message: "" });
+                            res.send({ username: result[0].username, admin: result[0].isAdmin, message: "", auth: true, token: ""/* token */ });
                         } else {
-                            res.send({ username: "", admin: false, message: "Wrong username/password combination !" });
+                            res.send({ username: "", admin: false, message: "Wrong username/password combination !", auth: false, token: "" });
                         }
                     });
                 } else {
-                    res.send({ username: "", admin: false, message: "Wrong username/password combination !" });
+                    res.send({ username: "", admin: false, message: "Wrong username/password combination !", auth: false, token: "" });
                 }
             }
         }

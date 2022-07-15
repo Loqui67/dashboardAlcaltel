@@ -27,7 +27,9 @@ function DropdownVersionPatchContent(props: Props) {
     let name = "";
 
     const getVersionFromClient = useCallback(async () => {
-        setVersionFromClient(await query.getVersionFromClient());
+        //if (await query.checkJWT()) {
+            setVersionFromClient(await query.getVersionFromClient());
+        //}
     }, [query, setVersionFromClient]);
 
     useEffect(() => {

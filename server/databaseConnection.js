@@ -7,7 +7,8 @@ module.exports.tests = mysql.createPool({
     port: 3306,
     password: 'Pcloud123!',
     database: 'rainbow_autotest',
-    debug: false
+    debug: false,
+    dateStrings: true
 });
 
 module.exports.user = mysql.createPool({

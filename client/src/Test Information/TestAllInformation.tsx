@@ -58,11 +58,15 @@ function TestAllInformation() {
     const [isCopied, setIsCopied] = useState(false);
 
     const getHistory = useCallback(async (name : string, id : number) => {
-        setTestHistory(await query.getHistory(name, id)) 
+        //if (await query.checkJWT()) {
+            setTestHistory(await query.getHistory(name, id)) 
+        //}
     }, [setTestHistory, query])
 
     const getStep = useCallback(async (name : string) => {
-        setTestStep(await query.getStep(name));
+        //if (await query.checkJWT()) {
+            setTestStep(await query.getStep(name));
+        //}
     }, [setTestStep, query])
 
 

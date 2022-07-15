@@ -32,7 +32,9 @@ interface Ilogin {
   error ?: boolean, 
   message: string, 
   username: string, 
-  admin: boolean
+  admin: boolean,
+  auth: boolean,
+  token:string
 }
 
 function LoginPage({ loginStatus, setLoginStatus } : Props) {
@@ -47,10 +49,11 @@ function LoginPage({ loginStatus, setLoginStatus } : Props) {
     const query = new GetFromDatabase(0, "", "");
     const utils = new Utils();
     const login: Ilogin = await query.login(username, password)
-    if (login.message !== "") {
-      setLoginStatus({ error: true, message: login.message, username:"", isLogged: false , admin: false});
+    if (!login.auth) {
+      setLoginStatus({ error: true, message: login.message, username:"", isLogged: login.auth, admin: false});
     } else {
-      setLoginStatus({ username: login.username, admin: login.admin, isLogged: true, message: ""});
+      //localStorage.setItem("token", login.token)
+      setLoginStatus({ username: login.username, admin: login.admin, isLogged: login.auth, message: ""});
       utils.redirectStats();
     }
   }, [password, username, setLoginStatus]);

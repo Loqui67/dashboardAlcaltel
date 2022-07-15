@@ -14,19 +14,15 @@ import { useOutletCntxtStats } from "../Pages/Stats";
 
 import { Outlet, useParams } from "react-router-dom";
 import SelectClient from "../Search Options-Results/SelectClient";
-import SelectClientVersion from "../Search Options-Results/SelectClientVersion";
 
 
 function AllStatsOptions() {
 
     const { client } = useParams();
 
-    const { clientVersion } = useOutletCntxtStats();
     const { clientDistinct } = useOutletCntxtStats();
-    const { clientVersionChoose } = useOutletCntxtStats();
     const { clientChoose } = useOutletCntxtStats();
     const { setClientChoose } = useOutletCntxtStats();
-    const { setClientVersionChoose } = useOutletCntxtStats();
 
     useEffect(() => {
         if (client !== undefined) setClientChoose(client)
@@ -45,13 +41,6 @@ function AllStatsOptions() {
                         client={client}
                     />
                 </div>
-                <div className="selectClientVersion padding">
-                    <label>Choose a client version</label>
-                    <SelectClientVersion
-                        clientVersion={clientVersion}
-                        setClientVersionChoose={setClientVersionChoose}
-                    />
-                </div>
                 <div className="selectVersion padding">
                     <label>Choose a version</label>
                     <DropdownVersionPatchContent
@@ -61,7 +50,6 @@ function AllStatsOptions() {
             </div>
             <div>
                 <Outlet context={{ //StatsPageStructure.tsx
-                    clientVersionChoose,
                     clientDistinct,
                     clientChoose,
                     setClientChoose

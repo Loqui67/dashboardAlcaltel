@@ -214,9 +214,20 @@ class GetFromDatabase {
         return response.data;
     }
     async logout() {
-        Axios.get("http://ns3053040.ip-137-74-95.eu:3001/logout")
+        Axios.get(`${this.adress}logout`)
     }
 
+    /* async checkJWT(){
+        let a = localStorage.getItem('token')
+        const response = await Axios.get(`${this.adress}isUserAuth`, {headers : {
+            "x-access-token": a === null ? "" : a
+        }})
+        if (response.data.auth === true) {
+            return true;
+        } else {
+            return false;
+        }
+    } */
 }
 
 export default GetFromDatabase;

@@ -39,7 +39,8 @@ function StatsPageStructure() {
     type testSuiteFromVersionWithDateType = Array<{
         id_testsSuites : number, 
         testsSuites_name : string, 
-        id_client : number
+        id_client : number,
+        date: string
     }>
 
     type testStateCountType = Array<{
@@ -80,6 +81,11 @@ function StatsPageStructure() {
         client_name: string, 
         model: string
     }>
+
+    type clientVersionType = Array<{ 
+        id_client: number,
+         version: string
+    }>
     
     type versionType = Array<{
         id_version: number, 
@@ -114,7 +120,6 @@ function StatsPageStructure() {
     }>
 
     const { clientDistinct } = useOutletCntxtStats();
-    const { clientVersionChoose } = useOutletCntxtStats();
     const { clientChoose } = useOutletCntxtStats();
     const { setClientChoose } = useOutletCntxtStats();
 
@@ -127,6 +132,8 @@ function StatsPageStructure() {
     const [testState, setTestState] = useState<testStateType>([]);
     const [versionWithLogs, setVersionWithLogs] = useState<versionWithLogsType>([]);
     const [client, setClient] = useState<clientType>([]);
+    const [clientVersion, setClientVersion] = useState<clientVersionType>([]);
+    const [clientVersionChoose, setClientVersionChoose] = useState<number>(0)
     const [allClientID, setAllClientID] = useState<Array<number>>([])
     const [version, setVersion] = useState<versionType>([]);
     const [date, setDate] = useState<dateType>([])
@@ -142,26 +149,31 @@ function StatsPageStructure() {
         let idNumber : number;
         id !== undefined ? idNumber = parseInt(id) : idNumber = 0
         const query = new GetFromDatabase(idNumber, clientChoose, dateChoose)
-        if (dateChoose !== "") {
-            setTestStateCountWithDate(await query.getTestStateCountWithDate())
-        }
-        setTestSuiteFromVersionWithDate(await query.getTestSuitesFromVersionWithDate());
-        setDate(await query.getDate())
+        //if (await query.checkJWT()) {
+            if (dateChoose !== "") {
+                setTestStateCountWithDate(await query.getTestStateCountWithDate())
+            }
+            setTestSuiteFromVersionWithDate(await query.getTestSuitesFromVersionWithDate());
+            setDate(await query.getDate())
+        //}
     }, [dateChoose, id, clientChoose])
 
     const allRequest = useCallback(async () => {
         let idNumber : number;
-        id !== undefined ? idNumber = parseInt(id) : idNumber = 0       
+        id !== undefined ? idNumber = parseInt(id) : idNumber = 0  
         const query = new GetFromDatabase(idNumber, clientChoose, "")
-        setTestSuiteFromVersion(await query.getTestSuitesFromVersion());
-        setVersionWithLogs(await query.getVersionWithLogs());
-        setTestStateCount(await query.getTestStateCount());
-        setTestState(await query.getTestState());
-        setClient(await query.getClient());
-        setVersion(await query.getVersion());
-        setTestSuite(await query.getTestSuites());
-        setDateWithTS(await query.getDateWithTS())
-        setState(await query.getState())
+        //if (await query.checkJWT()) {
+            setClientVersion(await query.getClientVersion(clientChoose));
+            setTestSuiteFromVersion(await query.getTestSuitesFromVersion());
+            setVersionWithLogs(await query.getVersionWithLogs());
+            setTestStateCount(await query.getTestStateCount());
+            setTestState(await query.getTestState());
+            setClient(await query.getClient());
+            setVersion(await query.getVersion());
+            setTestSuite(await query.getTestSuites());
+            setDateWithTS(await query.getDateWithTS())
+            setState(await query.getState())
+        //}
     }, [id, clientChoose])
 
     useEffect(() => {
@@ -199,6 +211,7 @@ function StatsPageStructure() {
                 clientDistinct={clientDistinct}
                 allClientID={allClientID}
                 setClientChoose={setClientChoose}
+                clientVersion={clientVersion}
                 setTestSuiteChoose={setTestSuiteChoose}
                 testSuiteChoose={testSuiteChoose}
                 testState={testState}
@@ -211,6 +224,7 @@ function StatsPageStructure() {
                 testSuiteFromVersionWithDate={testSuiteFromVersionWithDate}
                 testStateCountWithDate={testStateCountWithDate}
                 clientVersionChoose={clientVersionChoose}
+                setClientVersionChoose={setClientVersionChoose}
             />
 
             <div className="divider div-transparent" />
@@ -224,7 +238,7 @@ function StatsPageStructure() {
                     state={state}
                 />
                 <div className="dividerVertical div-transparentVertical" />
-                <Outlet context={{
+                <Outlet context={{ //TestAllInformation.tsx
                     testState,
                     client,
                     testSuite,

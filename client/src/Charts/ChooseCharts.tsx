@@ -10,36 +10,32 @@ import { ChartData } from 'chart.js'
 import "./Styles/ChooseCharts.css";
 
 interface Props {
-    testSuiteChoose : number;
-    userDataBarChart : ChartData<'bar'>;
-    userDataPieChart : ChartData<'doughnut'>;
-    userDataBar100Chart : ChartData<'bar'>;
+    testSuiteChoose: number;
+    userDataBarChart: ChartData<'bar'>;
+    userDataPieChart: ChartData<'doughnut'>;
+    userDataBar100Chart: ChartData<'bar'>;
 }
 
 
 
-function ChooseCharts(props : Props) {
- 
-    if (props.testSuiteChoose !== 0) {
+function ChooseCharts(props: Props) {
 
-        return (
+    return (
+        props.testSuiteChoose !== 0 ?
             <div className="LineChart">
-                <BarChart chartData={props.userDataBarChart}/>
+                <BarChart chartData={props.userDataBarChart} />
             </div>
-        );
-    } 
-    else {
-        return (
+            :
+
             <div className={"main d-flex flex-row"}>
                 <div className={"PieChart"}>
-                    <PieChart chartData={props.userDataPieChart}/>
+                    <PieChart chartData={props.userDataPieChart} />
                 </div>
                 <div className="LineChart">
-                    <Bar100Chart chartData={props.userDataBar100Chart}/>
+                    <Bar100Chart chartData={props.userDataBar100Chart} />
                 </div>
             </div>
-        );
-    }
+    )
 }
 
 export default ChooseCharts;

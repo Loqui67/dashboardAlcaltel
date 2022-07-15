@@ -27,7 +27,6 @@ function SelectDate(props : Props) {
         (document.getElementById("date") as HTMLInputElement).value = props.dateChoose;
     }, [props.dateChoose])
 
-
     return (
         <Form.Select id="date" defaultValue={""} className={"select-date form-select margin-top"} onChange={(e: any) => props.setDateChoose(e.target.value)}>
             <option value={""}>All</option>

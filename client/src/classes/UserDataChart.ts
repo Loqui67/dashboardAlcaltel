@@ -8,26 +8,26 @@ class UserDataChart {
     bgColor = ['rgba(23, 222, 23,1)', 'rgba(255,0,0, 1)', 'rgba(248,168,5,1)', 'rgba(174,168,168,1)'];
     borderColor = ['rgba(23, 222, 23,1)', 'rgba(255,0,0,1)', 'rgba(248,168,5,1)', 'rgba(174,168,168,1)']
 
-    testStateCount : Array<{passed : number, failed : number, skipped : number}>;
-    testSuiteFromVersion : Array<{id_testsSuites : number, testsSuites_name : string, id_client : number}>;
-    testState : Array<{currentState: string, id_testsSuites: number, date: string, id_client: number}>;
-    testSuiteChoose : number;
-    dateChoose : string;
-    testSuiteFromVersionWithDate : Array<{id_testsSuites : number, testsSuites_name : string, id_client : number}>;
-    testStateCountWithDate : Array<{passed : number, failed : number, skipped : number}>;
-    allClientID : Array<number>;
+    testStateCount: Array<{ passed: number, failed: number, skipped: number }>;
+    testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>;
+    testState: Array<{ currentState: string, id_testsSuites: number, date: string, id_client: number }>;
+    testSuiteChoose: number;
+    dateChoose: string;
+    testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>;
+    testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>;
+    allClientID: Array<number>;
     clientVersionChoose: number;
 
     constructor
         (
-            testStateCount : Array<{passed : number, failed : number, skipped : number}>,
-            testSuiteFromVersion : Array<{id_testsSuites : number, testsSuites_name : string, id_client : number}>,
-            testState : Array<{currentState: string, id_testsSuites: number, date: string, id_client: number}>,
-            testSuiteChoose : number,
-            dateChoose : string,
-            testSuiteFromVersionWithDate : Array<{id_testsSuites : number, testsSuites_name : string, id_client : number}>,
-            testStateCountWithDate : Array<{passed : number, failed : number, skipped : number}>,
-            allClientID :  Array<number>,
+            testStateCount: Array<{ passed: number, failed: number, skipped: number }>,
+            testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>,
+            testState: Array<{ currentState: string, id_testsSuites: number, date: string, id_client: number }>,
+            testSuiteChoose: number,
+            dateChoose: string,
+            testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>,
+            testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>,
+            allClientID: Array<number>,
             clientVersionChoose: number
         ) {
         this.testStateCount = testStateCount;
@@ -47,22 +47,22 @@ class UserDataChart {
         }
         let r;
         if (this.dateChoose === "") {
-            r = this.testStateCount.map((data : dataMap) => data.passed)
+            r = this.testStateCount.map((data: dataMap) => data.passed)
         } else {
-            r = this.testStateCountWithDate.map((data : dataMap) => data.passed)
+            r = this.testStateCountWithDate.map((data: dataMap) => data.passed)
         }
         return r;
     }
 
     getValuesPieFailed() {
         type dataMap = {
-            failed ?: number;
+            failed?: number;
         }
         let r;
         if (this.dateChoose === "") {
-            r = this.testStateCount.map((data : dataMap) => data.failed)
+            r = this.testStateCount.map((data: dataMap) => data.failed)
         } else {
-            r = this.testStateCountWithDate.map((data : dataMap) => data.failed)
+            r = this.testStateCountWithDate.map((data: dataMap) => data.failed)
         }
         return r;
     }
@@ -73,9 +73,9 @@ class UserDataChart {
         }
         let r;
         if (this.dateChoose === "") {
-            r = this.testStateCount.map((data : dataMap) => data.skipped)
+            r = this.testStateCount.map((data: dataMap) => data.skipped)
         } else {
-            r = this.testStateCountWithDate.map((data : dataMap) => data.skipped)
+            r = this.testStateCountWithDate.map((data: dataMap) => data.skipped)
         }
         return r;
     }
@@ -115,32 +115,58 @@ class UserDataChart {
             date?: string;
             id_client?: number;
         }
-        const convertDate = new Utils();
-        return this.state.map(state => { 
-            return this.testSuiteFromVersion.map((element : dataMap) => {
-                return this.testState.filter(
-                    (data : dataMap) => data.currentState === state
-                        && data.id_testsSuites === element.id_testsSuites
-                        && (convertDate.getDateAndDeleteHourOnDbFormat(data.date) === this.dateChoose || this.dateChoose === "")
-                ).filter((data : dataMap) => {
-                    if (this.clientVersionChoose === 0) {
-                        return this.allClientID.map(test => {
-                            if(test === data.id_client) {
-                                return data
+
+        if (this.dateChoose === "") {
+            return this.state.map(state => {
+                return this.testSuiteFromVersion.map((element: dataMap) => {
+                    return this.testState.filter(
+                        (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
+                        ).filter((data: dataMap) => {
+                            if (this.clientVersionChoose === 0) {
+                                return this.allClientID.map(test => {
+                                    if (test === data.id_client) {
+                                        return data
+                                    }
+                                    return null
+                                })
                             }
-                            return null
+                            else {
+                                if (data.id_client === this.clientVersionChoose) {
+                                    return data
+                                }
+                                return null
+                            }
                         })
-                    }
-                    else {
-                        if (data.id_client === this.clientVersionChoose) {
-                            return data
-                        }
-                        return null
-                    }
-                })
-            }).map(data => data.length)
-        })
+                }).map(data => data.length)
+            })
+            
+        } else {
+            return this.state.map(state => {
+                return this.testSuiteFromVersionWithDate.filter(data => this.dateChoose === data.date).map((element: dataMap) => {
+                    return this.testState.filter(
+                        (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
+                        ).filter((data: dataMap) => {
+                            if (this.clientVersionChoose === 0) {
+                                return this.allClientID.map(test => {
+                                    if (test === data.id_client) {
+                                        return data
+                                    }
+                                    return null
+                                })
+                            }
+                            else {
+                                if (data.id_client === this.clientVersionChoose) {
+                                    return data
+                                }
+                                return null
+                            }
+                        })
+                }).map(data => data.length)
+            })
+        }
     }
+
+
 
 
     getUserDataBar100Chart() {
@@ -152,10 +178,10 @@ class UserDataChart {
         const convertDate = new Utils();
         let labels;
         if (this.dateChoose === "") {
-            labels = this.testSuiteFromVersion.filter((data : dataMap) => {
+            labels = this.testSuiteFromVersion.filter((data: dataMap) => {
                 if (this.clientVersionChoose === 0) {
                     return this.allClientID.map(test => {
-                        if(test === data.id_client) {
+                        if (test === data.id_client) {
                             return data
                         }
                         return null
@@ -168,14 +194,15 @@ class UserDataChart {
                     return null
                 }
             })
-                .map((testSuiteFromVersion : dataMap) => testSuiteFromVersion.testsSuites_name);
+                .map((testSuiteFromVersion: dataMap) => testSuiteFromVersion.testsSuites_name);
         } else {
+
             labels = this.testSuiteFromVersionWithDate.filter(
-                (filter : dataMap) => convertDate.getDateAndDeleteHourOnDbFormat(filter.date) === this.dateChoose
-            ).filter((data : dataMap) => {
+                (filter: dataMap) => convertDate.getDateAndDeleteHourOnDbFormat(filter.date) === this.dateChoose
+            ).filter((data: dataMap) => {
                 if (this.clientVersionChoose === 0) {
                     return this.allClientID.map(test => {
-                        if(test === data.id_client) {
+                        if (test === data.id_client) {
                             return data
                         }
                         return null
@@ -188,7 +215,7 @@ class UserDataChart {
                     return null
                 }
             })
-                .map((testSuiteFromVersion : dataMap) => testSuiteFromVersion.testsSuites_name);
+                .map((testSuiteFromVersion: dataMap) => testSuiteFromVersion.testsSuites_name);
         }
 
         const userDataLineChart = {
@@ -241,26 +268,26 @@ class UserDataChart {
             id_client?: number;
         }
         const convertDate = new Utils();
-        return this.state.map(state => { 
-            return this.testState.filter((data : dataMap) => (data.id_testsSuites === this.testSuiteChoose || this.testSuiteChoose === 0)
-            && data.currentState === state
-            && (convertDate.getDateAndDeleteHourOnDbFormat(data.date) === this.dateChoose || this.dateChoose === "")
-        ).filter((data : dataMap) => {
-            if (this.clientVersionChoose === 0) {
-                return this.allClientID.map(test => {
-                    if(test === data.id_client) {
+        return this.state.map(state => {
+            return this.testState.filter((data: dataMap) => (data.id_testsSuites === this.testSuiteChoose || this.testSuiteChoose === 0)
+                && data.currentState === state
+                && (convertDate.getDateAndDeleteHourOnDbFormat(data.date) === this.dateChoose || this.dateChoose === "")
+            ).filter((data: dataMap) => {
+                if (this.clientVersionChoose === 0) {
+                    return this.allClientID.map(test => {
+                        if (test === data.id_client) {
+                            return data
+                        }
+                        return null
+                    })
+                }
+                else {
+                    if (data.id_client === this.clientVersionChoose) {
                         return data
                     }
                     return null
-                })
-            }
-            else {
-                if (data.id_client === this.clientVersionChoose) {
-                    return data
                 }
-                return null
-            }
-        }).length
+            }).length
         })
     }
 
@@ -271,24 +298,24 @@ class UserDataChart {
             id_testsSuites?: number;
             id_client?: number;
         }
-        const labels = this.testSuiteFromVersion.filter((filter : dataMap) => (filter.id_testsSuites === this.testSuiteChoose || this.testSuiteChoose === 0))
-        .filter((data : dataMap) => {
-            if (this.clientVersionChoose === 0) {
-                return this.allClientID.map(test => {
-                    if(test === data.id_client) {
+        const labels = this.testSuiteFromVersion.filter((filter: dataMap) => (filter.id_testsSuites === this.testSuiteChoose || this.testSuiteChoose === 0))
+            .filter((data: dataMap) => {
+                if (this.clientVersionChoose === 0) {
+                    return this.allClientID.map(test => {
+                        if (test === data.id_client) {
+                            return data
+                        }
+                        return null
+                    })
+                }
+                else {
+                    if (data.id_client === this.clientVersionChoose) {
                         return data
                     }
                     return null
-                })
-            }
-            else {
-                if (data.id_client === this.clientVersionChoose) {
-                    return data
                 }
-                return null
-            }
-        })
-            .map((testSuiteFromVersion : dataMap) => testSuiteFromVersion.testsSuites_name)
+            })
+            .map((testSuiteFromVersion: dataMap) => testSuiteFromVersion.testsSuites_name)
 
         const userDataBarChart = {
             labels: labels,

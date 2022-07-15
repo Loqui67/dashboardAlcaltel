@@ -3,13 +3,13 @@
 import Table from 'react-bootstrap/Table'
 
 interface Props {
-    testHistory: Array<{version_name: string, patch: number, currentState:string}>
+    testHistory: Array<{ version_name: string, patch: number, currentState: string }>
 }
 
-function TestHistory(props : Props) {
+function TestHistory(props: Props) {
 
-    let lastVersion:string = "";
-    let lastPatch:number = 0;
+    let lastVersion: string = "";
+    let lastPatch: number = 0;
 
     return (
         <div className='margin-top'>
