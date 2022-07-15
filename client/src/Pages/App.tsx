@@ -1,6 +1,6 @@
 /* ------------------- Styles ------------------- */
 
-import '../Styles/App.css';
+import './Styles/App.css';
 
 /* ------------------- Composants ------------------- */
 
@@ -56,7 +56,7 @@ function App() {
     const isLoggedIn = useCallback(async () => {
         const utils = new Utils()
         const query = new GetFromDatabase(0, "", "");
-        if (loginStatus.isLogged && window.location.href !== utils.loginPath()) {
+        if (!loginStatus.isLogged && window.location.href !== utils.loginPath()) {
             setIsLogged(await query.isLogged())
             if (isLogged.loggedIn) {
                 setLoginStatus({ username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: "" })
@@ -66,8 +66,6 @@ function App() {
             const a: isLoggedType = await query.isLogged()
             if (a.loggedIn) {
                 setIsLogged(a);
-                console.log(a)
-                console.log(isLogged)
                 utils.redirectStats();
                 setLoginStatus({ username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: "" })
             }

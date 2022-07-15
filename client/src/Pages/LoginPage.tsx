@@ -50,7 +50,7 @@ function LoginPage({ loginStatus, setLoginStatus }: Props) {
     const utils = new Utils();
     const login: Ilogin = await query.login(username, password)
     if (!login.auth) {
-      setLoginStatus({ error: true, message: login.message, username: "", isLogged: login.auth, admin: false });
+      setLoginStatus({ username: "", admin: false, isLogged: login.auth, message: login.message,  error: true });
     } else {
       localStorage.setItem("token", login.token)
       setLoginStatus({ username: login.username, admin: login.admin, isLogged: login.auth, message: "" });

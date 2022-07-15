@@ -83,7 +83,7 @@ function StatsGraphPartStructure(props: Props) {
                         dateChoose={props.dateChoose}
                     />
                 </div>
-                <div className="selectDate padding">
+                <div className="selectClientVersion padding">
                     <label>Choose a client version</label>
                     <SelectClientVersion
                         clientVersion={props.clientVersion}

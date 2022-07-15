@@ -198,7 +198,7 @@ function StatsPageStructure() {
 
 
     return (
-        <div className={"StatsContainerOne"}>
+        <div className={"StatsPageStructure"}>
             <div className="divider div-transparent" />
             <VersionTitle
                 version={version}

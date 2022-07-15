@@ -1,4 +1,4 @@
-const dbConnection = require('./databaseConnection.js')
+const { port, jwtPassword, sessionPassword, origin, tests, user } = require('./config');
 
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -14,7 +14,7 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken')
 
 app.use(cors({
-    origin: ["http://ns3053040.ip-137-74-95.eu:3000"],
+    origin: [origin],
     methods: ["GET", "POST", "PUT"],
     credentials: true
 }));
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     session({
         key: "userID",
-        secret: "Pcloud123!",
+        secret: sessionPassword,
         resave: false,
         saveUninitialized: false,
         cookie: {
@@ -46,7 +46,7 @@ app.get("/logout", (req, res) => {
 
 app.get("/client", (req, res) => {
     console.log("client")
-    dbConnection.tests.query("CALL client();"
+    tests.query("CALL client();"
         , (err, result) => {
             if (err) {
                 console.log("/client");
@@ -60,7 +60,7 @@ app.get("/client", (req, res) => {
 
 app.get("/clientDistinct", (req, res) => {
     console.log("clientDistinct")
-    dbConnection.tests.query("CALL clientDistinct();"
+    tests.query("CALL clientDistinct();"
         , (err, result) => {
             if (err) {
                 console.log("/clientDistinct");
@@ -75,7 +75,7 @@ app.get("/clientDistinct", (req, res) => {
 app.get("/clientVersion", (req, res) => {
     const clientChoose = req.query.clientChoose;
     console.log("clientVersion")
-    dbConnection.tests.query("CALL clientVersion(?);"
+    tests.query("CALL clientVersion(?);"
         , clientChoose, (err, result) => {
             if (err) {
                 console.log("/clientVersion");
@@ -90,7 +90,7 @@ app.get("/clientVersion", (req, res) => {
 app.get("/date", (req, res) => {
     const id = req.query.id;
     console.log("date")
-    dbConnection.tests.query("CALL date(?);"
+    tests.query("CALL date(?);"
         , id, (err, result) => {
             if (err) {
                 console.log("/date");
@@ -105,7 +105,7 @@ app.get("/date", (req, res) => {
 app.get("/dateWithTS", (req, res) => {
     const id = req.query.id;
     console.log("dateWithTS")
-    dbConnection.tests.query("CALL dateWithTS(?);"
+    tests.query("CALL dateWithTS(?);"
         , id, (err, result) => {
             if (err) {
                 console.log("/dateWithTS");
@@ -119,7 +119,7 @@ app.get("/dateWithTS", (req, res) => {
 
 app.get("/lastVersion", (req, res) => {
     console.log("lastVersion")
-    dbConnection.tests.query("CALL lastVersion();", (err, result) => {
+    tests.query("CALL lastVersion();", (err, result) => {
         if (err) {
             console.log("/lastVersion");
         } else {
@@ -131,7 +131,7 @@ app.get("/lastVersion", (req, res) => {
 
 app.get("/state", (req, res) => {
     console.log("state")
-    dbConnection.tests.query("CALL state();", (err, result) => {
+    tests.query("CALL state();", (err, result) => {
         if (err) {
             console.log("/state");
         } else {
@@ -144,7 +144,7 @@ app.get("/state", (req, res) => {
 app.get("/step", (req, res) => {
     const name = req.query.name;
     console.log("step")
-    dbConnection.tests.query("CALL step(?);"
+    tests.query("CALL step(?);"
         , name, (err, result) => {
             if (err) {
                 console.log("/step");
@@ -161,7 +161,7 @@ app.get("/testHistory", (req, res) => {
     const name = req.query.name;
     const id = req.query.id;
     console.log("testHistory")
-    dbConnection.tests.query("CALL testHistory(?, ?);"
+    tests.query("CALL testHistory(?, ?);"
         , [name, id], (err, result) => {
             if (err) {
                 console.log("/testHistory");
@@ -177,7 +177,7 @@ app.get("/testHistory", (req, res) => {
 app.get("/testState", (req, res) => {
     const id = req.query.id;
     console.log("testState")
-    dbConnection.tests.query("CALL testState(?);"
+    tests.query("CALL testState(?);"
         , id, (err, result) => {
             if (err) {
                 console.log("/testState");
@@ -193,7 +193,7 @@ app.get("/testStateCount", (req, res) => {
     const id = req.query.id;
     const client = req.query.client;
     console.log("testStateCount")
-    dbConnection.tests.query("CALL testStateCount(?, ?);"
+    tests.query("CALL testStateCount(?, ?);"
         , [id, client], (err, result) => {
             if (err) {
                 console.log(err);
@@ -209,7 +209,7 @@ app.get("/testStateCountWithDate", (req, res) => {
     const client = req.query.client;
     const date = req.query.date;
     console.log("testStateCountWithDate")
-    dbConnection.tests.query("CALL testStateCountWithDate(?, ?, ?);"
+    tests.query("CALL testStateCountWithDate(?, ?, ?);"
         , [id, client, date], (err, result) => {
             if (err) {
                 console.log("/testStateCountWithDate");
@@ -223,7 +223,7 @@ app.get("/testStateCountWithDate", (req, res) => {
 
 app.get("/testSuite", (req, res) => {
     console.log("testSuite")
-    dbConnection.tests.query("CALL testSuite();", (err, result) => {
+    tests.query("CALL testSuite();", (err, result) => {
         if (err) {
             console.log("/testSuite");
         } else {
@@ -236,7 +236,7 @@ app.get("/testSuite", (req, res) => {
 app.get("/testSuiteFromVersion", (req, res) => {
     console.log("testSuiteFromVersion")
     const id = req.query.id;
-    dbConnection.tests.query("CALL testSuiteFromVersion(?);"
+    tests.query("CALL testSuiteFromVersion(?);"
         , id, (err, result) => {
             if (err) {
                 console.log(err);
@@ -250,7 +250,7 @@ app.get("/testSuiteFromVersion", (req, res) => {
 app.get("/testSuiteFromVersionWithDate", (req, res) => {
     const id = req.query.id;
     console.log("testSuiteFromVersionWithDate")
-    dbConnection.tests.query("CALL testSuiteFromVersionWithDate(?);"
+    tests.query("CALL testSuiteFromVersionWithDate(?);"
         , id, (err, result) => {
             if (err) {
                 console.log("/testSuiteFromVersionWithDate");
@@ -264,7 +264,7 @@ app.get("/testSuiteFromVersionWithDate", (req, res) => {
 
 app.get("/version", (req, res) => {
     console.log("version")
-    dbConnection.tests.query("CALL version();", (err, result) => {
+    tests.query("CALL version();", (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -277,7 +277,7 @@ app.get("/version", (req, res) => {
 app.get("/versionFromClient", (req, res) => {
     const client = req.query.client;
     console.log("versionFromClient")
-    dbConnection.tests.query("CALL versionFromClient(?);",
+    tests.query("CALL versionFromClient(?);",
         client, (err, result) => {
             if (err) {
                 console.log(err);
@@ -291,7 +291,7 @@ app.get("/versionFromClient", (req, res) => {
 app.get("/versionWithLogs", (req, res) => {
     const id = req.query.id;
     console.log("versionWithLogs")
-    dbConnection.tests.query("CALL VersionWithLogs(?);"
+    tests.query("CALL VersionWithLogs(?);"
         , id, (err, result) => {
             if (err) {
                 console.log("/versionWithLogs");
@@ -309,14 +309,13 @@ app.get("/versionWithLogs", (req, res) => {
 
 
 
-function path(folderName, imageName) {
-    const path = `${folderName}/ReportLogs/${imageName}`;
-    return path;
+function path(clientName, folderName, imageName) {
+    return `${clientName}/${folderName}/ReportLogs/${imageName}`;
 }
 
-app.get("/SeleniumReports/:folder/:image", (req, res) => {
-    const img = path(req.params.folder, req.params.image);
-    res.sendFile(img, { root: "C:/Dashboard/dashboard_with_database/server/SeleniumReports" })
+app.get("/SeleniumReports/:client/:folder/:image", (req, res) => {
+    const img = path(req.params.client, req.params.folder, req.params.image);
+    res.sendFile(img, { root: "C:/Users/qa-autotest/OneDrive/dashboard/SeleniumReports" })
 });
 
 const verifyJWT = (req, res, next) => {
@@ -324,7 +323,7 @@ const verifyJWT = (req, res, next) => {
     if (!token) {
         res.send({auth: false})
     } else {
-        jwt.verify(token, 'Pcloud123!', (err, decoded) => {
+        jwt.verify(token, jwtPassword, (err, decoded) => {
             if (err) {
                 res.send({auth: false})
             } else {
@@ -353,7 +352,7 @@ app.post("/login", (req, res) => {
     const password = req.body.password;
     console.log("login : post")
 
-    dbConnection.user.query(
+    user.query(
         "SELECT * FROM users WHERE username = ?;",
         username,
         (err, result) => {
@@ -365,7 +364,7 @@ app.post("/login", (req, res) => {
                     bcrypt.compare(password, result[0].password, (error, response) => {
                         if (response) {
                             const id = result[0].id_users;
-                            const token = jwt.sign({id}, "Pcloud123!", {
+                            const token = jwt.sign({id}, jwtPassword, {
                                 expiresIn: "1d"
                             })
                             req.session.user = result;
@@ -388,7 +387,7 @@ app.post("/confirmPassword", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     console.log("confirmPassword")
-    dbConnection.user.query("SELECT username, password FROM users WHERE username = ?",
+    user.query("SELECT username, password FROM users WHERE username = ?",
         username, (err, result) => {
             if (result.length === 0) {
                 res.send({ state: false, message: "An error occured" })
@@ -416,7 +415,7 @@ app.put("/updatePassword", (req, res) => {
             console.log(err)
             res.send({ state: false, message: `Failed to update your password` });
         } else {
-            dbConnection.user.query("UPDATE users SET password = ? WHERE username = ?;",
+            user.query("UPDATE users SET password = ? WHERE username = ?;",
                 [hash, username], (err, results) => {
                     if (err) {
                         console.log("/updatePassword");
@@ -442,7 +441,7 @@ app.post("/register", (req, res) => {
         res.send({ state: false, message: "Wrong username/password format" })
     }
     else {
-        dbConnection.user.query("SELECT username, password FROM users WHERE username = ?",
+        user.query("SELECT username, password FROM users WHERE username = ?",
             username, (err, result) => {
                 if (result.length > 0) {
                     res.send({ state: false, message: "This username is already used" })
@@ -454,7 +453,7 @@ app.post("/register", (req, res) => {
                             res.send({ state: false, message: `Hash operation failed` });
                         }
 
-                        dbConnection.user.query("INSERT INTO users (username, password, isAdmin) VALUES (?,?,?);",
+                        user.query("INSERT INTO users (username, password, isAdmin) VALUES (?,?,?);",
                             [username, hash, admin], (err, results) => {
                                 if (err) {
                                     console.log("/register");
@@ -473,8 +472,7 @@ app.post("/register", (req, res) => {
 
 
 
-const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-    console.log(`Yey, your server is running on port ${PORT}`)
+app.listen(port, () => {
+    console.log(`Yey, your server is running on port ${port}`)
 })
