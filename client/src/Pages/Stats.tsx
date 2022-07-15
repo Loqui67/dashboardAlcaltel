@@ -26,18 +26,18 @@ function Stats() {
 
     const getLastVersion = useCallback(async () => {
         const utils = new Utils();
-        //if (await query.checkJWT()) {
+        if (await query.checkJWT()) {
             const result = await query.getLastVersion();
             if (id === undefined) {
                 utils.redirectTo(`/stats/${clientChoose}/${result[0].id_version}`);
             }
-        //}
+        }
     }, [query, id, clientChoose]);
 
     const getClient = useCallback(async () => {
-        //if (await query.checkJWT()) {
+        if (await query.checkJWT()) {
             setClientDistinct(await query.getClientDistinct());
-        //}
+        }
     }, [query])
 
     useEffect(() => {

@@ -217,7 +217,7 @@ class GetFromDatabase {
         Axios.get(`${this.adress}logout`)
     }
 
-    /* async checkJWT(){
+    async checkJWT(){
         let a = localStorage.getItem('token')
         const response = await Axios.get(`${this.adress}isUserAuth`, {headers : {
             "x-access-token": a === null ? "" : a
@@ -227,7 +227,7 @@ class GetFromDatabase {
         } else {
             return false;
         }
-    } */
+    }
 }
 
 export default GetFromDatabase;

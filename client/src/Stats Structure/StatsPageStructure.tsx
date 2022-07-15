@@ -149,20 +149,20 @@ function StatsPageStructure() {
         let idNumber : number;
         id !== undefined ? idNumber = parseInt(id) : idNumber = 0
         const query = new GetFromDatabase(idNumber, clientChoose, dateChoose)
-        //if (await query.checkJWT()) {
+        if (await query.checkJWT()) {
             if (dateChoose !== "") {
                 setTestStateCountWithDate(await query.getTestStateCountWithDate())
             }
             setTestSuiteFromVersionWithDate(await query.getTestSuitesFromVersionWithDate());
             setDate(await query.getDate())
-        //}
+        }
     }, [dateChoose, id, clientChoose])
 
     const allRequest = useCallback(async () => {
         let idNumber : number;
         id !== undefined ? idNumber = parseInt(id) : idNumber = 0  
         const query = new GetFromDatabase(idNumber, clientChoose, "")
-        //if (await query.checkJWT()) {
+        if (await query.checkJWT()) {
             setClientVersion(await query.getClientVersion(clientChoose));
             setTestSuiteFromVersion(await query.getTestSuitesFromVersion());
             setVersionWithLogs(await query.getVersionWithLogs());
@@ -173,7 +173,7 @@ function StatsPageStructure() {
             setTestSuite(await query.getTestSuites());
             setDateWithTS(await query.getDateWithTS())
             setState(await query.getState())
-        //}
+        }
     }, [id, clientChoose])
 
     useEffect(() => {

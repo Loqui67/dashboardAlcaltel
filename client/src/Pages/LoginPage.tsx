@@ -52,7 +52,7 @@ function LoginPage({ loginStatus, setLoginStatus } : Props) {
     if (!login.auth) {
       setLoginStatus({ error: true, message: login.message, username:"", isLogged: login.auth, admin: false});
     } else {
-      //localStorage.setItem("token", login.token)
+      localStorage.setItem("token", login.token)
       setLoginStatus({ username: login.username, admin: login.admin, isLogged: login.auth, message: ""});
       utils.redirectStats();
     }

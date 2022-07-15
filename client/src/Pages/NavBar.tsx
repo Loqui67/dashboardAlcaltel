@@ -21,7 +21,7 @@ interface Props {
 function NavBar(props : Props) {
 
     async function logout() {
-        //localStorage.removeItem("token")
+        localStorage.removeItem("token")
         const query = new GetFromDatabase(0, "", "");
         props.setLoginStatus({username:"", isLogged: false, admin: false, message: ""})
        query.logout();

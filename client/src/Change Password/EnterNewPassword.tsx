@@ -28,9 +28,9 @@ function EnterNewPassword (props : Props) {
 
     const changeUserPassword = useCallback(async () => {
         const query = new GetFromDatabase(0, "", "");
-        //if (await query.checkJWT()) {
+        if (await query.checkJWT()) {
             setIsUpdated(await query.UpdatePassword(props.username, password));
-        //}
+        }
     }, [props, password])
 
 

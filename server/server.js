@@ -364,12 +364,12 @@ app.post("/login", (req, res) => {
                 if (result.length > 0) {
                     bcrypt.compare(password, result[0].password, (error, response) => {
                         if (response) {
-/*                             const id = result[0].id_users;
+                            const id = result[0].id_users;
                             const token = jwt.sign({id}, "Pcloud123!", {
                                 expiresIn: "1d"
-                            }) */
+                            })
                             req.session.user = result;
-                            res.send({ username: result[0].username, admin: result[0].isAdmin, message: "", auth: true, token: ""/* token */ });
+                            res.send({ username: result[0].username, admin: result[0].isAdmin, message: "", auth: true, token: token });
                         } else {
                             res.send({ username: "", admin: false, message: "Wrong username/password combination !", auth: false, token: "" });
                         }

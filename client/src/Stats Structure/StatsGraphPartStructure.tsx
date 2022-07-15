@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 
 /* ------------------- Composants ------------------- */
 
@@ -16,19 +16,19 @@ import SelectClientVersion from "../Search Options-Results/SelectClientVersion";
 
 
 interface Props {
-    testStateCount: Array<{passed: number, failed: number, skipped: number}>;
-    testSuiteFromVersion: Array<{id_testsSuites: number, testsSuites_name: string, id_client: number}>;
-    testState: Array<{currentState: string, id_testsSuites: number, date: string, id_client: number}>;
+    testStateCount: Array<{ passed: number, failed: number, skipped: number }>;
+    testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>;
+    testState: Array<{ currentState: string, id_testsSuites: number, date: string, id_client: number }>;
     testSuiteChoose: number;
     dateChoose: string;
-    testSuiteFromVersionWithDate: Array<{id_testsSuites: number, testsSuites_name: string, id_client: number, date: string}>;
-    testStateCountWithDate: Array<{passed: number, failed: number, skipped: number}>;
+    testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>;
+    testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>;
     allClientID: Array<number>;
     clientVersionChoose: number;
-    clientDistinct: Array<{id_client: number, client_name: string}>;
-    clientVersion : Array<{id_client: number, version: string}>;
-    date: Array<{date: string}>;
-    dateWithTS: Array<{date: string, id_testsSuites: number}>;
+    clientDistinct: Array<{ id_client: number, client_name: string }>;
+    clientVersion: Array<{ id_client: number, version: string }>;
+    date: Array<{ date: string }>;
+    dateWithTS: Array<{ date: string, id_testsSuites: number }>;
     setClientVersionChoose: Dispatch<SetStateAction<number>>;
     setClientChoose: Dispatch<SetStateAction<string>>;
     setTestSuiteChoose: Dispatch<SetStateAction<number>>;
@@ -37,7 +37,19 @@ interface Props {
 
 function StatsGraphPartStructure(props: Props) {
 
-    const userDataChart = new UserDataChart(
+    const userDataChart = useMemo(() => {
+        return new UserDataChart(
+            props.testStateCount,
+            props.testSuiteFromVersion,
+            props.testState,
+            props.testSuiteChoose,
+            props.dateChoose,
+            props.testSuiteFromVersionWithDate,
+            props.testStateCountWithDate,
+            props.allClientID,
+            props.clientVersionChoose
+        );
+    }, [
         props.testStateCount,
         props.testSuiteFromVersion,
         props.testState,
@@ -47,7 +59,7 @@ function StatsGraphPartStructure(props: Props) {
         props.testStateCountWithDate,
         props.allClientID,
         props.clientVersionChoose
-    );
+    ])
 
 
     return (
@@ -56,8 +68,8 @@ function StatsGraphPartStructure(props: Props) {
                 <div className="selectTS padding">
                     <label>Choose a test suite</label>
                     <SelectTS
-                        setTestSuiteChoose = {props.setTestSuiteChoose}
-                        testSuiteFromVersion = {props.testSuiteFromVersion}
+                        setTestSuiteChoose={props.setTestSuiteChoose}
+                        testSuiteFromVersion={props.testSuiteFromVersion}
                         setDateChoose={props.setDateChoose}
                     />
                 </div>
@@ -80,10 +92,10 @@ function StatsGraphPartStructure(props: Props) {
                 </div>
             </div>
             <div className="Graph padding">
-                <ChooseCharts 
-                    userDataBar100Chart={userDataChart.getUserDataBar100Chart()} 
-                    userDataBarChart={userDataChart.getUserDataBarChart()} 
-                    userDataPieChart={userDataChart.getUserDataPieChart()} 
+                <ChooseCharts
+                    userDataBar100Chart={userDataChart.getUserDataBar100Chart()}
+                    userDataBarChart={userDataChart.getUserDataBarChart()}
+                    userDataPieChart={userDataChart.getUserDataPieChart()}
                     testSuiteChoose={props.testSuiteChoose}
                 />
             </div>

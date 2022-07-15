@@ -29,9 +29,9 @@ function ConfirmPassword({username, setStep} : Props) {
 
     const submitPassword = useCallback(async () => {
         const query = new GetFromDatabase(0, "", "");
-        //if (await query.checkJWT()) {
+        if (await query.checkJWT()) {
             setIsPasswordCorrect(await query.ConfirmPassword(username, password)); //vérifie que le mot de passe est correct
-        //}
+        }
     }, [username, password])
 
 

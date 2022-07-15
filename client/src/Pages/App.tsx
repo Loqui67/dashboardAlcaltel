@@ -37,43 +37,41 @@ function App() {
 
 
     interface loginStatusType {
-        username: string, 
-        admin: boolean, 
+        username: string,
+        admin: boolean,
         isLogged: boolean,
         message: string
     }
 
     interface isLoggedType {
-        loggedIn: boolean, 
+        loggedIn: boolean,
         user: Array<any>
     }
 
 
-    const [loginStatus, setLoginStatus] = useState<loginStatusType>({username: "", isLogged: false, admin: false, message: ""});
-    const [isLogged, setIsLogged] = useState<isLoggedType>({loggedIn: false, user: []});
+    const [loginStatus, setLoginStatus] = useState<loginStatusType>({ username: "", isLogged: false, admin: false, message: "" });
+    const [isLogged, setIsLogged] = useState<isLoggedType>({ loggedIn: false, user: [] });
 
 
     const isLoggedIn = useCallback(async () => {
         const utils = new Utils()
         const query = new GetFromDatabase(0, "", "");
-        //if (await query.checkJWT()) {
-            if (loginStatus.username === "" && window.location.href !== utils.loginPath()) {
-                setIsLogged(await query.isLogged())
-                if (isLogged.loggedIn) {
-                    setLoginStatus({username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: ""})
-                }
+        if (loginStatus.isLogged && window.location.href !== utils.loginPath()) {
+            setIsLogged(await query.isLogged())
+            if (isLogged.loggedIn) {
+                setLoginStatus({ username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: "" })
             }
-            else if (!loginStatus.isLogged && window.location.href === utils.loginPath()) {
-                const a:isLoggedType = await query.isLogged()
-                if (a.loggedIn) {
-                    setIsLogged(a);
-                    console.log(a)
-                    console.log(isLogged)
-                    utils.redirectStats();
-                    setLoginStatus({username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: ""})
-                }
+        }
+        else if (!loginStatus.isLogged && window.location.href === utils.loginPath()) {
+            const a: isLoggedType = await query.isLogged()
+            if (a.loggedIn) {
+                setIsLogged(a);
+                console.log(a)
+                console.log(isLogged)
+                utils.redirectStats();
+                setLoginStatus({ username: isLogged.user[0].username, admin: isLogged.user[0].isAdmin, isLogged: true, message: "" })
             }
-        //}
+        }
     }, [isLogged, loginStatus])
 
     useEffect(() => {
@@ -82,20 +80,20 @@ function App() {
 
     return (
         <div className="App">
-            <NavBar loginStatus={loginStatus} setLoginStatus={setLoginStatus}/>
+            <NavBar loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
             <Routes>
-                <Route path="*" element={<NoPage/>}/>
+                <Route path="*" element={<NoPage />} />
                 {
                     loginStatus.admin ? (
-                    <Route path="/register" element={<RegisterPage/>}/>
+                        <Route path="/register" element={<RegisterPage />} />
                     ) : null
                 }
-                <Route path="/login" element={<LoginPage loginStatus={loginStatus} setLoginStatus={setLoginStatus}/>}/>
-                <Route path="/editPassword" element={<ChangePassword username={loginStatus.username}/>}/>
-                <Route path="/stats" element={<Stats/>}>
-                    <Route path=":client" element={<AllStatsOptions/>}>
-                        <Route path=":id" element={<StatsPageStructure/>}>
-                            <Route path=":testRunID" element={<TestAllInformation/>}/>
+                <Route path="/login" element={<LoginPage loginStatus={loginStatus} setLoginStatus={setLoginStatus} />} />
+                <Route path="/editPassword" element={<ChangePassword username={loginStatus.username} />} />
+                <Route path="/stats" element={<Stats />}>
+                    <Route path=":client" element={<AllStatsOptions />}>
+                        <Route path=":id" element={<StatsPageStructure />}>
+                            <Route path=":testRunID" element={<TestAllInformation />} />
                         </Route>
                     </Route>
                 </Route>
