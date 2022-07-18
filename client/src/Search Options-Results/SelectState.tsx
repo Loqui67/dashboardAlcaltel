@@ -16,7 +16,7 @@ interface Props {
 function SelectState(props: Props) {
 
     return (
-        <Form.Select defaultValue={0} id="state" className={"select-state form-select margin-top"} onChange={(e: any) => props.setStateChoose(parseInt(e.target.value))}>
+        <Form.Select defaultValue={0} id="state" className="select-state form-select margin-top" onChange={(e: any) => props.setStateChoose(parseInt(e.target.value))}>
             <option value={0}>All</option>
             {
                 props.state.map((state, key) => {

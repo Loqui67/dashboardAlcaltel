@@ -1,5 +1,9 @@
 /* ------------------- Composants Bootstrap ------------------- */
 
+import Paragraph from '../HTML components/Paragraph';
+
+/* ------------------- Composants Bootstrap ------------------- */
+
 import InputGroup from 'react-bootstrap/InputGroup'
 import { Button } from "react-bootstrap";
 
@@ -15,8 +19,8 @@ function TestSteps(props: Props) {
                 props.testStep[0].description ?
                     props.testStep.map((step, key) => (
                         <div key={key}>
-                            <p className="underline">{`Step ${key + 1} :`}</p>
-                            <p>{step.description}<br />{`► ${step.verif}`}</p>
+                            <Paragraph text={`Step ${key + 1} :`} className="underline" />
+                            <Paragraph text={[step.description, <br />, `► ${step.verif}`]} />
                         </div>
                     )) :
                     (
@@ -24,7 +28,7 @@ function TestSteps(props: Props) {
                             <InputGroup.Text id="basic-addon1">
                                 {props.testStep[0].testRailLink}
                             </InputGroup.Text>
-                            <Button onClick={() => { window.open(props.testStep[0].testRailLink, '_blank', 'noopener,noreferrer') }}>
+                            <Button onClick={() => window.open(props.testStep[0].testRailLink, '_blank', 'noopener,noreferrer')}>
                                 Open TestRail
                             </Button>
                         </InputGroup>

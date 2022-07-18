@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction, useMemo } from "react";
 import ChooseCharts from "../Charts/ChooseCharts";
 import SelectTS from "../Search Options-Results/SelectTS"
 import SelectDate from "../Search Options-Results/SelectDate";
+import Label from "../HTML components/Label";
 
 /* ------------------- Classes ------------------- */
 
@@ -66,7 +67,7 @@ function StatsGraphPartStructure(props: Props) {
         <div className="UpPart">
             <div className="d-flex flex-row padding">
                 <div className="selectTS padding">
-                    <label>Choose a test suite</label>
+                    <Label text='Choose a test suite'/>
                     <SelectTS
                         setTestSuiteChoose={props.setTestSuiteChoose}
                         testSuiteFromVersion={props.testSuiteFromVersion}
@@ -74,7 +75,7 @@ function StatsGraphPartStructure(props: Props) {
                     />
                 </div>
                 <div className="selectDate padding">
-                    <label>Choose a date</label>
+                    <Label text='Choose a date'/>
                     <SelectDate
                         date={props.date}
                         dateWithTS={props.dateWithTS}
@@ -84,7 +85,7 @@ function StatsGraphPartStructure(props: Props) {
                     />
                 </div>
                 <div className="selectClientVersion padding">
-                    <label>Choose a client version</label>
+                    <Label text='Choose a client version'/>
                     <SelectClientVersion
                         clientVersion={props.clientVersion}
                         setClientVersionChoose={props.setClientVersionChoose}

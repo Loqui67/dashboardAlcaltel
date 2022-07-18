@@ -1,6 +1,7 @@
 /* ------------------- Composants ------------------- */
 
 import Modale from "./modale";
+import Paragraph from "../HTML components/Paragraph";
 
 /* ------------------- React ------------------- */
 
@@ -39,8 +40,8 @@ function TestLogs(props: Props) {
                             <div className="divider div-transparent" />
                             <div className="d-flex flex-column padding">
                                 <div className="errorMessage">
-                                    <h6>{"Error message :"}</h6>
-                                    <p>{logs.error_message}</p>
+                                    <h6>Error message :</h6>
+                                    <Paragraph text={logs.error_message} />
                                 </div>
                                 <div className="d-flex flex-row imageContainer">
                                     <div className="screenCell d-flex flex-column padding">

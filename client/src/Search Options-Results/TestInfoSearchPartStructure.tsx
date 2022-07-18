@@ -6,7 +6,7 @@ import React, { useMemo, useState } from "react";
 
 import SelectState from "./SelectState";
 import TestSearchResult from "./TestSearchResult";
-
+import Label from "../HTML components/Label";
 
 /* ------------------- Classes ------------------- */
 
@@ -115,12 +115,12 @@ function TestInfoStructure(props: Props) {
 
     return (
         <div className="Tests">
-            <div className={"d-flex flex-row input padding3 padding"}>
-                <input type={"text"} placeholder={"Search..."} onChange={(e) => { setSearchTerm(e.target.value) }} />
+            <div className="d-flex flex-row input padding3 padding">
+                <input type="text" placeholder="Search..." onChange={(e) => setSearchTerm(e.target.value)} />
             </div>
-            <div className={"d-flex flex-row select padding3 padding filter justify-content-space-between"}>
+            <div className="d-flex flex-row select padding3 padding filter justify-content-space-between">
                 <div className="d-flex flex-column justify-content-start selectState">
-                    <label>Choose a state</label>
+                    <Label text="Choose a state" />
                     <SelectState
                         setStateChoose={setStateChoose}
                         state={props.state}

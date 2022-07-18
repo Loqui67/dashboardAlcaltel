@@ -1,6 +1,10 @@
 /* ------------------- React ------------------- */
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+
+/* ------------------- Enum ------------------- */
+
+import { dataChartTypeName } from '../enum/enum'
 
 /* ------------------- Librairies tierces ------------------- */
 
@@ -12,13 +16,25 @@ import 'chart.js/auto'
 
 
 interface Props {
-    chartData: ChartData<'doughnut'>;
+    chartData: ChartData<dataChartTypeName.doughnut>;
 }
 
 function PieChart({ chartData }: Props) {
 
-    const options: ChartOptions<'doughnut'> = useMemo(() => {
+    const options: ChartOptions<dataChartTypeName.doughnut> = useMemo(() => {
         return {
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        boxHeight: 20,
+                        font: {
+                            size: 16
+                        },
+                        usePointStyle: true
+                    },
+                }
+            },
             maintainAspectRatio: false,
             responsive: true,
         }

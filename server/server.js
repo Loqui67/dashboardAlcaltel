@@ -1,4 +1,13 @@
-const { port, jwtPassword, sessionPassword, origin, tests, user } = require('./config');
+const {
+    port,
+    jwtPassword,
+    sessionPassword,
+    origin,
+    tests,
+    user,
+    logImagesRootFolder,
+    MySQLdumpConnection
+} = require('./config');
 
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -11,7 +20,11 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 
+const mysqldump = require('mysqldump')
+
 const jwt = require('jsonwebtoken')
+
+const schedule = require('node-schedule')
 
 app.use(cors({
     origin: [origin],
@@ -74,9 +87,10 @@ app.get("/clientDistinct", (req, res) => {
 
 app.get("/clientVersion", (req, res) => {
     const clientChoose = req.query.clientChoose;
+    const id = req.query.id;
     console.log("clientVersion")
-    tests.query("CALL clientVersion(?);"
-        , clientChoose, (err, result) => {
+    tests.query("CALL clientVersion(?, ?);"
+        , [id, clientChoose], (err, result) => {
             if (err) {
                 console.log("/clientVersion");
             } else {
@@ -315,17 +329,17 @@ function path(clientName, folderName, imageName) {
 
 app.get("/SeleniumReports/:client/:folder/:image", (req, res) => {
     const img = path(req.params.client, req.params.folder, req.params.image);
-    res.sendFile(img, { root: "C:/Users/qa-autotest/OneDrive/dashboard/SeleniumReports" })
+    res.sendFile(img, { root: logImagesRootFolder })
 });
 
 const verifyJWT = (req, res, next) => {
     const token = req.headers["x-access-token"]
     if (!token) {
-        res.send({auth: false})
+        res.send({ auth: false })
     } else {
         jwt.verify(token, jwtPassword, (err, decoded) => {
             if (err) {
-                res.send({auth: false})
+                res.send({ auth: false })
             } else {
                 req.userId = decoded.id;
                 next();
@@ -335,7 +349,7 @@ const verifyJWT = (req, res, next) => {
 }
 
 app.get('/isUserAuth', verifyJWT, (req, res) => {
-    res.send({auth: true})
+    res.send({ auth: true })
 })
 
 
@@ -364,7 +378,7 @@ app.post("/login", (req, res) => {
                     bcrypt.compare(password, result[0].password, (error, response) => {
                         if (response) {
                             const id = result[0].id_users;
-                            const token = jwt.sign({id}, jwtPassword, {
+                            const token = jwt.sign({ id }, jwtPassword, {
                                 expiresIn: "1d"
                             })
                             req.session.user = result;
@@ -471,6 +485,30 @@ app.post("/register", (req, res) => {
 });
 
 
+const MidnightRule = new schedule.RecurrenceRule();
+MidnightRule.second = 0;
+MidnightRule.minute = 0;
+MidnightRule.hour = 0;
+
+schedule.scheduleJob(MidnightRule, () => {
+    const ts = Date.now();
+    const date_ob = new Date(ts);
+
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    let year = date_ob.getFullYear().toString();
+    let hours = ("0" + date_ob.getHours()).slice(-2);
+    let minutes = ("0" + date_ob.getMinutes()).slice(-2);
+    let seconds = ("0" + date_ob.getSeconds()).slice(-2);
+
+    dumpPathDirectory = 'C:/Dashboard/dumps/';
+    dumpFileName = `dump ${year}-${month}-${date} ${hours}-${minutes}-${seconds}.sql`;
+
+    mysqldump({
+        connection: MySQLdumpConnection,
+        dumpToFile: dumpPathDirectory + dumpFileName,
+    });
+})
 
 
 app.listen(port, () => {

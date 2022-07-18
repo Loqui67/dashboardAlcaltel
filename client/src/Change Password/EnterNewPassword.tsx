@@ -1,3 +1,11 @@
+/* ------------------- React ------------------- */
+
+import { useCallback, useEffect, useState } from 'react';
+
+/* ------------------- Composants ------------------- */
+
+import Small from '../HTML components/Small';
+
 /* ------------------- Composants Bootstrap ------------------- */
 
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -6,14 +14,15 @@ import Alert from 'react-bootstrap/Alert'
 import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 
-/* ------------------- React ------------------- */
-
-import { useCallback, useEffect, useState } from 'react';
-
 /* ------------------- Classes ------------------- */
 
 import GetFromDatabase from '../classes/GetFromDatabase';
 import Utils from '../classes/Utils';
+
+/* ------------------- Enum ------------------- */
+
+import { variant } from '../enum/enum'
+
 
 interface Props {
     username: string;
@@ -57,17 +66,13 @@ function EnterNewPassword(props: Props) {
 
     const renderPasswordTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
-            <small id="passwordTooltip">
-                Password size must be 8-30 characters long.
-            </small>
+            <Small id="passwordTooltip" text="Password size must be 8-30 characters long." />
         </Tooltip>
     );
 
     const renderConfirmPasswordTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
-            <small id="confirmPasswordTooltip">
-                Confirm your password by entering it again.
-            </small>
+            <Small id="confirmPasswordTooltip" text="Confirm your password by entering it again." />
         </Tooltip>
     );
 
@@ -75,7 +80,7 @@ function EnterNewPassword(props: Props) {
         <>
             {
                 isUpdated.message !== "" && (
-                    <Alert variant={isUpdated.state ? "success" : "danger"} className='alert'>
+                    <Alert variant={isUpdated.state ? variant.success : variant.danger} className='alert'>
                         {isUpdated.state ?
                             <Alert.Heading>Good news!</Alert.Heading> :
                             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
@@ -96,7 +101,7 @@ function EnterNewPassword(props: Props) {
                         placeholder="New password"
                         aria-label="New password"
                         aria-describedby="passwordInput"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                         type="password" />
                 </InputGroup>
             </OverlayTrigger>
@@ -110,7 +115,7 @@ function EnterNewPassword(props: Props) {
                         placeholder="Confirm new password"
                         aria-label="Confirm new password"
                         aria-describedby="confirmPasswordInput"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPasswordConfirm(e.target.value) }}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordConfirm(e.target.value)}
                         type="password" />
                 </InputGroup>
             </OverlayTrigger>

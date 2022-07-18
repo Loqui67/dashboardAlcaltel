@@ -2,8 +2,11 @@
 
 import { useMemo } from "react";
 
-/* ------------------- Classes ------------------- */
+/* ------------------- Components ------------------- */
 
+import Paragraph from "../HTML components/Paragraph";
+
+/* ------------------- Classes ------------------- */
 
 import Utils from "../classes/Utils";
 
@@ -19,14 +22,14 @@ function TestSelectedDetails(props: Props) {
     const convertDate = useMemo(() => new Utils(), [])
     return (
         <div className="firstPart">
-            <p className="strong">{props.test.purpose}</p>
+            <Paragraph text={props.test.purpose} className="strong" />
             {
                 props.client.filter(client => client.id_client === props.test.id_client).map((client, key) => (
                     <div key={key}>
-                        <p>{`Client : ${client.client_name} ${client.version ? client.version : ""}`}</p>
+                        <Paragraph text={`Client : ${client.client_name} ${client.version ? client.version : ""}`} />
                         {
                             client.model ?
-                                <p>{`Model : ${client.model}`}</p>
+                                <Paragraph text={`Model : ${client.model}`} />
                                 : null
                         }
                     </div>
@@ -34,10 +37,10 @@ function TestSelectedDetails(props: Props) {
             }
             {
                 props.testSuite.filter(testSuite => testSuite.id_testsSuites === props.test.id_testsSuites).map((testSuite, key) => (
-                    <p key={key}>{`Tests suite : ${testSuite.testsSuites_name}`}</p>
+                    <Paragraph key={key} text={`Tests suite : ${testSuite.testsSuites_name}`} />
                 ))
             }
-            <p>{`Date : ${convertDate.convertDateFromDbToRightFormat(props.test.date)}`}</p>
+            <Paragraph text={`Date : ${convertDate.convertDateFromDbToRightFormat(props.test.date)}`} />
         </div>
     )
 

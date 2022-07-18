@@ -27,8 +27,8 @@ function SelectDate(props: Props) {
     }, [props.dateChoose])
 
     return (
-        <Form.Select id="date" defaultValue={""} className={"select-date form-select margin-top"} onChange={(e: any) => props.setDateChoose(e.target.value)}>
-            <option value={""}>All</option>
+        <Form.Select id="date" defaultValue="" className="select-date form-select margin-top" onChange={(e: any) => props.setDateChoose(e.target.value)}>
+            <option value="">All</option>
             {
                 props.testSuiteChoose === 0 ?
                     props.date.map((date, key) => {

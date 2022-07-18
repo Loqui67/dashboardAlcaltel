@@ -1,16 +1,26 @@
+/* ------------------- React ------------------- */
+
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+
+/* ------------------- Composants ------------------- */
+
+import Paragraph from '../HTML components/Paragraph';
+
 /* ------------------- Composants Bootstrap ------------------- */
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import { FormControl } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 
-/* ------------------- React ------------------- */
-
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-
 /* ------------------- Classes ------------------- */
 
 import GetFromDatabase from '../classes/GetFromDatabase';
+
+/* ------------------- Enum ------------------- */
+
+import { variant } from '../enum/enum'
+
+
 
 interface Props {
     username: string
@@ -45,13 +55,11 @@ function ConfirmPassword({ username, setStep }: Props) {
         <>
             {
                 isPasswordCorrect.message !== "" && (       //on affiche une alerte si le mot de passe est incorrect, ou en cas d'erreur
-                    <Alert variant={"danger"} className='alert'>
+                    <Alert variant={variant.danger} className='alert'>
                         {
                             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
                         }
-                        <p>
-                            {isPasswordCorrect.message}
-                        </p>
+                        <Paragraph text={isPasswordCorrect.message} />
                     </Alert>
                 )
             }
@@ -60,11 +68,11 @@ function ConfirmPassword({ username, setStep }: Props) {
                     placeholder="Actual password"
                     aria-label="Actual password"
                     aria-describedby="passwordInput"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                     type="password" />
             </InputGroup>
             <button
-                className={"margin-top btn btn-primary"}
+                className="margin-top btn btn-primary"
                 onClick={() => submitPassword()}>
                 Confirm actual password
             </button>

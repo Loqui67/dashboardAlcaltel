@@ -28,7 +28,7 @@ function SelectClient(props: Props) {
     const utils = useMemo(() => new Utils(), [])
 
     return (
-        <Form.Select defaultValue={defaultValue} className={"select-client form-select margin-top"} id={"client"} value={defaultValue}
+        <Form.Select defaultValue={defaultValue} className="select-client form-select margin-top" id="client" value={defaultValue}
             onChange={(e: any) => { props.setClientChoose(e.target.value); utils.redirectTo(`${utils.statsPath()}/${e.target.value}`) }}>
             {
                 props.clientDistinct.map((client, key) => {

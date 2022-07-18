@@ -2,6 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+/* ------------------- Composants ------------------- */
+
+import Paragraph from '../HTML components/Paragraph';
+import Small from '../HTML components/Small';
+
 /* ------------------- Composants Bootstrap ------------------- */
 
 import Alert from 'react-bootstrap/Alert'
@@ -21,6 +26,10 @@ import GetFromDatabase from '../classes/GetFromDatabase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faEye } from '@fortawesome/free-solid-svg-icons'
+
+/* ------------------- Enum ------------------- */
+
+import { variant } from '../enum/enum'
 
 
 function RegisterPage() {
@@ -70,25 +79,19 @@ function RegisterPage() {
 
     const renderUsernameTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
-            <small id="usernameTooltip">
-                Username size must be 5-20 characters long. No special characters allowed.
-            </small>
+            <Small id="usernameTooltip" text="Username size must be 5-20 characters long. No special characters allowed."/>
         </Tooltip>
     );
 
     const renderPasswordTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
-            <small id="passwordTooltip">
-                Password size must be 8-30 characters long.
-            </small>
+            <Small id="passwordTooltip" text="Password size must be 8-30 characters long."/>
         </Tooltip>
     );
 
     const renderConfirmPasswordTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
-            <small id="confirmPasswordTooltip">
-                Confirm your password by entering it again.
-            </small>
+            <Small id="confirmPasswordTooltip" text="Confirm your password by entering it again."/>
         </Tooltip>
     );
 
@@ -97,14 +100,12 @@ function RegisterPage() {
             <h2>Register a new account !</h2>
             {
                 regState.message && (
-                    <Alert variant={regState.state ? "success" : "danger"} className='alert'>
+                    <Alert variant={regState.state ? variant.success : variant.danger} className='alert'>
                         {regState.state ?
                             <Alert.Heading>Good news!</Alert.Heading> :
                             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
                         }
-                        <p>
-                            {regState.message}
-                        </p>
+                        <Paragraph text={regState.message} />
                     </Alert>
                 )
             }
@@ -134,7 +135,7 @@ function RegisterPage() {
                             placeholder="Password"
                             aria-label="Password"
                             aria-describedby="passwordInput"
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPasswordReg(e.target.value) }}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordReg(e.target.value)}
                             type="password"
                         />
                         {/*  <Button id="confirmPasswordInput"><FontAwesomeIcon icon={["fas", "eye"]}/></Button> */}
@@ -150,7 +151,7 @@ function RegisterPage() {
                             placeholder="Confirm password"
                             aria-label="Confirm password"
                             aria-describedby="confirmPasswordInput"
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPasswordRegConfirm(e.target.value) }}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordRegConfirm(e.target.value)}
                             type="password"
                         />
                         {/* <Button id="confirmPasswordInput"><FontAwesomeIcon icon={["fas", "eye"]}/></Button> */}

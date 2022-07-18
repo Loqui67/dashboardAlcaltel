@@ -10,6 +10,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import GetFromDatabase from "../classes/GetFromDatabase";
 
+/* ------------------- Enum ------------------- */
+
+import { variant } from '../enum/enum'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { Link } from "react-router-dom";
@@ -39,13 +43,13 @@ function DropdownVersionPatchContent(props: Props) {
 
 
     return (
-        <DropdownButton title={"select client version"} className={"no-underline dropVersion"} drop={"down"} variant="primary">
+        <DropdownButton title="select client version" className="no-underline dropVersion" drop="down" variant="primary">
             {
                 versionFromClient.map((value, key) => {
                     if (name !== value.version_name) {
                         name = value.version_name;
                         return (
-                            <DropdownButton key={key} title={`client version ${name}`} className={"no-underline padding size"} drop={"end"} variant="primary">
+                            <DropdownButton key={key} title={`client version ${name}`} className="no-underline padding size" drop="end" variant={variant.primary}>
                                 {
                                     versionFromClient.filter(names => names.version_name === name).map((patches, key) => {
                                         return (

@@ -21,8 +21,13 @@ function SelectTS(props: Props) {
 
     const space = useMemo(() => new Utils(), []);
 
+    const onChange = (e: any) => {
+        props.setTestSuiteChoose(parseInt(e.target.value));
+        props.setDateChoose("")
+    }
+
     return (
-        <Form.Select id="TS" defaultValue={0} className={"selectTestSuite form-select margin-top"} onChange={(e: any) => { props.setTestSuiteChoose(parseInt(e.target.value)); props.setDateChoose("") }}>
+        <Form.Select id="TS" defaultValue={0} className="selectTestSuite form-select margin-top" onChange={(e: any) => onChange(e)}>
             <option value={0}>All</option>
             {
                 props.testSuiteFromVersion.map((testSuite, key) => {

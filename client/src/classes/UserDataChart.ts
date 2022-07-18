@@ -329,7 +329,7 @@ class UserDataChart {
                 borderColor: this.borderColor[0],
                 borderWidth: 1,
                 fill: true,
-                cubicInterpolationMode: 'monotone',
+                //cubicInterpolationMode: 'monotone',
             }, {
                 label: "test failed",
                 data: [
@@ -339,7 +339,7 @@ class UserDataChart {
                 borderColor: this.borderColor[1],
                 borderWidth: 1,
                 fill: true,
-                cubicInterpolationMode: 'monotone',
+                //cubicInterpolationMode: 'monotone',
             }, {
                 label: "test skipped",
                 data: [
@@ -349,7 +349,7 @@ class UserDataChart {
                 borderColor: this.borderColor[2],
                 borderWidth: 1,
                 fill: true,
-                cubicInterpolationMode: 'monotone',
+                //cubicInterpolationMode: 'monotone',
             }/* , {
                 label: "test not run",
                 data: [

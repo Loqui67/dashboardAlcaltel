@@ -99,12 +99,12 @@ function TestAllInformation() {
                     .map((test, key: number) => {
                         let TxtColor = utils.testToColor(test.currentState);
                         return (
-                            <div key={key} className={"d-flex flex-column justify-content-start padding text-start"}>
+                            <div key={key} className="d-flex flex-column justify-content-start padding text-start">
                                 <TestTitle
                                     test={test}
                                     TxtColor={TxtColor}
                                 />
-                                <div className={"d-flex flex-row space-between desc"}>
+                                <div className="d-flex flex-row space-between desc">
                                     <TestSelectedDetails
                                         test={test}
                                         client={client}

@@ -7,6 +7,10 @@ import { Dispatch, SetStateAction, useState, useCallback } from 'react';
 import GetFromDatabase from '../classes/GetFromDatabase';
 import Utils from '../classes/Utils';
 
+/* ------------------- Composants ------------------- */
+
+import Paragraph from '../HTML components/Paragraph';
+
 /* ------------------- Composants Bootstrap ------------------- */
 
 import Alert from 'react-bootstrap/Alert'
@@ -22,6 +26,12 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faEye } from '@fortawesome/free-solid-svg-icons'
+
+/* ------------------- Enum ------------------- */
+
+import { variant } from '../enum/enum'
+
+
 
 interface Props {
   loginStatus: { error?: boolean, message: string, username: string, admin: boolean, isLogged: boolean };
@@ -50,7 +60,7 @@ function LoginPage({ loginStatus, setLoginStatus }: Props) {
     const utils = new Utils();
     const login: Ilogin = await query.login(username, password)
     if (!login.auth) {
-      setLoginStatus({ username: "", admin: false, isLogged: login.auth, message: login.message,  error: true });
+      setLoginStatus({ username: "", admin: false, isLogged: login.auth, message: login.message, error: true });
     } else {
       localStorage.setItem("token", login.token)
       setLoginStatus({ username: login.username, admin: login.admin, isLogged: login.auth, message: "" });
@@ -70,11 +80,9 @@ function LoginPage({ loginStatus, setLoginStatus }: Props) {
       <h2>Login to your account !</h2>
       {
         loginStatus.message !== "" && (
-          <Alert variant="danger" className='alert'>
+          <Alert variant={variant.danger} className='alert'>
             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-            <p>
-              {loginStatus.message}
-            </p>
+            <Paragraph text = {loginStatus.message}/>
           </Alert>
         )
       }
@@ -102,7 +110,7 @@ function LoginPage({ loginStatus, setLoginStatus }: Props) {
             delay={{ show: 250, hide: 400 }}
             overlay={renderTooltip}
           >
-            <Button id="confirmPasswordInput" onMouseDown={() => { setShowPassword(true) }} onMouseUp={() => { setShowPassword(false) }}>
+            <Button id="confirmPasswordInput" onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>
               <FontAwesomeIcon icon={["fas", "eye"]} />
             </Button>
           </OverlayTrigger>

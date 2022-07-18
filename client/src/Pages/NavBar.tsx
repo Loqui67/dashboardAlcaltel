@@ -11,6 +11,9 @@ import { Nav, Container, Button } from "react-bootstrap";
 
 import GetFromDatabase from '../classes/GetFromDatabase';
 
+/* ------------------- Enum ------------------- */
+
+import { variant } from '../enum/enum'
 
 
 interface Props {
@@ -28,7 +31,7 @@ function NavBar(props: Props) {
     }
 
     return (
-        <Navbar bg="info" variant="dark">
+        <Navbar bg={variant.info} variant={variant.dark}>
             <Container>
                 <Navbar.Brand href="">Dashboard auto test</Navbar.Brand>
                 <Nav className="me-auto">

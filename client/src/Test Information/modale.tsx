@@ -32,7 +32,7 @@ function Modale(props: Props) {
         <img src={props.imageModale} alt="modale" />
       </Modal.Body>
       <Modal.Footer className="footer">
-        <button onClick={props.onHide} className={"btn btn-primary"}>Close</button>
+        <button onClick={props.onHide} className="btn btn-primary">Close</button>
       </Modal.Footer>
     </Modal>
   );

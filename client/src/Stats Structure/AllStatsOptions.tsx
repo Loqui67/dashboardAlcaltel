@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 /* ------------------- Composants ------------------- */
 
 import DropdownVersionPatchContent from '../Search Options-Results/DropdownVersionPatchContent';
+import Label from '../HTML components/Label';
 
 /* ------------------- Fonctions ------------------- */
 
@@ -33,7 +34,7 @@ function AllStatsOptions() {
             <div className="d-flex flex-row">
 
                 <div className="selectClient padding">
-                    <label>Choose a client</label>
+                    <Label text='Choose a client'/>
                     <SelectClient
                         clientDistinct={clientDistinct}
                         setClientChoose={setClientChoose}
@@ -42,7 +43,7 @@ function AllStatsOptions() {
                     />
                 </div>
                 <div className="selectVersion padding">
-                    <label>Choose a version</label>
+                    <Label text='Choose a version'/>
                     <DropdownVersionPatchContent
                         clientChoose={clientChoose}
                     />

@@ -1,6 +1,9 @@
 /* ------------------- Classes ------------------- */
 
 import { useMemo } from "react";
+
+/* ------------------- Classes ------------------- */
+
 import Utils from "../classes/Utils";
 
 interface Props {

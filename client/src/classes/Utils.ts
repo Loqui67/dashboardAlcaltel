@@ -59,11 +59,6 @@ class Utils {
         }
     }
 
-    /*     isNumeric(str : string) {
-            if (typeof str != "string") return false
-            return !isNaN(str) && !isNaN(parseFloat(str))
-        } */
-
     isUpperCase(toTest: string) {
 
         if (toTest !== undefined) {
@@ -83,24 +78,25 @@ class Utils {
         return false
     }
 
-    formatStringToUpperAndLowerCase(toTest: string) {
-        let result = "";
-        toTest.split('').forEach((element, index) => {
+    formatStringToUpperAndLowerCase(toEdit: string) { //a opti
+        return toEdit.replace(/[A-Z]/g, ' $&').trim().toLowerCase().replace(toEdit.charAt(0), toEdit.charAt(0).toUpperCase());
+/*         let result = "";
+        toEdit.split('').forEach((element, index) => {
             if (index === 0) {
                 result += element.toUpperCase()
             } else if (this.hasSpecialCharacters(element)) {
                 result += " ";
-            } else if (this.isUpperCase(element) && this.isLowerCase(toTest[index + 1])) {
+            } else if (this.isUpperCase(element) && this.isLowerCase(toEdit[index + 1])) {
                 result += " ";
                 result += element.toLowerCase()
             } else {
                 result += element
-                if (this.isLowerCase(element) && this.isUpperCase(toTest[index + 1])) {
+                if (this.isLowerCase(element) && this.isUpperCase(toEdit[index + 1])) {
                     result += " ";
                 }
             }
         });
-        return result
+        return result */
     }
 
 

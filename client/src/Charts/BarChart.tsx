@@ -1,6 +1,10 @@
 /* ------------------- React ------------------- */
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+
+/* ------------------- Enum ------------------- */
+
+import { dataChartTypeName } from '../enum/enum'
 
 /* ------------------- Librairies tierces ------------------- */
 
@@ -10,21 +14,39 @@ import 'chart.js/auto'
 
 
 interface Props {
-    chartData: ChartData<'bar'>;
+    chartData: ChartData<dataChartTypeName.bar>;
 }
 
 
 function BarChart({ chartData }: Props) {
 
 
-    const options: ChartOptions<'bar'> = useMemo(() => {
+    const options: ChartOptions<dataChartTypeName.bar> = useMemo(() => {
         return {
             layout: {
                 padding: 0
             },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        boxHeight: 20,
+                        font: {
+                            size: 16
+                        }
+                    }
+                }
+            },
             maintainAspectRatio: false,
             responsive: true,
             scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 18,
+                        }
+                    }
+                },
                 y: {
                     beginAtZero: true,
                     ticks: {

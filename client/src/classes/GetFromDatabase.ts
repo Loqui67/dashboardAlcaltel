@@ -37,7 +37,8 @@ class GetFromDatabase {
     async getClientVersion(clientChoose: string) {
         const response = await Axios.get(`${this.adress}clientVersion`, {
             params: {
-                clientChoose: clientChoose
+                clientChoose: clientChoose,
+                id: this.id
             }
         });
         return (response.data[0]);

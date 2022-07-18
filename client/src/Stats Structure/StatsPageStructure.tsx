@@ -198,7 +198,7 @@ function StatsPageStructure() {
 
 
     return (
-        <div className={"StatsPageStructure"}>
+        <div className="StatsPageStructure">
             <div className="divider div-transparent" />
             <VersionTitle
                 version={version}
@@ -228,7 +228,7 @@ function StatsPageStructure() {
             />
 
             <div className="divider div-transparent" />
-            <div className={"d-flex flex-row DownPart padding"}>
+            <div className="d-flex flex-row DownPart padding">
                 <TestInfoStructure
                     allClientID={allClientID}
                     clientVersionChoose={clientVersionChoose}

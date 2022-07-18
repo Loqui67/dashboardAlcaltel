@@ -2,6 +2,10 @@
 
 import { useMemo } from "react";
 
+/* ------------------- Enum ------------------- */
+
+import { dataChartTypeName } from '../enum/enum'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { Bar } from "react-chartjs-2"
@@ -11,20 +15,40 @@ import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 
 
 interface Props {
-    chartData: ChartData<'bar'>;
+    chartData: ChartData<dataChartTypeName.bar100>;
 }
 
 Chart.register(ChartjsPluginStacked100);
 
 function Bar100Chart({ chartData }: Props) {
 
-    const options: ChartOptions<'bar'> = useMemo(() => {
+    const options: ChartOptions<dataChartTypeName.bar100> = useMemo(() => {
         return {
             indexAxis: 'x',
             plugins: {
                 stacked100: {
                     enable: true,
                     replaceTooltipLabel: true,
+                },
+                legend: {
+                    position: 'top',
+                    labels: {
+                        boxHeight: 20,
+                        font: {
+                            size: 16
+                        },
+                        usePointStyle: true,
+                        
+                    }
+                },
+                tooltip: {
+                    titleFont: {
+                      size: 18
+                    },
+                    bodyFont: {
+                      size: 14
+                    },
+                    
                 }
             },
             layout: {
@@ -35,6 +59,11 @@ function Bar100Chart({ chartData }: Props) {
             scales: {
                 x: {
                     stacked: true,
+                    ticks: {
+                        font: {
+                            size: 14,
+                        }
+                    }
                 },
                 y: {
                     max: 100,
@@ -42,7 +71,10 @@ function Bar100Chart({ chartData }: Props) {
                     stacked: true,
                     beginAtZero: true,
                     ticks: {
-                        precision: 0
+                        precision: 0,
+                        font: {
+                            size: 12,
+                        }
                     }
                 }
             }
@@ -52,7 +84,7 @@ function Bar100Chart({ chartData }: Props) {
 
 
     return (
-        <Bar data={chartData} options={options} /* plugins={[ChartjsPluginStacked100]} */ />
+        <Bar data={chartData} options={options} />
     );
 }
 
