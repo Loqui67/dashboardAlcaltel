@@ -134,8 +134,9 @@ app.get("/dateWithTS", (req, res) => {
 
 
 app.get("/lastVersion", (req, res) => {
+    const client = req.query.client;
     console.log("lastVersion")
-    tests.query("CALL lastVersion();", (err, result) => {
+    tests.query("CALL lastVersion(?);",client, (err, result) => {
         if (err) {
             console.log("/lastVersion");
         } else {
@@ -158,10 +159,10 @@ app.get("/state", (req, res) => {
 
 
 app.get("/step", (req, res) => {
-    const name = req.query.name;
+    const id = req.query.id;
     console.log("step")
     tests.query("CALL step(?);"
-        , name, (err, result) => {
+        , id, (err, result) => {
             if (err) {
                 console.log("/step");
                 console.log(err);
@@ -176,9 +177,10 @@ app.get("/step", (req, res) => {
 app.get("/testHistory", (req, res) => {
     const name = req.query.name;
     const id = req.query.id;
+    const client = req.query.client;
     console.log("testHistory")
-    tests.query("CALL testHistory(?, ?);"
-        , [name, id], (err, result) => {
+    tests.query("CALL testHistory(?, ?, ?);"
+        , [name, id, client], (err, result) => {
             if (err) {
                 console.log("/testHistory");
                 console.log(err);
@@ -192,9 +194,10 @@ app.get("/testHistory", (req, res) => {
 
 app.get("/testState", (req, res) => {
     const id = req.query.id;
+    const client = req.query.client;
     console.log("testState")
-    tests.query("CALL testState(?);"
-        , id, (err, result) => {
+    tests.query("CALL testState(?, ?);"
+        , [id, client], (err, result) => {
             if (err) {
                 console.log("/testState");
             } else {
@@ -661,7 +664,7 @@ schedule.scheduleJob(ReportRule, () => {
         const htmlFilePath = `./report ${getDate()}.html`;
         tests.query("CALL lastVersion();", (error, result) => {
             if (error) {
-                console.log("error");
+                console.log("err");
             } else {
                 tests.query("CALL testSuite();", (TSerror, TSresult) => {
                     if (TSerror) {

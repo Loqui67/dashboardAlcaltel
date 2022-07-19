@@ -241,6 +241,7 @@ function StatsPageStructure() {
                 <Outlet context={{ //TestAllInformation.tsx
                     testState,
                     client,
+                    clientChoose,
                     testSuite,
                     versionWithLogs,
                     testStep,
@@ -259,6 +260,7 @@ export default StatsPageStructure;
 type ContextType = {
     testState: Array<{ id_test: number, id_state: number, currentState: string, id_testsSuites: number, date: string, id_client: number, id_testRun: number, name: string, purpose: string }>
     client: Array<{ version: string, id_client: number, client_name: string, model: string }>
+    clientChoose: string
     testSuite: Array<{ id_testsSuites: number, testsSuites_name: string }>
     versionWithLogs: Array<{ id_testRun: number, date: string, error_message: string, screenshot_luke: string, screenshot_rey: string }>
     testStep: Array<{ description: string, testRailLink: string, verif: string }>

@@ -43,11 +43,12 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 function TestAllInformation() {
     library.add(faClipboardList, faCheck)
 
-    const query = useMemo(() => new GetFromDatabase(0, "", ""), [])
+    
     const { testRunID } = useParams<string>();
 
     const { testState } = useOutletCntxt();
     const { client } = useOutletCntxt();
+    const { clientChoose } = useOutletCntxt();
     const { testSuite } = useOutletCntxt();
     const { versionWithLogs } = useOutletCntxt();
     const { testStep } = useOutletCntxt();
@@ -56,6 +57,7 @@ function TestAllInformation() {
     const { setTestHistory } = useOutletCntxt();
 
     const [isCopied, setIsCopied] = useState(false);
+    const query = useMemo(() => new GetFromDatabase(0, clientChoose, ""), [clientChoose])
 
     const getHistory = useCallback(async (name: string, id: number) => {
         if (await query.checkJWT()) {
@@ -63,17 +65,19 @@ function TestAllInformation() {
         }
     }, [setTestHistory, query])
 
-    const getStep = useCallback(async (name: string) => {
+    const getStep = useCallback(async () => {
         if (await query.checkJWT()) {
-            setTestStep(await query.getStep(name));
+            let id;
+            testRunID === undefined ? id = "0" : id = testRunID
+            setTestStep(await query.getStep(id));
         }
-    }, [setTestStep, query])
+    }, [setTestStep, query, testRunID])
 
 
     useEffect(() => {
         testState.filter((data) => testRunID !== undefined ? data.id_testRun === parseInt(testRunID) : data.id_testRun === 0).map((test) => {
             getHistory(test.name, testRunID !== undefined ? parseInt(testRunID) : 0);
-            getStep(test.name);
+            getStep();
             return null
         })
     }, [getHistory, getStep, testRunID, testState])

@@ -68,16 +68,17 @@ class GetFromDatabase {
         const response = await Axios.get(`${this.adress}testHistory`, {
             params: {
                 name: name,
-                id: id
+                id: id,
+                client: this.client
             }
         });
         return (response.data[0]);
     }
 
-    async getStep(name: string) {
+    async getStep(id: string) {
         const response = await Axios.get(`${this.adress}step`, {
             params: {
-                name: name
+                id: id
             }
         });
         return (response.data[0]);
@@ -111,7 +112,8 @@ class GetFromDatabase {
     async getTestState() {
         const response = await Axios.get(`${this.adress}testState`, {
             params: {
-                id: this.id
+                id: this.id,
+                client: this.client
             }
         });
         return (response.data[0]);
@@ -154,7 +156,11 @@ class GetFromDatabase {
     }
 
     async getLastVersion() {
-        const response = await Axios.get(`${this.adress}lastVersion`);
+        const response = await Axios.get(`${this.adress}lastVersion`, {
+            params: {
+                client: this.client,
+            }
+        });
         return (response.data[0]);
     }
 

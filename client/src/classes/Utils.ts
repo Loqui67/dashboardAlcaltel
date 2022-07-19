@@ -79,8 +79,8 @@ class Utils {
     }
 
     formatStringToUpperAndLowerCase(toEdit: string) { //a opti
-        return toEdit.replace(/[A-Z]/g, ' $&').trim().toLowerCase().replace(toEdit.charAt(0), toEdit.charAt(0).toUpperCase());
-/*         let result = "";
+        //return toEdit.replace(/[A-Z]/g, ' $&').trim().toLowerCase().replace(toEdit.charAt(0), toEdit.charAt(0).toUpperCase());
+        let result = "";
         toEdit.split('').forEach((element, index) => {
             if (index === 0) {
                 result += element.toUpperCase()
@@ -96,7 +96,7 @@ class Utils {
                 }
             }
         });
-        return result */
+        return result
     }
 
 
