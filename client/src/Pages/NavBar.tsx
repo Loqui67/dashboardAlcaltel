@@ -31,7 +31,7 @@ function NavBar(props: Props) {
     }
 
     return (
-        <Navbar bg={variant.info} variant={variant.dark}>
+        <Navbar bg={variant.primary} variant={variant.dark}>
             <Container>
                 <Navbar.Brand href="">Dashboard auto test</Navbar.Brand>
                 <Nav className="me-auto">

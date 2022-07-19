@@ -34,7 +34,7 @@ function TestHistory(props: Props) {
                                                         lastPatch = value.patch;
                                                         return (
                                                             <td key={key}>
-                                                                {`In web client ${lastVersion}.${lastPatch}, this test ${(value.currentState === "skipped" || value.currentState === "not run") ? 'was' : ""} ${value.currentState}`}
+                                                                {`In client ${lastVersion}.${lastPatch}, this test ${(value.currentState === "skipped" || value.currentState === "not run") ? 'was' : ""} ${value.currentState}`}
                                                             </td>
                                                         )
                                                     }

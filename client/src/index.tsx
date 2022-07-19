@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 
-  <BrowserRouter>
+  <BrowserRouter> {/* browser router permet le routing dans le composant app */}
     <App />
   </BrowserRouter>
 
