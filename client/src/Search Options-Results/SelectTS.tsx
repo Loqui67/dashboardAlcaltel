@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form'
 
 interface Props {
     testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string }>;
-    setTestSuiteChoose: Dispatch<SetStateAction<number>>;
+    setTestSuiteChoose: Dispatch<SetStateAction<string>>;
     setDateChoose: Dispatch<SetStateAction<string>>;
 }
 
@@ -22,18 +22,19 @@ function SelectTS(props: Props) {
     const space = useMemo(() => new Utils(), []);
 
     const onChange = (e: any) => {
-        props.setTestSuiteChoose(parseInt(e.target.value));
+        props.setTestSuiteChoose(e.target.value);
         props.setDateChoose("")
     }
 
     return (
-        <Form.Select id="TS" defaultValue={0} className="selectTestSuite form-select margin-top" onChange={(e: any) => onChange(e)}>
-            <option value={0}>All</option>
+        <Form.Select id="TS" defaultValue={""} className="selectTestSuite form-select margin-top" onChange={(e: any) => onChange(e)} >
+            <option value={""}>All</option>
             {
-                props.testSuiteFromVersion.map((testSuite, key) => {
-                    let result = space.formatStringToUpperAndLowerCase(testSuite.testsSuites_name);
+                Array.from(new Set(props.testSuiteFromVersion.map(item => item.testsSuites_name)))
+                .map((testSuite, key) => {
+                    let result = space.formatStringToUpperAndLowerCase(testSuite);
                     return (
-                        <option key={`${testSuite.id_testsSuites}-${key}`} value={testSuite.id_testsSuites}>{result}</option>
+                        <option key={`${testSuite}-${key}`} value={testSuite}>{result}</option>
                     )
                 })
             }

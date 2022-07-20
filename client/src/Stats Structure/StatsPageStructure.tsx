@@ -60,6 +60,7 @@ function StatsPageStructure() {
         id_state: number,
         currentState: string,
         id_testsSuites: number,
+        testsSuites_name: string,
         date: string,
         id_client: number,
         id_testRun: number,
@@ -99,7 +100,8 @@ function StatsPageStructure() {
 
     type dateWithTSType = Array<{
         date: string,
-        id_testsSuites: number
+        id_testsSuites: number,
+        testsSuites_name: string
     }>
 
     type stateType = Array<{
@@ -124,7 +126,7 @@ function StatsPageStructure() {
     const { setClientChoose } = useOutletCntxtStats();
 
     const [testSuite, setTestSuite] = useState<testSuiteType>([]);
-    const [testSuiteChoose, setTestSuiteChoose] = useState<number>(0);
+    const [testSuiteChoose, setTestSuiteChoose] = useState<string>("");
     const [testSuiteFromVersion, setTestSuiteFromVersion] = useState<testSuiteFromVersionType>([]);
     const [testSuiteFromVersionWithDate, setTestSuiteFromVersionWithDate] = useState<testSuiteFromVersionWithDateType>([]);
     const [testStateCount, setTestStateCount] = useState<testStateCountType>([]);
@@ -258,7 +260,7 @@ export default StatsPageStructure;
 
 
 type ContextType = {
-    testState: Array<{ id_test: number, id_state: number, currentState: string, id_testsSuites: number, date: string, id_client: number, id_testRun: number, name: string, purpose: string }>
+    testState: Array<{ id_test: number, id_state: number, currentState: string, id_testsSuites: number, testsSuites_name: string, date: string, id_client: number, id_testRun: number, name: string, purpose: string }>
     client: Array<{ version: string, id_client: number, client_name: string, model: string }>
     clientChoose: string
     testSuite: Array<{ id_testsSuites: number, testsSuites_name: string }>

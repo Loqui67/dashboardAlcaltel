@@ -19,8 +19,8 @@ import SelectClientVersion from "../Search Options-Results/SelectClientVersion";
 interface Props {
     testStateCount: Array<{ passed: number, failed: number, skipped: number }>;
     testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>;
-    testState: Array<{ currentState: string, id_testsSuites: number, date: string, id_client: number }>;
-    testSuiteChoose: number;
+    testState: Array<{ currentState: string, id_testsSuites: number, testsSuites_name: string, date: string, id_client: number }>;
+    testSuiteChoose: string;
     dateChoose: string;
     testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>;
     testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>;
@@ -29,10 +29,10 @@ interface Props {
     clientDistinct: Array<{ id_client: number, client_name: string }>;
     clientVersion: Array<{ id_client: number, version: string }>;
     date: Array<{ date: string }>;
-    dateWithTS: Array<{ date: string, id_testsSuites: number }>;
+    dateWithTS: Array<{ date: string, id_testsSuites: number, testsSuites_name: string }>;
     setClientVersionChoose: Dispatch<SetStateAction<number>>;
     setClientChoose: Dispatch<SetStateAction<string>>;
-    setTestSuiteChoose: Dispatch<SetStateAction<number>>;
+    setTestSuiteChoose: Dispatch<SetStateAction<string>>;
     setDateChoose: Dispatch<SetStateAction<string>>;
 }
 

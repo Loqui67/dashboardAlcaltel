@@ -120,6 +120,13 @@ class Utils {
         window.location.href = URL;
     }
 
+    isStatsPage() {
+        if (window.location.href === this.statsPath()) {
+            return true;
+        }
+        return false;
+    }
+
 }
 
 

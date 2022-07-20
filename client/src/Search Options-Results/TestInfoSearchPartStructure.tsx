@@ -17,9 +17,9 @@ import Utils from "../classes/Utils"
 import ReactPaginate from 'react-paginate'
 
 interface Props {
-    testState: Array<{ currentState: string, id_test: number, id_testRun: number, id_testsSuites: number, id_client: number, name: string, date: string, id_state: number }>
+    testState: Array<{ currentState: string, id_test: number, id_testRun: number, id_testsSuites: number, testsSuites_name: string, id_client: number, name: string, date: string, id_state: number }>
     state: Array<{ id_state: number, currentState: string }>
-    testSuiteChoose: number
+    testSuiteChoose: string
     allClientID: Array<number>
     clientVersionChoose: number
     dateChoose: string
@@ -36,10 +36,10 @@ function TestInfoStructure(props: Props) {
 
 
     const testSuiteFilter: any = useMemo(() => {
-        if (props.testSuiteChoose === 0) {
+        if (props.testSuiteChoose === "") {
             return props.testState;
         } else {
-            return props.testState.filter(filter => filter.id_testsSuites === props.testSuiteChoose)
+            return props.testState.filter(filter => filter.testsSuites_name === props.testSuiteChoose)
         }
     }, [props.testState, props.testSuiteChoose])
 

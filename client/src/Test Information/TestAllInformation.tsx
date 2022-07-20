@@ -97,7 +97,7 @@ function TestAllInformation() {
     const utils = new Utils()
 
     return (
-        <div className={"details"}>
+        <div className="details">
             {
                 testState.filter((tests: { id_testRun: number }) => testRunID !== undefined ? tests.id_testRun === parseInt(testRunID) : tests.id_testRun === 0)
                     .map((test, key: number) => {

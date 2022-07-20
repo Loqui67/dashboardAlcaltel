@@ -15,7 +15,7 @@ import { dataChartTypeName } from '../enum/enum'
 
 
 interface Props {
-    testSuiteChoose: number;
+    testSuiteChoose: string;
     userDataBarChart: ChartData<dataChartTypeName.bar>;
     userDataPieChart: ChartData<dataChartTypeName.doughnut>;
     userDataBar100Chart: ChartData<dataChartTypeName.bar100>;
@@ -26,7 +26,7 @@ interface Props {
 function ChooseCharts(props: Props) {
 
     return (
-        props.testSuiteChoose !== 0 ?
+        props.testSuiteChoose !== "" ?
             <div className="BarChart">
                 <BarChart chartData={props.userDataBarChart} />
             </div>

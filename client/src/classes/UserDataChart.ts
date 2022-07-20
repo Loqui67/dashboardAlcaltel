@@ -10,8 +10,8 @@ class UserDataChart {
 
     testStateCount: Array<{ passed: number, failed: number, skipped: number }>;
     testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>;
-    testState: Array<{ currentState: string, id_testsSuites: number, date: string, id_client: number }>;
-    testSuiteChoose: number;
+    testState: Array<{ currentState: string, id_testsSuites: number, testsSuites_name: string, date: string, id_client: number }>;
+    testSuiteChoose: string;
     dateChoose: string;
     testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>;
     testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>;
@@ -22,8 +22,8 @@ class UserDataChart {
         (
             testStateCount: Array<{ passed: number, failed: number, skipped: number }>,
             testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>,
-            testState: Array<{ currentState: string, id_testsSuites: number, date: string, id_client: number }>,
-            testSuiteChoose: number,
+            testState: Array<{ currentState: string, id_testsSuites: number, testsSuites_name: string, date: string, id_client: number }>,
+            testSuiteChoose: string,
             dateChoose: string,
             testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>,
             testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>,
@@ -39,6 +39,12 @@ class UserDataChart {
         this.testStateCountWithDate = testStateCountWithDate;
         this.allClientID = allClientID;
         this.clientVersionChoose = clientVersionChoose;
+
+
+        const key = 'testsSuites_name';
+
+        this.testSuiteFromVersion = Array.from(new Map(testSuiteFromVersion.map(item =>
+        [item[key], item])).values());
     }
 
     getValuesPiePassed() {
@@ -263,13 +269,13 @@ class UserDataChart {
     getBarValues() {
         type dataMap = {
             currentState?: string;
-            id_testsSuites?: number;
+            testsSuites_name?: string;
             date?: string;
             id_client?: number;
         }
         const convertDate = new Utils();
         return this.state.map(state => {
-            return this.testState.filter((data: dataMap) => (data.id_testsSuites === this.testSuiteChoose || this.testSuiteChoose === 0)
+            return this.testState.filter((data: dataMap) => (data.testsSuites_name === this.testSuiteChoose || this.testSuiteChoose === "")
                 && data.currentState === state
                 && (convertDate.getDateAndDeleteHourOnDbFormat(data.date) === this.dateChoose || this.dateChoose === "")
             ).filter((data: dataMap) => {
@@ -295,10 +301,9 @@ class UserDataChart {
     getUserDataBarChart() {
         type dataMap = {
             testsSuites_name?: string;
-            id_testsSuites?: number;
             id_client?: number;
         }
-        const labels = this.testSuiteFromVersion.filter((filter: dataMap) => (filter.id_testsSuites === this.testSuiteChoose || this.testSuiteChoose === 0))
+        const labels = this.testSuiteFromVersion.filter((filter: dataMap) => (filter.testsSuites_name === this.testSuiteChoose || this.testSuiteChoose === ""))
             .filter((data: dataMap) => {
                 if (this.clientVersionChoose === 0) {
                     return this.allClientID.map(test => {

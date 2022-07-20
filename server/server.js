@@ -654,7 +654,7 @@ MidnightRule.minute = 0;
 MidnightRule.hour = 0;
 
 
-const ReportRule = new schedule.RecurrenceRule();
+/* const ReportRule = new schedule.RecurrenceRule();
 ReportRule.second = 0;
 MidnightRule.minute = 0;
 MidnightRule.hour = 20;
@@ -688,7 +688,7 @@ schedule.scheduleJob(ReportRule, () => {
         console.log(err)
     }
 
-})
+}) */
 
 
 

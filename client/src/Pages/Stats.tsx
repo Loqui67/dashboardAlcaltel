@@ -9,7 +9,7 @@ import Utils from "../classes/Utils";
 
 /* ------------------- Librairies tierces ------------------- */
 
-import { Outlet, useParams, useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext, useParams } from "react-router-dom";
 
 type clientDistinctType = Array<{
     id_client: number,
@@ -18,21 +18,21 @@ type clientDistinctType = Array<{
 
 function Stats() {
 
-    const [clientDistinct, setClientDistinct] = useState<clientDistinctType>([]);
-    const [clientChoose, setClientChoose] = useState<string>('Chrome');
+    const { id, client } = useParams();
 
-    const { id } = useParams();
-    const query = useMemo(() => new GetFromDatabase(0, "", ""), [])
+    const [clientDistinct, setClientDistinct] = useState<clientDistinctType>([]);
+    const [clientChoose, setClientChoose] = useState<string>(client === undefined ? "Chrome" : client);
+
+    const query = useMemo(() => new GetFromDatabase(0, clientChoose, ""), [clientChoose])
 
     const getLastVersion = useCallback(async () => {
         const utils = new Utils();
         if (await query.checkJWT()) {
             const result = await query.getLastVersion();
-            if (id === undefined) {
-                utils.redirectTo(`/stats/${clientChoose}/${result[0].id_version}`);
-            }
+            console.log(result)
+            utils.redirectTo(`/stats/${clientChoose}/${result[0].id_version}`);
         }
-    }, [query, id, clientChoose]);
+    }, [query, clientChoose]);
 
     const getClient = useCallback(async () => {
         if (await query.checkJWT()) {
@@ -41,8 +41,10 @@ function Stats() {
     }, [query])
 
     useEffect(() => {
-        getLastVersion();
-    }, [getLastVersion])
+        if (id === undefined) {
+            getLastVersion();
+        }
+    }, [getLastVersion, id])
 
     useEffect(() => {
         getClient();

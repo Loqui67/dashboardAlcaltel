@@ -9,7 +9,7 @@ Axios.defaults.withCredentials = true;
 
 class GetFromDatabase {
 
-    adress: string = "http://ns3053040.ip-137-74-95.eu:3001/";
+    address: string = "http://ns3053040.ip-137-74-95.eu:3001/";
     id: number;
     client: string;
     date: string;
@@ -25,17 +25,17 @@ class GetFromDatabase {
 
 
     async getClient() {
-        const response = await Axios.get(`${this.adress}client`);
+        const response = await Axios.get(`${this.address}client`);
         return (response.data[0]);
     }
 
     async getClientDistinct() {
-        const response = await Axios.get(`${this.adress}clientDistinct`);
+        const response = await Axios.get(`${this.address}clientDistinct`);
         return (response.data[0]);
     }
 
     async getClientVersion(clientChoose: string) {
-        const response = await Axios.get(`${this.adress}clientVersion`, {
+        const response = await Axios.get(`${this.address}clientVersion`, {
             params: {
                 clientChoose: clientChoose,
                 id: this.id
@@ -45,7 +45,7 @@ class GetFromDatabase {
     }
 
     async getDate() {
-        const response = await Axios.get(`${this.adress}date`, {
+        const response = await Axios.get(`${this.address}date`, {
             params: {
                 id: this.id
             }
@@ -54,7 +54,7 @@ class GetFromDatabase {
     }
 
     async getDateWithTS() {
-        const response = await Axios.get(`${this.adress}dateWithTS`, {
+        const response = await Axios.get(`${this.address}dateWithTS`, {
             params: {
                 id: this.id
             }
@@ -65,7 +65,7 @@ class GetFromDatabase {
 
 
     async getHistory(name: string, id: number | string) {
-        const response = await Axios.get(`${this.adress}testHistory`, {
+        const response = await Axios.get(`${this.address}testHistory`, {
             params: {
                 name: name,
                 id: id,
@@ -76,7 +76,7 @@ class GetFromDatabase {
     }
 
     async getStep(id: string) {
-        const response = await Axios.get(`${this.adress}step`, {
+        const response = await Axios.get(`${this.address}step`, {
             params: {
                 id: id
             }
@@ -86,12 +86,12 @@ class GetFromDatabase {
 
 
     async getTestSuites() {
-        const response = await Axios.get(`${this.adress}testSuite`);
+        const response = await Axios.get(`${this.address}testSuite`);
         return (response.data[0]);
     }
 
     async getTestSuitesFromVersion() {
-        const response = await Axios.get(`${this.adress}testSuiteFromVersion`, {
+        const response = await Axios.get(`${this.address}testSuiteFromVersion`, {
             params: {
                 id: this.id,
             }
@@ -100,7 +100,7 @@ class GetFromDatabase {
     }
 
     async getTestSuitesFromVersionWithDate() {
-        const response = await Axios.get(`${this.adress}testSuiteFromVersionWithDate`, {
+        const response = await Axios.get(`${this.address}testSuiteFromVersionWithDate`, {
             params: {
                 id: this.id,
             }
@@ -110,7 +110,7 @@ class GetFromDatabase {
 
 
     async getTestState() {
-        const response = await Axios.get(`${this.adress}testState`, {
+        const response = await Axios.get(`${this.address}testState`, {
             params: {
                 id: this.id,
                 client: this.client
@@ -121,13 +121,13 @@ class GetFromDatabase {
 
 
     async getState() {
-        const response = await Axios.get(`${this.adress}state`);
+        const response = await Axios.get(`${this.address}state`);
         return (response.data[0]);
     }
 
 
     async getTestStateCount() {
-        const response = await Axios.get(`${this.adress}testStateCount`, {
+        const response = await Axios.get(`${this.address}testStateCount`, {
             params: {
                 id: this.id,
                 client: this.client,
@@ -137,7 +137,7 @@ class GetFromDatabase {
     }
 
     async getTestStateCountWithDate() {
-        const response = await Axios.get(`${this.adress}testStateCountWithDate`, {
+        const response = await Axios.get(`${this.address}testStateCountWithDate`, {
             params: {
                 id: this.id,
                 client: this.client,
@@ -151,12 +151,12 @@ class GetFromDatabase {
 
 
     async getVersion() {
-        const response = await Axios.get(`${this.adress}version`);
+        const response = await Axios.get(`${this.address}version`);
         return (response.data[0]);
     }
 
     async getLastVersion() {
-        const response = await Axios.get(`${this.adress}lastVersion`, {
+        const response = await Axios.get(`${this.address}lastVersion`, {
             params: {
                 client: this.client,
             }
@@ -165,7 +165,7 @@ class GetFromDatabase {
     }
 
     async getVersionWithLogs() {
-        const response = await Axios.get(`${this.adress}versionWithLogs`, {
+        const response = await Axios.get(`${this.address}versionWithLogs`, {
             params: {
                 id: this.id,
             }
@@ -174,7 +174,7 @@ class GetFromDatabase {
     }
 
     async getVersionFromClient() {
-        const response = await Axios.get(`${this.adress}versionFromClient`, {
+        const response = await Axios.get(`${this.address}versionFromClient`, {
             params: {
                 client: this.client,
             }
@@ -184,24 +184,24 @@ class GetFromDatabase {
 
 
     async registerUser(username: string, password: string, admin: boolean) {
-        const response = await Axios.post(`${this.adress}register`, { username: username, password: password, admin: admin });
+        const response = await Axios.post(`${this.address}register`, { username: username, password: password, admin: admin });
         return (response.data)
     }
 
     async ConfirmPassword(username: string, password: string) {
-        const response = await Axios.post(`${this.adress}confirmPassword`, { username: username, password: password });
+        const response = await Axios.post(`${this.address}confirmPassword`, { username: username, password: password });
         return (response.data)
     }
 
     async UpdatePassword(username: string, password: string) {
-        const response = await Axios.put(`${this.adress}updatePassword`, { username: username, password: password });
+        const response = await Axios.put(`${this.address}updatePassword`, { username: username, password: password });
         return (response.data)
     }
 
 
     async isLogged() {
 
-        const response = await Axios.get(`${this.adress}login`);
+        const response = await Axios.get(`${this.address}login`);
 
         if (!response.data.loggedIn && window.location.href !== this.utils.loginPath()) {
             this.utils.redirectLogin();
@@ -214,19 +214,19 @@ class GetFromDatabase {
 
 
     async login(username: string, password: string) {
-        const response = await Axios.post(`${this.adress}login`, {
+        const response = await Axios.post(`${this.address}login`, {
             username: username,
             password: password,
         })
         return response.data;
     }
     async logout() {
-        Axios.get(`${this.adress}logout`)
+        Axios.get(`${this.address}logout`)
     }
 
     async checkJWT() {
         let a = localStorage.getItem('token')
-        const response = await Axios.get(`${this.adress}isUserAuth`, {
+        const response = await Axios.get(`${this.address}isUserAuth`, {
             headers: {
                 "x-access-token": a === null ? "" : a
             }
