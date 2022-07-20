@@ -37,7 +37,7 @@ function TestSelectedDetails(props: Props) {
             }
             {
                 props.testSuite.filter(testSuite => testSuite.id_testsSuites === props.test.id_testsSuites).map((testSuite, key) => (
-                    <Paragraph key={key} text={`Tests suite : ${testSuite.testsSuites_name}`} />
+                    <Paragraph key={key} _key={key} text={`Tests suite : ${testSuite.testsSuites_name}`} />
                 ))
             }
             <Paragraph text={`Date : ${convertDate.convertDateFromDbToRightFormat(props.test.date)}`} />

@@ -5,19 +5,24 @@ import Paragraph from "../HTML components/Paragraph";
 
 /* ------------------- React ------------------- */
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import GetFromDatabase from "../classes/GetFromDatabase";
 
-interface Props {
-    versionWithLogs: Array<{ id_testRun: number, date: string, error_message: string, screenshot_luke: string, screenshot_rey: string }>
-    test: { id_testRun: number }
-}
+type versionWithLogsType = Array<{
+    id_testRun: number,
+    date: string,
+    error_message: string,
+    screenshot_luke: string,
+    screenshot_rey: string
+}>
 
-function TestLogs(props: Props) {
+function TestLogs() {
 
     const [modalShow, setModalShow] = useState<boolean>(false);
     const [imageModale, setImageModale] = useState<string>("");
     const [screenshotClient, setScreenshotClient] = useState<string>("");
+    const [versionWithLogs, setVersionWithLogs] = useState<versionWithLogsType>([]);
 
     const prefix = useMemo(() => "http://ns3053040.ip-137-74-95.eu:3001/SeleniumReports/", []);
 
@@ -28,12 +33,23 @@ function TestLogs(props: Props) {
         setScreenshotClient(screenshotClient);
     }
 
-    const { client } = useParams();
+    const { client, testRunID } = useParams();
+
+    const getLogs = useCallback(async () => {
+        const query = new GetFromDatabase(0, "", "")
+        setVersionWithLogs(await query.getVersionWithLogs(testRunID === undefined ? 0 : parseInt(testRunID)));
+    }, [testRunID])
+    
+
+
+    useEffect(() => {
+        getLogs();
+    }, [getLogs])
 
     return (
         <>
             {
-                props.versionWithLogs.filter(versionWithLogs => versionWithLogs.id_testRun === props.test.id_testRun).map((logs, key) => {
+                versionWithLogs.map((logs, key) => {
                     const date = `${logs.date.slice(0, 4)}.${logs.date.slice(5, 7)}.${logs.date.slice(8, 10)}`;
                     return (
                         <div key={key}>

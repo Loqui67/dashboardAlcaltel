@@ -19,7 +19,7 @@ function TestSteps(props: Props) {
                 props.testStep.map((step, key) => (
                     <div key={key}>
                         <Paragraph text={`Step ${key + 1} :`} className="underline" />
-                        <Paragraph text={[step.description, <br />, `► ${step.verif}`]} />
+                        <Paragraph text={[step.description, <br key={"br"} />, `► ${step.verif}`]} />
                     </div>
                 ))
             }
@@ -29,7 +29,6 @@ function TestSteps(props: Props) {
                         testStep={props.testStep}
                     />
             }
-
         </div>
     )
 }

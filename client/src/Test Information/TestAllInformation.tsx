@@ -50,7 +50,6 @@ function TestAllInformation() {
     const { client } = useOutletCntxt();
     const { clientChoose } = useOutletCntxt();
     const { testSuite } = useOutletCntxt();
-    const { versionWithLogs } = useOutletCntxt();
     const { testStep } = useOutletCntxt();
     const { testHistory } = useOutletCntxt();
     const { setTestStep } = useOutletCntxt();
@@ -159,10 +158,7 @@ function TestAllInformation() {
                                     />
                                 </div>
                                 <div>
-                                    <TestLogs
-                                        versionWithLogs={versionWithLogs}
-                                        test={test}
-                                    />
+                                    <TestLogs/>
                                 </div>
                             </div>
                         )

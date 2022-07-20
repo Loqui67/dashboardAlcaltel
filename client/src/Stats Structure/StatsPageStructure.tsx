@@ -68,14 +68,6 @@ function StatsPageStructure() {
         purpose: string
     }>
 
-    type versionWithLogsType = Array<{
-        id_testRun: number,
-        date: string,
-        error_message: string,
-        screenshot_luke: string,
-        screenshot_rey: string
-    }>
-
     type clientType = Array<{
         version: string,
         id_client: number,
@@ -132,7 +124,6 @@ function StatsPageStructure() {
     const [testStateCount, setTestStateCount] = useState<testStateCountType>([]);
     const [testStateCountWithDate, setTestStateCountWithDate] = useState<testStateCountWithDateType>([]);
     const [testState, setTestState] = useState<testStateType>([]);
-    const [versionWithLogs, setVersionWithLogs] = useState<versionWithLogsType>([]);
     const [client, setClient] = useState<clientType>([]);
     const [clientVersion, setClientVersion] = useState<clientVersionType>([]);
     const [clientVersionChoose, setClientVersionChoose] = useState<number>(0)
@@ -167,7 +158,6 @@ function StatsPageStructure() {
         if (await query.checkJWT()) {
             setClientVersion(await query.getClientVersion(clientChoose));
             setTestSuiteFromVersion(await query.getTestSuitesFromVersion());
-            setVersionWithLogs(await query.getVersionWithLogs());
             setTestStateCount(await query.getTestStateCount());
             setTestState(await query.getTestState());
             setClient(await query.getClient());
@@ -245,7 +235,6 @@ function StatsPageStructure() {
                     client,
                     clientChoose,
                     testSuite,
-                    versionWithLogs,
                     testStep,
                     testHistory,
                     setTestStep,
@@ -264,7 +253,6 @@ type ContextType = {
     client: Array<{ version: string, id_client: number, client_name: string, model: string }>
     clientChoose: string
     testSuite: Array<{ id_testsSuites: number, testsSuites_name: string }>
-    versionWithLogs: Array<{ id_testRun: number, date: string, error_message: string, screenshot_luke: string, screenshot_rey: string }>
     testStep: Array<{ description: string, testRailLink: string, verif: string }>
     testHistory: Array<{ version_name: string, patch: number, currentState: string }>
     setTestStep: Dispatch<SetStateAction<Array<{ description: string, testRailLink: string, verif: string }>>>

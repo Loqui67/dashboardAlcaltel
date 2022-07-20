@@ -1,11 +1,11 @@
 interface Props {
     text: string | Array<any>,
     className?: string,
-    key?: number
+    _key?: number
 }
 
-function Paragraph({ text, className, key }: Props) {
-    return <p className={className} key={key}>{text}</p>
+function Paragraph({ text, className, _key }: Props) {
+    return <p className={className} key={_key=== undefined ?"1" : _key}>{text}</p>
 }
 
 export default Paragraph;

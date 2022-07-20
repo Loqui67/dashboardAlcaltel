@@ -164,10 +164,10 @@ class GetFromDatabase {
         return (response.data[0]);
     }
 
-    async getVersionWithLogs() {
+    async getVersionWithLogs(testID: number) {
         const response = await Axios.get(`${this.address}versionWithLogs`, {
             params: {
-                id: this.id,
+                id: testID,
             }
         });
         return (response.data[0]);
