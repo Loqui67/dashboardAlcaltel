@@ -1,13 +1,21 @@
+/* ------------------- React ------------------- */
+
+import { useCallback, useEffect, useMemo, useState } from "react";
+
 /* ------------------- Composants ------------------- */
 
 import Modale from "./modale";
 import Paragraph from "../HTML components/Paragraph";
 
-/* ------------------- React ------------------- */
+/* ------------------- Classes ------------------- */
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
 import GetFromDatabase from "../classes/GetFromDatabase";
+
+/* ------------------- Librairies tierces ------------------- */
+
+import { useParams } from "react-router-dom";
+
+
 
 type versionWithLogsType = Array<{
     id_testRun: number,

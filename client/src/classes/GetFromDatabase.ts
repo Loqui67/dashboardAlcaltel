@@ -64,18 +64,18 @@ class GetFromDatabase {
 
 
 
-    async getHistory(name: string, id: number | string) {
+    async getHistory(name: string) {
         const response = await Axios.get(`${this.address}testHistory`, {
             params: {
                 name: name,
-                id: id,
+                id: this.id,
                 client: this.client
             }
         });
         return (response.data[0]);
     }
 
-    async getStep(id: string) {
+    async getStep(id: number) {
         const response = await Axios.get(`${this.address}step`, {
             params: {
                 id: id

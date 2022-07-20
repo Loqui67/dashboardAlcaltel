@@ -39,46 +39,55 @@ import { useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 
+type testHistoryType = Array<{
+    version_name: string,
+    patch: number,
+    currentState: string
+}>
+
+type testStepType = Array<{
+    description: string,
+    testRailLink: string,
+    verif: string
+}>
+
 
 function TestAllInformation() {
     library.add(faClipboardList, faCheck)
 
-    
+
     const { testRunID } = useParams<string>();
 
     const { testState } = useOutletCntxt();
     const { client } = useOutletCntxt();
     const { clientChoose } = useOutletCntxt();
     const { testSuite } = useOutletCntxt();
-    const { testStep } = useOutletCntxt();
-    const { testHistory } = useOutletCntxt();
-    const { setTestStep } = useOutletCntxt();
-    const { setTestHistory } = useOutletCntxt();
 
+    const [testHistory, setTestHistory] = useState<testHistoryType>([]);
+    const [testStep, setTestStep] = useState<testStepType>([]);
     const [isCopied, setIsCopied] = useState(false);
-    const query = useMemo(() => new GetFromDatabase(0, clientChoose, ""), [clientChoose])
 
-    const getHistory = useCallback(async (name: string, id: number) => {
+    const { id } = useParams()
+
+    const query = useMemo(() => new GetFromDatabase(id === undefined ? 0 : parseInt(id), clientChoose, ""), [id, clientChoose])
+
+    const getHistory = useCallback(async (id: number) => {
         if (await query.checkJWT()) {
-            setTestHistory(await query.getHistory(name, id))
+            const name = testState.filter((test) => test.id_testRun === id)
+            setTestHistory(await query.getHistory(name[0].name))
         }
-    }, [setTestHistory, query])
+    }, [setTestHistory, query, testState])
 
-    const getStep = useCallback(async () => {
+    const getStep = useCallback(async (id: number) => {
         if (await query.checkJWT()) {
-            let id;
-            testRunID === undefined ? id = "0" : id = testRunID
             setTestStep(await query.getStep(id));
         }
-    }, [setTestStep, query, testRunID])
+    }, [setTestStep, query])
 
 
     useEffect(() => {
-        testState.filter((data) => testRunID !== undefined ? data.id_testRun === parseInt(testRunID) : data.id_testRun === 0).map((test) => {
-            getHistory(test.name, testRunID !== undefined ? parseInt(testRunID) : 0);
-            getStep();
-            return null
-        })
+        getHistory(testRunID === undefined ? 0 : parseInt(testRunID));
+        getStep(testRunID === undefined ? 0 : parseInt(testRunID));
     }, [getHistory, getStep, testRunID, testState])
 
     const renderTooltip = (props: any) => (
@@ -158,7 +167,7 @@ function TestAllInformation() {
                                     />
                                 </div>
                                 <div>
-                                    <TestLogs/>
+                                    <TestLogs />
                                 </div>
                             </div>
                         )

@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import React, { useState, useCallback, useEffect, Dispatch, SetStateAction } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 /* ------------------- Composants ------------------- */
 
@@ -20,98 +20,85 @@ import { useOutletCntxtStats } from "../Pages/Stats";
 
 import { Outlet, useParams, useOutletContext } from "react-router-dom";
 
+type testSuiteType = Array<{
+    id_testsSuites: number,
+    testsSuites_name: string
+}>
+
+type testSuiteFromVersionType = Array<{
+    id_testsSuites: number,
+    testsSuites_name: string,
+    id_client: number
+}>
+
+type testSuiteFromVersionWithDateType = Array<{
+    id_testsSuites: number,
+    testsSuites_name: string,
+    id_client: number,
+    date: string
+}>
+
+type testStateCountType = Array<{
+    passed: number,
+    failed: number,
+    skipped: number
+}>
+
+type testStateCountWithDateType = Array<{
+    passed: number,
+    failed: number,
+    skipped: number
+}>
+
+type testStateType = Array<{
+    id_test: number,
+    id_state: number,
+    currentState: string,
+    id_testsSuites: number,
+    testsSuites_name: string,
+    date: string,
+    id_client: number,
+    id_testRun: number,
+    name: string,
+    purpose: string
+}>
+
+type clientType = Array<{
+    version: string,
+    id_client: number,
+    client_name: string,
+    model: string
+}>
+
+type clientVersionType = Array<{
+    id_client: number,
+    version: string
+}>
+
+type versionType = Array<{
+    id_version: number,
+    version_name: string,
+    patch: number
+}>
+
+type dateType = Array<{
+    date: string
+}>
+
+type dateWithTSType = Array<{
+    date: string,
+    id_testsSuites: number,
+    testsSuites_name: string
+}>
+
+type stateType = Array<{
+    id_state: number,
+    currentState: string
+}>
 
 function StatsPageStructure() {
 
     let { id } = useParams<string>();
-
-    type testSuiteType = Array<{
-        id_testsSuites: number,
-        testsSuites_name: string
-    }>
-
-    type testSuiteFromVersionType = Array<{
-        id_testsSuites: number,
-        testsSuites_name: string,
-        id_client: number
-    }>
-
-    type testSuiteFromVersionWithDateType = Array<{
-        id_testsSuites: number,
-        testsSuites_name: string,
-        id_client: number,
-        date: string
-    }>
-
-    type testStateCountType = Array<{
-        passed: number,
-        failed: number,
-        skipped: number
-    }>
-
-    type testStateCountWithDateType = Array<{
-        passed: number,
-        failed: number,
-        skipped: number
-    }>
-
-    type testStateType = Array<{
-        id_test: number,
-        id_state: number,
-        currentState: string,
-        id_testsSuites: number,
-        testsSuites_name: string,
-        date: string,
-        id_client: number,
-        id_testRun: number,
-        name: string,
-        purpose: string
-    }>
-
-    type clientType = Array<{
-        version: string,
-        id_client: number,
-        client_name: string,
-        model: string
-    }>
-
-    type clientVersionType = Array<{
-        id_client: number,
-        version: string
-    }>
-
-    type versionType = Array<{
-        id_version: number,
-        version_name: string,
-        patch: number
-    }>
-
-    type dateType = Array<{
-        date: string
-    }>
-
-    type dateWithTSType = Array<{
-        date: string,
-        id_testsSuites: number,
-        testsSuites_name: string
-    }>
-
-    type stateType = Array<{
-        id_state: number,
-        currentState: string
-    }>
-
-    type testHistoryType = Array<{
-        version_name: string,
-        patch: number,
-        currentState: string
-    }>
-
-    type testStepType = Array<{
-        description: string,
-        testRailLink: string,
-        verif: string
-    }>
 
     const { clientDistinct } = useOutletCntxtStats();
     const { clientChoose } = useOutletCntxtStats();
@@ -133,9 +120,6 @@ function StatsPageStructure() {
     const [dateWithTS, setDateWithTS] = useState<dateWithTSType>([])
     const [dateChoose, setDateChoose] = useState<string>("")
     const [state, setState] = useState<stateType>([])
-
-    const [testHistory, setTestHistory] = useState<testHistoryType>([]);
-    const [testStep, setTestStep] = useState<testStepType>([]);
 
 
     const allDateRequest = useCallback(async () => {
@@ -235,10 +219,6 @@ function StatsPageStructure() {
                     client,
                     clientChoose,
                     testSuite,
-                    testStep,
-                    testHistory,
-                    setTestStep,
-                    setTestHistory,
                 }} />
             </div>
         </div>
@@ -249,14 +229,10 @@ export default StatsPageStructure;
 
 
 type ContextType = {
-    testState: Array<{ id_test: number, id_state: number, currentState: string, id_testsSuites: number, testsSuites_name: string, date: string, id_client: number, id_testRun: number, name: string, purpose: string }>
-    client: Array<{ version: string, id_client: number, client_name: string, model: string }>
+    testState: testStateType
+    client: clientType
     clientChoose: string
-    testSuite: Array<{ id_testsSuites: number, testsSuites_name: string }>
-    testStep: Array<{ description: string, testRailLink: string, verif: string }>
-    testHistory: Array<{ version_name: string, patch: number, currentState: string }>
-    setTestStep: Dispatch<SetStateAction<Array<{ description: string, testRailLink: string, verif: string }>>>
-    setTestHistory: Dispatch<SetStateAction<Array<{ version_name: string, patch: number, currentState: string }>>>
+    testSuite: testSuiteType
 };
 
 export function useOutletCntxt() {
