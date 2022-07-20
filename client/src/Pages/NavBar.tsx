@@ -13,7 +13,7 @@ import GetFromDatabase from '../classes/GetFromDatabase';
 
 /* ------------------- Enum ------------------- */
 
-import { variant } from '../enum/enum'
+import { variant } from '../toolbox/enum'
 
 
 interface Props {

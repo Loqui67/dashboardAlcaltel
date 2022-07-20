@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 /* ------------------- Composants ------------------- */
 
@@ -18,21 +18,15 @@ import GetFromDatabase from '../classes/GetFromDatabase';
 
 /* ------------------- Enum ------------------- */
 
-import { variant } from '../enum/enum'
+import { variant } from '../toolbox/enum'
+
+/* ------------------- Types And Interfaces ------------------- */
+
+import { ConfirmPasswordProps, isPasswordCorrectType } from '../toolbox/typeAndInterface'
 
 
 
-interface Props {
-    username: string
-    setStep: Dispatch<SetStateAction<boolean>>;
-}
-
-interface isPasswordCorrectType {
-    state: boolean,
-    message: string
-}
-
-function ConfirmPassword({ username, setStep }: Props) {
+function ConfirmPassword({ username, setStep }: ConfirmPasswordProps) {
 
     const [password, setPassword] = useState('')
     const [isPasswordCorrect, setIsPasswordCorrect] = useState<isPasswordCorrectType>({ state: false, message: "" })

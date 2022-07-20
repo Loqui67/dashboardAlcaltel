@@ -71,24 +71,17 @@ function TestAllInformation() {
 
     const query = useMemo(() => new GetFromDatabase(id === undefined ? 0 : parseInt(id), clientChoose, ""), [id, clientChoose])
 
-    const getHistory = useCallback(async (id: number) => {
+    const getStepAndHistory = useCallback(async (id: number) => {
         if (await query.checkJWT()) {
             const name = testState.filter((test) => test.id_testRun === id)
             setTestHistory(await query.getHistory(name[0].name))
-        }
-    }, [setTestHistory, query, testState])
-
-    const getStep = useCallback(async (id: number) => {
-        if (await query.checkJWT()) {
             setTestStep(await query.getStep(id));
         }
-    }, [setTestStep, query])
-
+    }, [setTestStep, setTestHistory, query, testState])
 
     useEffect(() => {
-        getHistory(testRunID === undefined ? 0 : parseInt(testRunID));
-        getStep(testRunID === undefined ? 0 : parseInt(testRunID));
-    }, [getHistory, getStep, testRunID, testState])
+        getStepAndHistory(testRunID === undefined ? 0 : parseInt(testRunID));
+    }, [getStepAndHistory, testRunID, testState])
 
     const renderTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -102,7 +95,7 @@ function TestAllInformation() {
         </Tooltip>
     );
 
-    const utils = new Utils()
+    const utils = useMemo(() => new Utils(), [])
 
     return (
         <div className="details">

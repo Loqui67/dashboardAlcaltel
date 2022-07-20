@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 /* ------------------- Enum ------------------- */
 
-import { dataChartTypeName } from '../enum/enum'
+import { dataChartTypeName } from '../toolbox/enum'
 
 /* ------------------- Librairies tierces ------------------- */
 

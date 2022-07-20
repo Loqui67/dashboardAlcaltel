@@ -44,7 +44,7 @@ class UserDataChart {
         const key = 'testsSuites_name';
 
         this.testSuiteFromVersion = Array.from(new Map(testSuiteFromVersion.map(item =>
-        [item[key], item])).values());
+            [item[key], item])).values());
     }
 
     getValuesPiePassed() {
@@ -124,49 +124,49 @@ class UserDataChart {
 
         if (this.dateChoose === "") {
             return this.state.map(state => {
-                return this.testSuiteFromVersion.map((element: dataMap) => {
-                    return this.testState.filter(
-                        (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
-                    ).filter((data: dataMap) => {
-                        if (this.clientVersionChoose === 0) {
-                            return this.allClientID.map(test => {
-                                if (test === data.id_client) {
-                                    return data
-                                }
-                                return null
-                            })
-                        }
-                        else {
-                            if (data.id_client === this.clientVersionChoose) {
+                return this.testSuiteFromVersion.filter((data: dataMap) => {
+                    if (this.clientVersionChoose === 0) {
+                        return this.allClientID.map(test => {
+                            if (test === data.id_client) {
                                 return data
                             }
                             return null
+                        })
+                    }
+                    else {
+                        if (data.id_client === this.clientVersionChoose) {
+                            return data
                         }
-                    })
+                        return null
+                    }
+                }).map((element: dataMap) => {
+                    return this.testState.filter(
+                        (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
+                    )
                 }).map(data => data.length)
             })
 
         } else {
             return this.state.map(state => {
-                return this.testSuiteFromVersionWithDate.filter(data => this.dateChoose === data.date).map((element: dataMap) => {
-                    return this.testState.filter(
-                        (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
-                    ).filter((data: dataMap) => {
-                        if (this.clientVersionChoose === 0) {
-                            return this.allClientID.map(test => {
-                                if (test === data.id_client) {
-                                    return data
-                                }
-                                return null
-                            })
-                        }
-                        else {
-                            if (data.id_client === this.clientVersionChoose) {
+                return this.testSuiteFromVersionWithDate.filter((data: dataMap) => {
+                    if (this.clientVersionChoose === 0) {
+                        return this.allClientID.map(test => {
+                            if (test === data.id_client) {
                                 return data
                             }
                             return null
+                        })
+                    }
+                    else {
+                        if (data.id_client === this.clientVersionChoose) {
+                            return data
                         }
-                    })
+                        return null
+                    }
+                }).filter(data => this.dateChoose === data.date).map((element: dataMap) => {
+                    return this.testState.filter(
+                        (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
+                    )
                 }).map(data => data.length)
             })
         }
@@ -203,9 +203,7 @@ class UserDataChart {
                 .map((testSuiteFromVersion: dataMap) => testSuiteFromVersion.testsSuites_name);
         } else {
 
-            labels = this.testSuiteFromVersionWithDate.filter(
-                (filter: dataMap) => convertDate.getDateAndDeleteHourOnDbFormat(filter.date) === this.dateChoose
-            ).filter((data: dataMap) => {
+            labels = this.testSuiteFromVersionWithDate.filter((data: dataMap) => {
                 if (this.clientVersionChoose === 0) {
                     return this.allClientID.map(test => {
                         if (test === data.id_client) {
@@ -220,7 +218,9 @@ class UserDataChart {
                     }
                     return null
                 }
-            })
+            }).filter(
+                (filter: dataMap) => convertDate.getDateAndDeleteHourOnDbFormat(filter.date) === this.dateChoose
+            )
                 .map((testSuiteFromVersion: dataMap) => testSuiteFromVersion.testsSuites_name);
         }
 

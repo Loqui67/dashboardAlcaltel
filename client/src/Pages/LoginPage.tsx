@@ -29,7 +29,7 @@ import { faUser, faEye } from '@fortawesome/free-solid-svg-icons'
 
 /* ------------------- Enum ------------------- */
 
-import { variant } from '../enum/enum'
+import { variant } from '../toolbox/enum'
 
 
 

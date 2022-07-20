@@ -21,7 +21,7 @@ import Utils from '../classes/Utils';
 
 /* ------------------- Enum ------------------- */
 
-import { variant } from '../enum/enum'
+import { variant } from '../toolbox/enum'
 
 
 interface Props {

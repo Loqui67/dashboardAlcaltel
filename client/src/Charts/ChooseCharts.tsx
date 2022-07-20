@@ -11,7 +11,7 @@ import "./Styles/ChooseCharts.css";
 
 /* ------------------- Enum ------------------- */
 
-import { dataChartTypeName } from '../enum/enum'
+import { dataChartTypeName } from '../toolbox/enum'
 
 
 interface Props {
