@@ -16,85 +16,29 @@ import GetFromDatabase from '../classes/GetFromDatabase';
 
 import { useOutletCntxtStats } from "../Pages/Stats";
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import {
+    testSuiteType,
+    testSuiteFromVersionType,
+    testSuiteFromVersionWithDateType,
+    testStateCountType,
+    testStateCountWithDateType,
+    testStateType,
+    clientType,
+    clientVersionType,
+    versionType,
+    dateType,
+    dateWithTSType,
+    stateType,
+    StatsPageStructureContextType
+} from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { Outlet, useParams, useOutletContext } from "react-router-dom";
 
-type testSuiteType = Array<{
-    id_testsSuites: number,
-    testsSuites_name: string
-}>
 
-type testSuiteFromVersionType = Array<{
-    id_testsSuites: number,
-    testsSuites_name: string,
-    id_client: number
-}>
-
-type testSuiteFromVersionWithDateType = Array<{
-    id_testsSuites: number,
-    testsSuites_name: string,
-    id_client: number,
-    date: string
-}>
-
-type testStateCountType = Array<{
-    passed: number,
-    failed: number,
-    skipped: number
-}>
-
-type testStateCountWithDateType = Array<{
-    passed: number,
-    failed: number,
-    skipped: number
-}>
-
-type testStateType = Array<{
-    id_test: number,
-    id_state: number,
-    currentState: string,
-    id_testsSuites: number,
-    testsSuites_name: string,
-    date: string,
-    id_client: number,
-    id_testRun: number,
-    name: string,
-    purpose: string
-}>
-
-type clientType = Array<{
-    version: string,
-    id_client: number,
-    client_name: string,
-    model: string
-}>
-
-type clientVersionType = Array<{
-    id_client: number,
-    version: string
-}>
-
-type versionType = Array<{
-    id_version: number,
-    version_name: string,
-    patch: number
-}>
-
-type dateType = Array<{
-    date: string
-}>
-
-type dateWithTSType = Array<{
-    date: string,
-    id_testsSuites: number,
-    testsSuites_name: string
-}>
-
-type stateType = Array<{
-    id_state: number,
-    currentState: string
-}>
 
 function StatsPageStructure() {
 
@@ -228,13 +172,6 @@ function StatsPageStructure() {
 export default StatsPageStructure;
 
 
-type ContextType = {
-    testState: testStateType
-    client: clientType
-    clientChoose: string
-    testSuite: testSuiteType
-};
-
 export function useOutletCntxt() {
-    return useOutletContext<ContextType>();
+    return useOutletContext<StatsPageStructureContextType>();
 }

@@ -3,13 +3,12 @@
 import InputGroup from 'react-bootstrap/InputGroup'
 import { Button } from "react-bootstrap";
 
+/* ------------------- Types And Interfaces ------------------- */
 
-interface Props {
-    testStep: Array<{ description?: string, testRailLink?: string, verif?: string }>
-}
+import { TestRailLinkProps } from '../toolbox/typeAndInterface'
 
 
-function TestRailLink(props: Props) {
+function TestRailLink(props: TestRailLinkProps) {
 
     return (
         <InputGroup className="mb-1 redirectTestRail">

@@ -23,12 +23,12 @@ import Utils from '../classes/Utils';
 
 import { variant } from '../toolbox/enum'
 
+/* ------------------- Types And Interfaces ------------------- */
 
-interface Props {
-    username: string;
-}
+import { EnterNewPasswordProps } from '../toolbox/typeAndInterface'
 
-function EnterNewPassword(props: Props) {
+
+function EnterNewPassword(props: EnterNewPasswordProps) {
 
     const [password, setPassword] = useState('')
     const [passwordConfirm, setPasswordConfirm] = useState('')

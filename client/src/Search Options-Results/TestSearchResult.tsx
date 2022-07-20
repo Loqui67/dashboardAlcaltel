@@ -6,27 +6,25 @@ import { useMemo } from "react";
 
 import Utils from "../classes/Utils";
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { TestSearchResultProps } from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { Link } from "react-router-dom";
 
 
-interface Props {
-    pageVisited: number;
-    userPerPage: number;
-    search: Array<{ currentState: string, id_test: number, id_testRun: number, name: string }>
-}
-
-interface dataMap {
-    currentState: string;
-    id_test: number;
-    id_testRun: number;
-    name: string;
-}
-
-function TestSearchResult(props: Props) {
+function TestSearchResult(props: TestSearchResultProps) {
 
     const utils = useMemo(() => new Utils(), []);
+
+    interface dataMap {
+        currentState: string;
+        id_test: number;
+        id_testRun: number;
+        name: string;
+    }
 
     return (
         <>

@@ -12,20 +12,16 @@ import Label from "../HTML components/Label";
 
 import Utils from "../classes/Utils"
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { TestInfoStructureProps } from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import ReactPaginate from 'react-paginate'
 
-interface Props {
-    testState: Array<{ currentState: string, id_test: number, id_testRun: number, id_testsSuites: number, testsSuites_name: string, id_client: number, name: string, date: string, id_state: number }>
-    state: Array<{ id_state: number, currentState: string }>
-    testSuiteChoose: string
-    allClientID: Array<number>
-    clientVersionChoose: number
-    dateChoose: string
-}
 
-function TestInfoStructure(props: Props) {
+function TestInfoStructure(props: TestInfoStructureProps) {
 
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(0)

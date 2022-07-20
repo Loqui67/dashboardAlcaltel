@@ -4,20 +4,18 @@ import Utils from "../classes/Utils"
 
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction, useMemo } from 'react';
+import { useMemo } from 'react';
 
 /* ------------------- Composants Bootstrap ------------------- */
 
 import Form from 'react-bootstrap/Form'
 
+/* ------------------- Types And Interfaces ------------------- */
 
-interface Props {
-    testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string }>;
-    setTestSuiteChoose: Dispatch<SetStateAction<string>>;
-    setDateChoose: Dispatch<SetStateAction<string>>;
-}
+import { SelectTSProps } from '../toolbox/typeAndInterface'
 
-function SelectTS(props: Props) {
+
+function SelectTS(props: SelectTSProps) {
 
     const space = useMemo(() => new Utils(), []);
 

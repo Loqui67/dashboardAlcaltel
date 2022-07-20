@@ -33,23 +33,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faClipboardList, faCheck } from '@fortawesome/free-solid-svg-icons'
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { testHistoryType, testStepType } from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
-
-type testHistoryType = Array<{
-    version_name: string,
-    patch: number,
-    currentState: string
-}>
-
-type testStepType = Array<{
-    description: string,
-    testRailLink: string,
-    verif: string
-}>
 
 
 function TestAllInformation() {

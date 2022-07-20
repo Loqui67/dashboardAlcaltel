@@ -6,19 +6,21 @@ import { useMemo } from "react";
 
 import { dataChartTypeName } from '../toolbox/enum'
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { BarChartProps } from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
-import { ChartOptions, ChartData } from 'chart.js'
+import { ChartOptions } from 'chart.js'
 import { Bar } from "react-chartjs-2"
 import 'chart.js/auto'
 
 
-interface Props {
-    chartData: ChartData<dataChartTypeName.bar>;
-}
 
 
-function BarChart({ chartData }: Props) {
+
+function BarChart({ chartData }: BarChartProps) {
 
 
     const options: ChartOptions<dataChartTypeName.bar> = useMemo(() => {

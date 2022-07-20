@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 /* ------------------- Classes ------------------- */
 
@@ -10,16 +10,12 @@ import Utils from "../classes/Utils"
 
 import Form from 'react-bootstrap/Form'
 
+/* ------------------- Types And Interfaces ------------------- */
 
-interface Props {
-    date: Array<{ date: string }>;
-    dateWithTS: Array<{ date: string, id_testsSuites: number, testsSuites_name: string }>;
-    setDateChoose: Dispatch<SetStateAction<string>>;
-    dateChoose: string;
-    testSuiteChoose: string;
-}
+import { SelectDateProps } from '../toolbox/typeAndInterface'
 
-function SelectDate(props: Props) {
+
+function SelectDate(props: SelectDateProps) {
 
     const convertDate = useMemo(() => new Utils(), [])
     useEffect(() => {

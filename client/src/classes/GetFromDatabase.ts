@@ -22,8 +22,6 @@ class GetFromDatabase {
         this.date = date;
     }
 
-
-
     async getClient() {
         const response = await Axios.get(`${this.address}client`);
         return (response.data[0]);
@@ -61,8 +59,6 @@ class GetFromDatabase {
         });
         return (response.data[0]);
     }
-
-
 
     async getHistory(name: string) {
         const response = await Axios.get(`${this.address}testHistory`, {

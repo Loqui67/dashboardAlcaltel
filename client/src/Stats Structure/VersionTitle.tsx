@@ -1,10 +1,8 @@
-interface Props {
-    version: Array<{ id_version: number, version_name: string, patch: number }>;
-    id: number;
-    clientChoose: string
-}
+/* ------------------- Types And Interfaces ------------------- */
 
-function VersionTitle(props: Props) {
+import { VersionTitleProps } from '../toolbox/typeAndInterface'
+
+function VersionTitle(props: VersionTitleProps) {
 
     return (
         <>

@@ -2,11 +2,12 @@
 
 import Table from 'react-bootstrap/Table'
 
-interface Props {
-    testHistory: Array<{ version_name: string, patch: number, currentState: string }>
-}
+/* ------------------- Types And Interfaces ------------------- */
 
-function TestHistory(props: Props) {
+import { TestHistoryProps } from '../toolbox/typeAndInterface'
+
+
+function TestHistory(props: TestHistoryProps) {
 
     let lastVersion: string = "";
     let lastPatch: number = 0;

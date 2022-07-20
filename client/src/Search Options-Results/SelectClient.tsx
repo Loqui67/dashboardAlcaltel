@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 /* ------------------- Classes ------------------- */
 
@@ -10,14 +10,12 @@ import Utils from "../classes/Utils";
 
 import Form from 'react-bootstrap/Form'
 
-interface Props {
-    clientDistinct: Array<{ id_client: number, client_name: string }>;
-    setClientChoose: Dispatch<SetStateAction<string>>;
-    clientChoose: string
-    client: string | undefined
-}
+/* ------------------- Types And Interfaces ------------------- */
 
-function SelectClient(props: Props) {
+import { SelectClientProps } from '../toolbox/typeAndInterface'
+
+
+function SelectClient(props: SelectClientProps) {
 
     const [defaultValue, setDefaultValue] = useState<string>();
 

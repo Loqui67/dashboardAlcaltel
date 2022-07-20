@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { useMemo } from "react";
 
 /* ------------------- Composants ------------------- */
 
@@ -14,29 +14,12 @@ import Label from "../HTML components/Label";
 import UserDataChart from "../classes/UserDataChart";
 import SelectClientVersion from "../Search Options-Results/SelectClientVersion";
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { StatsGraphPartStructureProps } from '../toolbox/typeAndInterface'
 
 
-interface Props {
-    testStateCount: Array<{ passed: number, failed: number, skipped: number }>;
-    testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>;
-    testState: Array<{ currentState: string, id_testsSuites: number, testsSuites_name: string, date: string, id_client: number }>;
-    testSuiteChoose: string;
-    dateChoose: string;
-    testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>;
-    testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>;
-    allClientID: Array<number>;
-    clientVersionChoose: number;
-    clientDistinct: Array<{ id_client: number, client_name: string }>;
-    clientVersion: Array<{ id_client: number, version: string }>;
-    date: Array<{ date: string }>;
-    dateWithTS: Array<{ date: string, id_testsSuites: number, testsSuites_name: string }>;
-    setClientVersionChoose: Dispatch<SetStateAction<number>>;
-    setClientChoose: Dispatch<SetStateAction<string>>;
-    setTestSuiteChoose: Dispatch<SetStateAction<string>>;
-    setDateChoose: Dispatch<SetStateAction<string>>;
-}
-
-function StatsGraphPartStructure(props: Props) {
+function StatsGraphPartStructure(props: StatsGraphPartStructureProps) {
 
     const userDataChart = useMemo(() => {
         return new UserDataChart(

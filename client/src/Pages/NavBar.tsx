@@ -1,7 +1,3 @@
-/* ------------------- React ------------------- */
-
-import { Dispatch, SetStateAction } from 'react';
-
 /* ------------------- Composants Bootstrap ------------------- */
 
 import Navbar from 'react-bootstrap/Navbar'
@@ -15,13 +11,13 @@ import GetFromDatabase from '../classes/GetFromDatabase';
 
 import { variant } from '../toolbox/enum'
 
+/* ------------------- Types And Interfaces ------------------- */
 
-interface Props {
-    setLoginStatus: Dispatch<SetStateAction<{ admin: boolean, username: string, isLogged: boolean, message: string }>>
-    loginStatus: { admin: boolean, username: string, isLogged: boolean }
-}
+import { NavBarProps } from '../toolbox/typeAndInterface'
 
-function NavBar(props: Props) {
+
+
+function NavBar(props: NavBarProps) {
 
     async function logout() {
         localStorage.removeItem("token")

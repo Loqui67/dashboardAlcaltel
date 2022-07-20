@@ -1,3 +1,7 @@
+/* ------------------- React ------------------- */
+
+import { useState, useCallback, useEffect } from 'react';
+
 /* ------------------- Styles ------------------- */
 
 import './Styles/App.css';
@@ -22,32 +26,16 @@ import RegisterPage from './RegisterPage';
 import GetFromDatabase from '../classes/GetFromDatabase';
 import Utils from '../classes/Utils';
 
-/* ------------------- React ------------------- */
+/* ------------------- Types And Interfaces ------------------- */
 
-import { useState, useCallback, useEffect } from 'react';
+import { loginStatusType, isLoggedType } from '../toolbox/typeAndInterface'
 
 /* ------------------- librairies tierces ------------------- */
 
 import { Route, Routes } from "react-router-dom";
 
 
-
-
 function App() {
-
-
-    interface loginStatusType {
-        username: string,
-        admin: boolean,
-        isLogged: boolean,
-        message: string
-    }
-
-    interface isLoggedType {
-        loggedIn: boolean,
-        user: Array<any>
-    }
-
 
     const [loginStatus, setLoginStatus] = useState<loginStatusType>({ username: "", isLogged: false, admin: false, message: "" });
     const [isLogged, setIsLogged] = useState<isLoggedType>({ loggedIn: false, user: [] });

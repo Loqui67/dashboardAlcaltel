@@ -1,19 +1,13 @@
-/* ------------------- React ------------------- */
-
-import { Dispatch, SetStateAction } from 'react';
-
 /* ------------------- Composants Bootstrap ------------------- */
 
 import Form from 'react-bootstrap/Form'
 
+/* ------------------- Types And Interfaces ------------------- */
 
-interface Props {
-    state: Array<{ id_state: number, currentState: string }>;
-    setStateChoose: Dispatch<SetStateAction<number>>;
-}
+import { SelectStateProps } from '../toolbox/typeAndInterface'
 
 
-function SelectState(props: Props) {
+function SelectState(props: SelectStateProps) {
 
     return (
         <Form.Select defaultValue={0} id="state" className="select-state form-select margin-top" onChange={(e: any) => props.setStateChoose(parseInt(e.target.value))}>

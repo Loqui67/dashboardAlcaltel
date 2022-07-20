@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { Dispatch, SetStateAction, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 /* ------------------- Classes ------------------- */
 
@@ -31,23 +31,12 @@ import { faUser, faEye } from '@fortawesome/free-solid-svg-icons'
 
 import { variant } from '../toolbox/enum'
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { LoginPageProps, Ilogin } from '../toolbox/typeAndInterface'
 
 
-interface Props {
-  loginStatus: { error?: boolean, message: string, username: string, admin: boolean, isLogged: boolean };
-  setLoginStatus: Dispatch<SetStateAction<{ error?: boolean, message: string, username: string, admin: boolean, isLogged: boolean }>>;
-}
-
-interface Ilogin {
-  error?: boolean,
-  message: string,
-  username: string,
-  admin: boolean,
-  auth: boolean,
-  token: string
-}
-
-function LoginPage({ loginStatus, setLoginStatus }: Props) {
+function LoginPage({ loginStatus, setLoginStatus }: LoginPageProps) {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -82,7 +71,7 @@ function LoginPage({ loginStatus, setLoginStatus }: Props) {
         loginStatus.message !== "" && (
           <Alert variant={variant.danger} className='alert'>
             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-            <Paragraph text = {loginStatus.message}/>
+            <Paragraph text={loginStatus.message} />
           </Alert>
         )
       }
@@ -93,7 +82,7 @@ function LoginPage({ loginStatus, setLoginStatus }: Props) {
             placeholder="Username"
             aria-label="Username"
             aria-describedby="UsernameInput"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value) }}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
           />
         </InputGroup>
         <InputGroup className="mb-3">
@@ -102,7 +91,7 @@ function LoginPage({ loginStatus, setLoginStatus }: Props) {
             aria-label="Password"
             type={showPassword ? "text" : "password"}
             aria-describedby="passwordInput"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && tryLogin()}
           />
           <OverlayTrigger

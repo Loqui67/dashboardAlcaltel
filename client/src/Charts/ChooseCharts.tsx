@@ -3,27 +3,17 @@
 import BarChart from "./BarChart";
 import Bar100Chart from "./Bar100Chart";
 import PieChart from "./PieChart";
-import { ChartData } from 'chart.js'
 
 /* ------------------- Styles ------------------- */
 
 import "./Styles/ChooseCharts.css";
 
-/* ------------------- Enum ------------------- */
+/* ------------------- Types And Interfaces ------------------- */
 
-import { dataChartTypeName } from '../toolbox/enum'
-
-
-interface Props {
-    testSuiteChoose: string;
-    userDataBarChart: ChartData<dataChartTypeName.bar>;
-    userDataPieChart: ChartData<dataChartTypeName.doughnut>;
-    userDataBar100Chart: ChartData<dataChartTypeName.bar100>;
-}
+import { ChooseChartsProps } from '../toolbox/typeAndInterface'
 
 
-
-function ChooseCharts(props: Props) {
+function ChooseCharts(props: ChooseChartsProps) {
 
     return (
         props.testSuiteChoose !== "" ?

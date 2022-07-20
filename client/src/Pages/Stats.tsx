@@ -1,20 +1,20 @@
 /* ------------------- React ------------------- */
 
-import { useEffect, useCallback, useMemo, useState, Dispatch, SetStateAction } from "react";
+import { useEffect, useCallback, useMemo, useState } from "react";
 
 /* ------------------- Classes ------------------- */
 
 import GetFromDatabase from '../classes/GetFromDatabase';
 import Utils from "../classes/Utils";
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { clientDistinctType, StatsContextType } from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { Outlet, useOutletContext, useParams } from "react-router-dom";
 
-type clientDistinctType = Array<{
-    id_client: number,
-    client_name: string
-}>
 
 function Stats() {
 
@@ -65,12 +65,6 @@ function Stats() {
 export default Stats;
 
 
-type ContextType = {
-    clientDistinct: clientDistinctType
-    clientChoose: string
-    setClientChoose: Dispatch<SetStateAction<string>>
-};
-
 export function useOutletCntxtStats() {
-    return useOutletContext<ContextType>();
+    return useOutletContext<StatsContextType>();
 }

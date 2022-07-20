@@ -6,15 +6,12 @@ import Modal from "react-bootstrap/Modal";
 
 import "./Styles/Modale.css"
 
-type Props = {
-  screenshotClient: string
-  imageModale: string
-  onHide: () => void;
-  show: boolean
-}
+/* ------------------- Types And Interfaces ------------------- */
+
+import { ModaleProps } from '../toolbox/typeAndInterface'
 
 
-function Modale(props: Props) {
+function Modale(props: ModaleProps) {
   return (
     <Modal
       {...props}

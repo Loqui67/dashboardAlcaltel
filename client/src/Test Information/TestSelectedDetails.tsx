@@ -10,14 +10,12 @@ import Paragraph from "../HTML components/Paragraph";
 
 import Utils from "../classes/Utils";
 
+/* ------------------- Types And Interfaces ------------------- */
 
-interface Props {
-    client: Array<{ version: string, id_client: number, client_name: string, model: string }>
-    test: { date: string, purpose: string, id_client: number, id_testsSuites: number }
-    testSuite: Array<{ id_testsSuites: number, testsSuites_name: string }>
-}
+import { TestSelectedDetailsProps } from '../toolbox/typeAndInterface'
 
-function TestSelectedDetails(props: Props) {
+
+function TestSelectedDetails(props: TestSelectedDetailsProps) {
 
     const convertDate = useMemo(() => new Utils(), [])
     return (

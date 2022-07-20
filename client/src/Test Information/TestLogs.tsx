@@ -11,19 +11,14 @@ import Paragraph from "../HTML components/Paragraph";
 
 import GetFromDatabase from "../classes/GetFromDatabase";
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { versionWithLogsType } from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { useParams } from "react-router-dom";
 
-
-
-type versionWithLogsType = Array<{
-    id_testRun: number,
-    date: string,
-    error_message: string,
-    screenshot_luke: string,
-    screenshot_rey: string
-}>
 
 function TestLogs() {
 

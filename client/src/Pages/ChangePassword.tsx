@@ -10,6 +10,7 @@ import ConfirmPassword from '../Change Password/ConfirmPassword';
 interface Props {
     username: string;
 }
+
 function ChangePassword(props: Props) {
 
     const [step, setStep] = useState(false)

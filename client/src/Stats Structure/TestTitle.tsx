@@ -6,12 +6,12 @@ import { useMemo } from "react";
 
 import Utils from "../classes/Utils";
 
-interface Props {
-    TxtColor: string;
-    test: { name: string, currentState: string };
-}
+/* ------------------- Types And Interfaces ------------------- */
 
-function TestTitle(props: Props) {
+import { TestTitleProps } from '../toolbox/typeAndInterface'
+
+
+function TestTitle(props: TestTitleProps) {
 
     const space = useMemo(() => new Utils(), []);
 

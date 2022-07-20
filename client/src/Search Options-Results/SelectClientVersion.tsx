@@ -1,19 +1,13 @@
-/* ------------------- React ------------------- */
-
-import { Dispatch, SetStateAction } from "react";
-
 /* ------------------- Composants Bootstrap ------------------- */
 
 import Form from 'react-bootstrap/Form'
 
+/* ------------------- Types And Interfaces ------------------- */
 
-interface Props {
-    clientVersion: Array<{ id_client: number, version: string }>;
-    setClientVersionChoose: Dispatch<SetStateAction<number>>;
-}
+import { SelectClientVersionProps } from '../toolbox/typeAndInterface'
 
 
-function SelectClientVersion(props: Props) {
+function SelectClientVersion(props: SelectClientVersionProps) {
 
     return (
         <Form.Select defaultValue="Chrome" className="select-client-version form-select margin-top" id="clientVersion"

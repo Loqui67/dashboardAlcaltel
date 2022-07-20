@@ -14,16 +14,16 @@ import GetFromDatabase from "../classes/GetFromDatabase";
 
 import { variant } from '../toolbox/enum'
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { DropdownVersionPatchContentProps } from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { Link } from "react-router-dom";
 
-interface Props {
-    clientChoose: string
-}
 
-
-function DropdownVersionPatchContent(props: Props) {
+function DropdownVersionPatchContent(props: DropdownVersionPatchContentProps) {
 
     const [versionFromClient, setVersionFromClient] = useState<Array<{ id_version: number, version_name: string, patch: number }>>([]);
 

@@ -6,12 +6,12 @@ import Paragraph from '../HTML components/Paragraph';
 
 import TestRailLink from './TestRailLink';
 
-interface Props {
-    testStep: Array<{ description: string, testRailLink: string, verif: string }>
-}
+/* ------------------- Types And Interfaces ------------------- */
+
+import { TestStepsProps } from '../toolbox/typeAndInterface'
 
 
-function TestSteps(props: Props) {
+function TestSteps(props: TestStepsProps) {
     return (
         <div className="secondPart d-flex flex-column">
             {

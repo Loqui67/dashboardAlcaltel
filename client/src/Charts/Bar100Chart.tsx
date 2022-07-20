@@ -6,21 +6,22 @@ import { useMemo } from "react";
 
 import { dataChartTypeName } from '../toolbox/enum'
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { Bar100ChartProps } from '../toolbox/typeAndInterface'
+
 /* ------------------- Librairies tierces ------------------- */
 
 import { Bar } from "react-chartjs-2"
-import { ChartOptions, ChartData, Chart } from 'chart.js'
+import { ChartOptions, Chart } from 'chart.js'
 import 'chart.js/auto'
 import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 
 
-interface Props {
-    chartData: ChartData<dataChartTypeName.bar100>;
-}
 
 Chart.register(ChartjsPluginStacked100);
 
-function Bar100Chart({ chartData }: Props) {
+function Bar100Chart({ chartData }: Bar100ChartProps) {
 
     const options: ChartOptions<dataChartTypeName.bar100> = useMemo(() => {
         return {
