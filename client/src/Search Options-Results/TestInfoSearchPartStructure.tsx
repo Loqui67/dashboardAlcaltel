@@ -14,7 +14,7 @@ import Utils from "../classes/Utils"
 
 /* ------------------- Types And Interfaces ------------------- */
 
-import { TestInfoStructureProps } from '../toolbox/typeAndInterface'
+import { TestInfoStructureProps, stateChooseType, searchType } from '../toolbox/typeAndInterface'
 
 /* ------------------- Librairies tierces ------------------- */
 
@@ -25,7 +25,7 @@ function TestInfoStructure(props: TestInfoStructureProps) {
 
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(0)
-    const [stateChoose, setStateChoose] = useState<number>(0)
+    const [stateChoose, setStateChoose] = useState<stateChooseType>(0)
 
     const utils = useMemo(() => new Utils(), []);
 
@@ -86,7 +86,7 @@ function TestInfoStructure(props: TestInfoStructureProps) {
     }, [dateFilter, stateChoose])
 
 
-    const search: Array<{ currentState: string, id_test: number, id_testRun: number, name: string }> = useMemo(() => {
+    const search: searchType = useMemo(() => {
         return stateFilter
     }, [stateFilter])
 

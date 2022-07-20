@@ -43,23 +43,24 @@ export interface ChooseChartsProps {
     userDataBar100Chart: ChartData<dataChartTypeName.bar100>;
 }
 
-/* ------------------- Login ------------------- */
+/* ------------------- Login/reg ------------------- */
 
-export interface loginStatusType {
+export type loginStatusType = {
+    error?: boolean,
     username: string,
     admin: boolean,
     isLogged: boolean,
     message: string
 }
 
-export interface isLoggedType {
+export type isLoggedType = {
     loggedIn: boolean,
     user: Array<any>
 }
 
 export interface LoginPageProps {
-    loginStatus: { error?: boolean, message: string, username: string, admin: boolean, isLogged: boolean };
-    setLoginStatus: Dispatch<SetStateAction<{ error?: boolean, message: string, username: string, admin: boolean, isLogged: boolean }>>;
+    loginStatus: loginStatusType
+    setLoginStatus: Dispatch<SetStateAction<loginStatusType>>;
 }
 
 export interface Ilogin {
@@ -72,8 +73,13 @@ export interface Ilogin {
 }
 
 export interface NavBarProps {
-    setLoginStatus: Dispatch<SetStateAction<{ admin: boolean, username: string, isLogged: boolean, message: string }>>
-    loginStatus: { admin: boolean, username: string, isLogged: boolean }
+    setLoginStatus: Dispatch<SetStateAction<loginStatusType>>
+    loginStatus: loginStatusType
+}
+
+export type regStateType = {
+    message?: string,
+    state: boolean
 }
 
 /* ------------------- Stats ------------------- */
@@ -82,6 +88,8 @@ export type clientDistinctType = Array<{
     id_client: number,
     client_name: string
 }>
+
+export type clientChooseType = string
 
 /* ------------------- Context Type ------------------- */
 
@@ -104,20 +112,20 @@ export interface StatsGraphPartStructureProps {
     testStateCount: testStateCountType
     testSuiteFromVersion: testSuiteFromVersionType
     testState: testStateType
-    testSuiteChoose: string;
-    dateChoose: string;
+    testSuiteChoose: testSuiteChooseType;
+    dateChoose: dateChooseType;
     testSuiteFromVersionWithDate: testSuiteFromVersionWithDateType
     testStateCountWithDate: testStateCountWithDateType
-    allClientID: Array<number>;
-    clientVersionChoose: number;
+    allClientID: allClientIDType;
+    clientVersionChoose: clientVersionChooseType;
     clientDistinct: clientDistinctType
     clientVersion: clientVersionType
     date: dateType
     dateWithTS: dateWithTSType
-    setClientVersionChoose: Dispatch<SetStateAction<number>>;
-    setClientChoose: Dispatch<SetStateAction<string>>;
-    setTestSuiteChoose: Dispatch<SetStateAction<string>>;
-    setDateChoose: Dispatch<SetStateAction<string>>;
+    setClientVersionChoose: Dispatch<SetStateAction<clientVersionChooseType>>;
+    setClientChoose: Dispatch<SetStateAction<clientChooseType>>;
+    setTestSuiteChoose: Dispatch<SetStateAction<testSuiteChooseType>>;
+    setDateChoose: Dispatch<SetStateAction<dateChooseType>>;
 }
 
 /* ------------------- StatsPageStructure ------------------- */
@@ -126,6 +134,8 @@ export type testSuiteType = Array<{
     id_testsSuites: number,
     testsSuites_name: string
 }>
+
+export type testSuiteChooseType = string
 
 export type testSuiteFromVersionType = Array<{
     id_testsSuites: number,
@@ -177,6 +187,10 @@ export type clientVersionType = Array<{
     version: string
 }>
 
+export type clientVersionChooseType = number
+
+export type allClientIDType = Array<number>
+
 export type versionType = Array<{
     id_version: number,
     version_name: string,
@@ -193,6 +207,8 @@ export type dateWithTSType = Array<{
     testsSuites_name: string
 }>
 
+export type dateChooseType = string
+
 export type stateType = Array<{
     id_state: number,
     currentState: string
@@ -208,7 +224,7 @@ export interface TestTitleProps {
 export interface VersionTitleProps {
     version: versionType
     id: number;
-    clientChoose: string
+    clientChoose: clientChooseType
 }
 
 /* ------------------- Modale ------------------- */
@@ -262,52 +278,61 @@ export interface TestSelectedDetailsProps {
 
 /* ------------------- Test search ------------------- */
 
+export type stateChooseType = number
+
+export type searchType = Array<{
+    currentState: string,
+    id_test: number,
+    id_testRun: number,
+    name: string
+}>
+
 export interface DropdownVersionPatchContentProps {
-    clientChoose: string
+    clientChoose: clientChooseType
 }
 
 export interface SelectClientProps {
     clientDistinct: clientDistinctType
-    setClientChoose: Dispatch<SetStateAction<string>>;
-    clientChoose: string
+    setClientChoose: Dispatch<SetStateAction<clientChooseType>>;
+    clientChoose: clientChooseType
     client: string | undefined
 }
 
 export interface SelectClientVersionProps {
     clientVersion: clientVersionType
-    setClientVersionChoose: Dispatch<SetStateAction<number>>;
+    setClientVersionChoose: Dispatch<SetStateAction<clientVersionChooseType>>;
 }
 
 export interface SelectDateProps {
     date: dateType
     dateWithTS: dateWithTSType
-    setDateChoose: Dispatch<SetStateAction<string>>;
-    dateChoose: string;
-    testSuiteChoose: string;
+    setDateChoose: Dispatch<SetStateAction<dateChooseType>>;
+    dateChoose: dateChooseType;
+    testSuiteChoose: testSuiteChooseType;
 }
 
 export interface SelectStateProps {
     state: stateType
-    setStateChoose: Dispatch<SetStateAction<number>>;
+    setStateChoose: Dispatch<SetStateAction<stateChooseType>>;
 }
 
 export interface SelectTSProps {
     testSuiteFromVersion: testSuiteFromVersionType
-    setTestSuiteChoose: Dispatch<SetStateAction<string>>;
-    setDateChoose: Dispatch<SetStateAction<string>>;
+    setTestSuiteChoose: Dispatch<SetStateAction<testSuiteChooseType>>;
+    setDateChoose: Dispatch<SetStateAction<dateChooseType>>;
 }
 
 export interface TestInfoStructureProps {
     testState: testStateType
     state: stateType
-    testSuiteChoose: string
-    allClientID: Array<number>
-    clientVersionChoose: number
-    dateChoose: string
+    testSuiteChoose: testSuiteChooseType
+    allClientID: allClientIDType
+    clientVersionChoose: clientVersionChooseType
+    dateChoose: dateChooseType
 }
 
 export interface TestSearchResultProps {
     pageVisited: number;
     userPerPage: number;
-    search: Array<{ currentState: string, id_test: number, id_testRun: number, name: string }>
+    search: searchType
 }

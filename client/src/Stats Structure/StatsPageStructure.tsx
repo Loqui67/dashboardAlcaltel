@@ -20,6 +20,7 @@ import { useOutletCntxtStats } from "../Pages/Stats";
 
 import {
     testSuiteType,
+    testSuiteChooseType,
     testSuiteFromVersionType,
     testSuiteFromVersionWithDateType,
     testStateCountType,
@@ -27,10 +28,13 @@ import {
     testStateType,
     clientType,
     clientVersionType,
+    clientVersionChooseType,
     versionType,
+    allClientIDType,
     dateType,
     dateWithTSType,
     stateType,
+    dateChooseType,
     StatsPageStructureContextType
 } from '../toolbox/typeAndInterface'
 
@@ -49,7 +53,7 @@ function StatsPageStructure() {
     const { setClientChoose } = useOutletCntxtStats();
 
     const [testSuite, setTestSuite] = useState<testSuiteType>([]);
-    const [testSuiteChoose, setTestSuiteChoose] = useState<string>("");
+    const [testSuiteChoose, setTestSuiteChoose] = useState<testSuiteChooseType>("");
     const [testSuiteFromVersion, setTestSuiteFromVersion] = useState<testSuiteFromVersionType>([]);
     const [testSuiteFromVersionWithDate, setTestSuiteFromVersionWithDate] = useState<testSuiteFromVersionWithDateType>([]);
     const [testStateCount, setTestStateCount] = useState<testStateCountType>([]);
@@ -57,12 +61,12 @@ function StatsPageStructure() {
     const [testState, setTestState] = useState<testStateType>([]);
     const [client, setClient] = useState<clientType>([]);
     const [clientVersion, setClientVersion] = useState<clientVersionType>([]);
-    const [clientVersionChoose, setClientVersionChoose] = useState<number>(0)
-    const [allClientID, setAllClientID] = useState<Array<number>>([])
+    const [clientVersionChoose, setClientVersionChoose] = useState<clientVersionChooseType>(0)
+    const [allClientID, setAllClientID] = useState<allClientIDType>([])
     const [version, setVersion] = useState<versionType>([]);
     const [date, setDate] = useState<dateType>([])
     const [dateWithTS, setDateWithTS] = useState<dateWithTSType>([])
-    const [dateChoose, setDateChoose] = useState<string>("")
+    const [dateChoose, setDateChoose] = useState<dateChooseType>("")
     const [state, setState] = useState<stateType>([])
 
 

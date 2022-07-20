@@ -31,6 +31,10 @@ import { faUser, faEye } from '@fortawesome/free-solid-svg-icons'
 
 import { variant } from '../toolbox/enum'
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { regStateType } from '../toolbox/typeAndInterface'
+
 
 function RegisterPage() {
 
@@ -40,7 +44,7 @@ function RegisterPage() {
     const [passwordReg, setPasswordReg] = useState('')
     const [passwordRegConfirm, setPasswordRegConfirm] = useState('')
 
-    const [regState, setRegState] = useState<{ message?: string, state: boolean }>({ state: false })
+    const [regState, setRegState] = useState<regStateType>({ state: false })
     const [isAdmin, setIsAdmin] = useState(false)
     const [isUsernameOk, setIsUsernameOk] = useState(false)
     const [isPasswordOk, setIsPasswordOk] = useState(false)

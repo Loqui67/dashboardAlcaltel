@@ -9,7 +9,7 @@ import Utils from "../classes/Utils";
 
 /* ------------------- Types And Interfaces ------------------- */
 
-import { clientDistinctType, StatsContextType } from '../toolbox/typeAndInterface'
+import { clientDistinctType, StatsContextType, clientChooseType } from '../toolbox/typeAndInterface'
 
 /* ------------------- Librairies tierces ------------------- */
 
@@ -21,7 +21,7 @@ function Stats() {
     const { id, client } = useParams();
 
     const [clientDistinct, setClientDistinct] = useState<clientDistinctType>([]);
-    const [clientChoose, setClientChoose] = useState<string>(client === undefined ? "Chrome" : client);
+    const [clientChoose, setClientChoose] = useState<clientChooseType>(client === undefined ? "Chrome" : client);
 
     const query = useMemo(() => new GetFromDatabase(0, clientChoose, ""), [clientChoose])
 
