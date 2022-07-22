@@ -30,6 +30,7 @@ you must have node and npm/yarn installed.
 - npm i jsonwebtoken
 - npm i node-schedule
 - npm i mysqldump
+- npm i compression --save
 
 ## How it works
 

@@ -2,33 +2,48 @@
 
 import Utils from "./Utils";
 
+/* ------------------- Types And Interfaces ------------------- */
+
+import { 
+    allClientIDType, 
+    clientVersionChooseType, 
+    dateChooseType, 
+    testStateCountType, 
+    testStateCountWithDateType, 
+    testStateType, 
+    testSuiteChooseType, 
+    testSuiteFromVersionType, 
+    testSuiteFromVersionWithDateType
+} from "../toolbox/typeAndInterface";
+
+
 class UserDataChart {
 
     state = ["passed", "failed", "skipped", "not run"]
     bgColor = ['rgba(23, 222, 23,1)', 'rgba(255,0,0, 1)', 'rgba(248,168,5,1)', 'rgba(174,168,168,1)'];
     borderColor = ['rgba(23, 222, 23,1)', 'rgba(255,0,0,1)', 'rgba(248,168,5,1)', 'rgba(174,168,168,1)']
 
-    testStateCount: Array<{ passed: number, failed: number, skipped: number }>;
-    testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>;
-    testState: Array<{ currentState: string, id_testsSuites: number, testsSuites_name: string, date: string, id_client: number }>;
-    testSuiteChoose: string;
-    dateChoose: string;
-    testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>;
-    testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>;
-    allClientID: Array<number>;
-    clientVersionChoose: number;
+    testStateCount: testStateCountType;
+    testSuiteFromVersion: testSuiteFromVersionType;
+    testState: testStateType;
+    testSuiteChoose: testSuiteChooseType;
+    dateChoose: dateChooseType;
+    testSuiteFromVersionWithDate: testSuiteFromVersionWithDateType;
+    testStateCountWithDate: testStateCountWithDateType;
+    allClientID: allClientIDType;
+    clientVersionChoose: clientVersionChooseType;
 
     constructor
         (
-            testStateCount: Array<{ passed: number, failed: number, skipped: number }>,
-            testSuiteFromVersion: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number }>,
-            testState: Array<{ currentState: string, id_testsSuites: number, testsSuites_name: string, date: string, id_client: number }>,
-            testSuiteChoose: string,
-            dateChoose: string,
-            testSuiteFromVersionWithDate: Array<{ id_testsSuites: number, testsSuites_name: string, id_client: number, date: string }>,
-            testStateCountWithDate: Array<{ passed: number, failed: number, skipped: number }>,
-            allClientID: Array<number>,
-            clientVersionChoose: number
+            testStateCount: testStateCountType,
+            testSuiteFromVersion: testSuiteFromVersionType,
+            testState: testStateType,
+            testSuiteChoose: testSuiteChooseType,
+            dateChoose: dateChooseType,
+            testSuiteFromVersionWithDate: testSuiteFromVersionWithDateType,
+            testStateCountWithDate: testStateCountWithDateType,
+            allClientID: allClientIDType,
+            clientVersionChoose: clientVersionChooseType
         ) {
         this.testStateCount = testStateCount;
         this.testSuiteFromVersion = testSuiteFromVersion;
@@ -44,46 +59,40 @@ class UserDataChart {
         const key = 'testsSuites_name';
 
         this.testSuiteFromVersion = Array.from(new Map(testSuiteFromVersion.map(item =>
-            [item[key], item])).values());
+            [item[key], item])).values());  //on récupère les valeurs unique de chaque TS en fonction de leurs noms
     }
 
     getValuesPiePassed() {
         type dataMap = {
             passed?: number;
         }
-        let r;
-        if (this.dateChoose === "") {
-            r = this.testStateCount.map((data: dataMap) => data.passed)
+        if (this.dateChoose === "") { //retourne le nombre de tests passed
+            return this.testStateCount.map((data: dataMap) => data.passed)
         } else {
-            r = this.testStateCountWithDate.map((data: dataMap) => data.passed)
+            return this.testStateCountWithDate.map((data: dataMap) => data.passed)
         }
-        return r;
     }
 
     getValuesPieFailed() {
         type dataMap = {
             failed?: number;
         }
-        let r;
-        if (this.dateChoose === "") {
-            r = this.testStateCount.map((data: dataMap) => data.failed)
+        if (this.dateChoose === "") { //retourne le nombre de tests failed
+            return this.testStateCount.map((data: dataMap) => data.failed)
         } else {
-            r = this.testStateCountWithDate.map((data: dataMap) => data.failed)
+            return this.testStateCountWithDate.map((data: dataMap) => data.failed)
         }
-        return r;
     }
 
     getValuesPieSkipped() {
         type dataMap = {
             skipped?: number;
         }
-        let r;
-        if (this.dateChoose === "") {
-            r = this.testStateCount.map((data: dataMap) => data.skipped)
+        if (this.dateChoose === "") { //retourne le nombre de tests skipped
+            return this.testStateCount.map((data: dataMap) => data.skipped)
         } else {
-            r = this.testStateCountWithDate.map((data: dataMap) => data.skipped)
+            return this.testStateCountWithDate.map((data: dataMap) => data.skipped)
         }
-        return r;
     }
 
 
@@ -114,7 +123,7 @@ class UserDataChart {
 
 
 
-    getBar100Values() {
+    getBar100Values() { //pour chaque etat (state), on filtre en fonction des valeurs des filtres et on retourne le nombre de valeur de chaque état
         type dataMap = {
             currentState?: string;
             id_testsSuites?: number;
@@ -183,7 +192,7 @@ class UserDataChart {
         }
         const convertDate = new Utils();
         let labels;
-        if (this.dateChoose === "") {
+        if (this.dateChoose === "") { //on récupère le nom de tte les tests suites en fonctions des filtres
             labels = this.testSuiteFromVersion.filter((data: dataMap) => {
                 if (this.clientVersionChoose === 0) {
                     return this.allClientID.map(test => {
@@ -266,7 +275,7 @@ class UserDataChart {
         return userDataLineChart;
     }
 
-    getBarValues() {
+    getBarValues() {    //retourne les valeurs du graphique en bar, le nombre de tests sur chaque état en fonction de la TS
         type dataMap = {
             currentState?: string;
             testsSuites_name?: string;
@@ -275,7 +284,7 @@ class UserDataChart {
         }
         const convertDate = new Utils();
         return this.state.map(state => {
-            return this.testState.filter((data: dataMap) => (data.testsSuites_name === this.testSuiteChoose || this.testSuiteChoose === "")
+            return this.testState.filter((data: dataMap) => (data.testsSuites_name === this.testSuiteChoose)
                 && data.currentState === state
                 && (convertDate.getDateAndDeleteHourOnDbFormat(data.date) === this.dateChoose || this.dateChoose === "")
             ).filter((data: dataMap) => {
@@ -299,28 +308,7 @@ class UserDataChart {
 
 
     getUserDataBarChart() {
-        type dataMap = {
-            testsSuites_name?: string;
-            id_client?: number;
-        }
-        const labels = this.testSuiteFromVersion.filter((filter: dataMap) => (filter.testsSuites_name === this.testSuiteChoose || this.testSuiteChoose === ""))
-            .filter((data: dataMap) => {
-                if (this.clientVersionChoose === 0) {
-                    return this.allClientID.map(test => {
-                        if (test === data.id_client) {
-                            return data
-                        }
-                        return null
-                    })
-                }
-                else {
-                    if (data.id_client === this.clientVersionChoose) {
-                        return data
-                    }
-                    return null
-                }
-            })
-            .map((testSuiteFromVersion: dataMap) => testSuiteFromVersion.testsSuites_name)
+        const labels = [this.testSuiteChoose] //le nom de la TS
 
         const userDataBarChart = {
             labels: labels,

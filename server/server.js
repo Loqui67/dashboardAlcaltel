@@ -9,24 +9,21 @@ const {
     MySQLdumpConnection
 } = require('./config');
 
+const compression = require('compression');
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-
 const bcrypt = require("bcrypt")
-const saltRounds = 10;
-
 const express = require('express')
-const app = express()
 const cors = require('cors')
-
 const fs = require('fs');
-
 const mysqldump = require('mysqldump')
-
 const jwt = require('jsonwebtoken')
-
 const schedule = require('node-schedule')
+
+const app = express()
+
+const saltRounds = 10;
 
 app.use(cors({
     origin: [origin],
@@ -34,6 +31,7 @@ app.use(cors({
     credentials: true
 }));
 
+app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 

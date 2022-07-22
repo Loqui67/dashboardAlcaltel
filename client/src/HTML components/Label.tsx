@@ -1,9 +1,9 @@
 interface Props {
-    text: string
+  text: string;
 }
 
-function Label({text}: Props) {
-    return <label>{text}</label>
+function Label({ text }: Props) {
+  return <label>{text}</label>;
 }
 
 export default Label;
