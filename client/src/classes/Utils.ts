@@ -1,11 +1,13 @@
+import { clientAddress } from "../toolbox/address";
+
 class Utils {
   usernameMinSize: number = 5;
   usernameMaxSize: number = 20;
   passwordMinSize: number = 8;
   passwordMaxSize: number = 30;
 
-  statsURL: string = "http://ns3053040.ip-137-74-95.eu:3000/stats";
-  loginURL: string = "http://ns3053040.ip-137-74-95.eu:3000/login";
+  statsURL: string = `${clientAddress}stats`;
+  loginURL: string = `${clientAddress}stats`;
 
   testToColor(toTest: string) {
     //en fonction de l'état, on retourne une couleur (pour la classe)

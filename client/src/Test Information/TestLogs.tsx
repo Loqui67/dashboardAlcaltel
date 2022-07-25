@@ -18,6 +18,7 @@ import { versionWithLogsType } from "../toolbox/typeAndInterface";
 /* ------------------- Librairies tierces ------------------- */
 
 import { useParams } from "react-router-dom";
+import { serverAddress } from "../toolbox/address";
 
 function TestLogs() {
   const [modalShow, setModalShow] = useState<boolean>(false);
@@ -27,10 +28,7 @@ function TestLogs() {
     []
   );
 
-  const prefix = useMemo(
-    () => "http://ns3053040.ip-137-74-95.eu:3001/SeleniumReports/",
-    []
-  );
+  const prefix = useMemo(() => `${serverAddress}SeleniumReports/`, []);
 
   function modale(
     screenshotClient: string,
