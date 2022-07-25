@@ -40,11 +40,11 @@ In client folder, you can find all the front end, all react code.
 
 ## How to launch this Dashboard
 
-# To start the server :
+### To start the server :
 
 `node C:/Dashboard/dashboardTS/server/server.js`
 
-# To start the client (React) :
+### To start the client (React) :
 
 pour une version de dev :
 
