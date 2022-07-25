@@ -1,12 +1,12 @@
-import { Dispatch, SetStateAction } from "react";
+/* ------------------- Composants Bootstrap ------------------- */
+
 import Form from "react-bootstrap/Form";
 
-interface Props {
-  clientModel: Array<{ model: string }>;
-  setModelChoose: Dispatch<SetStateAction<string>>;
-}
+/* ------------------- Types and interfaces ------------------- */
 
-function SelectModel(props: Props) {
+import { SelectModelProps } from "../toolbox/typeAndInterface";
+
+function SelectModel(props: SelectModelProps) {
   return (
     <Form.Select
       defaultValue={""}
