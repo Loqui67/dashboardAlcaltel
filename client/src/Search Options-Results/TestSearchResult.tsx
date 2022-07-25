@@ -30,14 +30,17 @@ function TestSearchResult(props: TestSearchResultProps) {
         .slice(props.pageVisited, props.pageVisited + props.userPerPage)
         .map((test: dataMap, key: number) => {
           let bgColor = utils.testToColor(test.currentState);
+          let identifier = utils.testCaseIdentifier(test.name);
           return (
             <div key={`${test.id_test}-${key}`}>
               <Link to={`${test.id_testRun}`}>
                 <button className={`buttonForTests padding bg-${bgColor}`}>
                   <span className={`${bgColor} strong`}>
-                    {test.name.slice(0, 6)} &nbsp;
+                    {identifier?.identifier} &nbsp;
                   </span>
-                  {utils.formatStringToUpperAndLowerCase(test.name.slice(7))}
+                  {utils.formatStringToUpperAndLowerCase(
+                    identifier?.name === undefined ? "" : identifier.name
+                  )}
                 </button>
               </Link>
             </div>

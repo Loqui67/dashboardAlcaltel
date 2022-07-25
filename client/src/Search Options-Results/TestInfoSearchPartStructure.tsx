@@ -90,9 +90,19 @@ function TestInfoStructure(props: TestInfoStructureProps) {
     }
   }, [dateFilter, stateChoose]);
 
+  const modelFilter: any = useMemo(() => {
+    if (props.modelChoose === "") {
+      return stateFilter;
+    } else {
+      return stateFilter.filter(
+        (model: { model: string }) => props.modelChoose === model.model
+      );
+    }
+  }, [stateFilter, props.modelChoose]);
+
   const search: searchType = useMemo(() => {
-    return stateFilter;
-  }, [stateFilter]);
+    return modelFilter;
+  }, [modelFilter]);
 
   const userPerPage: number = 10;
   const pageVisited: number = pageNumber * userPerPage;

@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import ChooseCharts from "../Charts/ChooseCharts";
 import SelectTS from "../Search Options-Results/SelectTS";
 import SelectDate from "../Search Options-Results/SelectDate";
+import SelectModel from "../Search Options-Results/SelectModel";
 import Label from "../HTML components/Label";
 
 /* ------------------- Classes ------------------- */
@@ -29,7 +30,8 @@ function StatsGraphPartStructure(props: StatsGraphPartStructureProps) {
       props.testSuiteFromVersionWithDate,
       props.testStateCountWithDate,
       props.allClientID,
-      props.clientVersionChoose
+      props.clientVersionChoose,
+      props.modelChoose
     );
   }, [
     props.testStateCount,
@@ -41,6 +43,7 @@ function StatsGraphPartStructure(props: StatsGraphPartStructureProps) {
     props.testStateCountWithDate,
     props.allClientID,
     props.clientVersionChoose,
+    props.modelChoose,
   ]);
 
   return (
@@ -69,6 +72,13 @@ function StatsGraphPartStructure(props: StatsGraphPartStructureProps) {
           <SelectClientVersion
             clientVersion={props.clientVersion}
             setClientVersionChoose={props.setClientVersionChoose}
+          />
+        </div>
+        <div className="selectModel padding">
+          <Label text="Choose a model" />
+          <SelectModel
+            clientModel={props.clientModel}
+            setModelChoose={props.setModelChoose}
           />
         </div>
       </div>

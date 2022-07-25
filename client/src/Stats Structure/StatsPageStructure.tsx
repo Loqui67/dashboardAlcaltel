@@ -71,6 +71,9 @@ function StatsPageStructure() {
   const [dateChoose, setDateChoose] = useState<dateChooseType>("");
   const [state, setState] = useState<stateType>([]);
 
+  const [clientModel, setClientModel] = useState<Array<{ model: string }>>([]);
+  const [modelChoose, setModelChoose] = useState<string>("");
+
   const allDateRequest = useCallback(async () => {
     let idNumber: number;
     id !== undefined ? (idNumber = parseInt(id)) : (idNumber = 0);
@@ -100,6 +103,7 @@ function StatsPageStructure() {
       setTestSuite(await query.getTestSuites());
       setDateWithTS(await query.getDateWithTS());
       setState(await query.getState());
+      setClientModel(await query.getClientModel());
     }
   }, [id, clientChoose]);
 
@@ -149,6 +153,9 @@ function StatsPageStructure() {
         testStateCountWithDate={testStateCountWithDate}
         clientVersionChoose={clientVersionChoose}
         setClientVersionChoose={setClientVersionChoose}
+        clientModel={clientModel}
+        modelChoose={modelChoose}
+        setModelChoose={setModelChoose}
       />
 
       <div className="divider div-transparent" />
@@ -160,6 +167,7 @@ function StatsPageStructure() {
           testState={testState}
           dateChoose={dateChoose}
           state={state}
+          modelChoose={modelChoose}
         />
         <div className="dividerVertical div-transparentVertical" />
         <Outlet

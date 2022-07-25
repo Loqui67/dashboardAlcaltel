@@ -205,7 +205,8 @@
 .selectClientVersion,
 .selectTS,
 .selectDate,
-.selectVersion {
+.selectVersion,
+.selectModel {
   width: 15%;
 }
 

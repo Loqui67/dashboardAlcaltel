@@ -25,6 +25,14 @@ class Utils {
         }
     }
 
+    testCaseIdentifier(testName: string) {
+        for (let i: number=2; i < testName.length; i++) {
+            if( testName[i].length === 1 && testName[i].match(/[a-z]/i)) {
+                return {identifier: testName.slice(0, i-1), name: testName.slice(i)}
+            }
+        }
+    }
+
     convertDateFromDbToRightFormat(date: string) {  //convertit le format de la date retournée par la base dans un format plus conventionnel
         return `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(2, 4)}`
     }

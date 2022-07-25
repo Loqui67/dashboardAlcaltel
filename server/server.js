@@ -84,6 +84,20 @@ app.get("/clientDistinct", (req, res) => {
     );
 });
 
+app.get("/clientModel", (req, res) => {
+    const id = req.query.id;
+    console.log("clientModel")
+    tests.query("CALL clientModel(?);"
+        ,[id], (err, result) => {
+            if (err) {
+                console.log("/clientModel");
+            } else {
+                res.send(result);
+            }
+        }
+    );
+});
+
 
 app.get("/clientVersion", (req, res) => {
     const clientChoose = req.query.clientChoose;

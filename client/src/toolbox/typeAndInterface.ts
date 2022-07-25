@@ -114,14 +114,17 @@ export interface StatsGraphPartStructureProps {
     testState: testStateType
     testSuiteChoose: testSuiteChooseType;
     dateChoose: dateChooseType;
-    testSuiteFromVersionWithDate: testSuiteFromVersionWithDateType
-    testStateCountWithDate: testStateCountWithDateType
+    testSuiteFromVersionWithDate: testSuiteFromVersionWithDateType;
+    testStateCountWithDate: testStateCountWithDateType;
     allClientID: allClientIDType;
     clientVersionChoose: clientVersionChooseType;
     clientDistinct: clientDistinctType
+    clientModel: Array<{model: string}>
     clientVersion: clientVersionType
-    date: dateType
-    dateWithTS: dateWithTSType
+    date: dateType;
+    dateWithTS: dateWithTSType;
+    modelChoose: string;
+    setModelChoose:  Dispatch<SetStateAction<string>>
     setClientVersionChoose: Dispatch<SetStateAction<clientVersionChooseType>>;
     setClientChoose: Dispatch<SetStateAction<clientChooseType>>;
     setTestSuiteChoose: Dispatch<SetStateAction<testSuiteChooseType>>;
@@ -172,7 +175,8 @@ export type testStateType = Array<{
     id_client: number,
     id_testRun: number,
     name: string,
-    purpose: string
+    purpose: string,
+    model: string
 }>
 
 export type clientType = Array<{
@@ -329,6 +333,7 @@ export interface TestInfoStructureProps {
     allClientID: allClientIDType
     clientVersionChoose: clientVersionChooseType
     dateChoose: dateChooseType
+    modelChoose: string
 }
 
 export interface TestSearchResultProps {

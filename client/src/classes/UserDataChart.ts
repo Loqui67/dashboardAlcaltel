@@ -19,7 +19,7 @@ import {
 
 class UserDataChart {
 
-    state = ["passed", "failed", "skipped", "not run"]
+    state = ["passed", "failed", "skipped"/* , "not run" */]
     bgColor = ['rgba(23, 222, 23,1)', 'rgba(255,0,0, 1)', 'rgba(248,168,5,1)', 'rgba(174,168,168,1)'];
     borderColor = ['rgba(23, 222, 23,1)', 'rgba(255,0,0,1)', 'rgba(248,168,5,1)', 'rgba(174,168,168,1)']
 
@@ -32,6 +32,7 @@ class UserDataChart {
     testStateCountWithDate: testStateCountWithDateType;
     allClientID: allClientIDType;
     clientVersionChoose: clientVersionChooseType;
+    modelChoose: string
 
     constructor
         (
@@ -43,7 +44,8 @@ class UserDataChart {
             testSuiteFromVersionWithDate: testSuiteFromVersionWithDateType,
             testStateCountWithDate: testStateCountWithDateType,
             allClientID: allClientIDType,
-            clientVersionChoose: clientVersionChooseType
+            clientVersionChoose: clientVersionChooseType,
+            modelChoose: string
         ) {
         this.testStateCount = testStateCount;
         this.testSuiteFromVersion = testSuiteFromVersion;
@@ -54,6 +56,7 @@ class UserDataChart {
         this.testStateCountWithDate = testStateCountWithDate;
         this.allClientID = allClientID;
         this.clientVersionChoose = clientVersionChoose;
+        this.modelChoose = modelChoose;
 
 
         const key = 'testsSuites_name';
@@ -129,6 +132,7 @@ class UserDataChart {
             id_testsSuites?: number;
             date?: string;
             id_client?: number;
+            model?: string;
         }
 
         if (this.dateChoose === "") {
@@ -151,7 +155,14 @@ class UserDataChart {
                 }).map((element: dataMap) => {
                     return this.testState.filter(
                         (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
-                    )
+                    ).filter((data: dataMap) => {
+                        if (this.modelChoose === "" || this.modelChoose === data.model) {
+                            return data;
+                        }
+                        else {
+                            return null
+                        }
+                    })
                 }).map(data => data.length)
             })
 
@@ -175,7 +186,14 @@ class UserDataChart {
                 }).filter(data => this.dateChoose === data.date).map((element: dataMap) => {
                     return this.testState.filter(
                         (data: dataMap) => data.currentState === state && data.id_testsSuites === element.id_testsSuites
-                    )
+                    ).filter((data: dataMap) => {
+                        if (this.modelChoose === "" || this.modelChoose === data.model) {
+                            return data;
+                        }
+                        else {
+                            return null
+                        }
+                    })
                 }).map(data => data.length)
             })
         }
@@ -185,6 +203,7 @@ class UserDataChart {
 
 
     getUserDataBar100Chart() {
+        console.log(this.getBar100Values())
         type dataMap = {
             testsSuites_name?: string;
             date?: string;
@@ -281,6 +300,7 @@ class UserDataChart {
             testsSuites_name?: string;
             date?: string;
             id_client?: number;
+            model?: string
         }
         const convertDate = new Utils();
         return this.state.map(state => {
@@ -300,6 +320,13 @@ class UserDataChart {
                     if (data.id_client === this.clientVersionChoose) {
                         return data
                     }
+                    return null
+                }
+            }).filter((data: dataMap) => {
+                if (this.modelChoose === "" || this.modelChoose === data.model) {
+                    return data;
+                }
+                else {
                     return null
                 }
             }).length

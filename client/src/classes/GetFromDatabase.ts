@@ -32,6 +32,15 @@ class GetFromDatabase {
         return (response.data[0]);
     }
 
+    async getClientModel() { //recupère le nom de tout les modèles existant (une seule fois)
+        const response = await Axios.get(`${this.address}clientModel`, {
+            params: {
+                id: this.id
+            }
+        });
+        return (response.data[0]);
+    }
+
     async getClientVersion(clientChoose: string) { //récupère la version de chaque client en fonction de la version de Rainbow
         const response = await Axios.get(`${this.address}clientVersion`, {
             params: {
