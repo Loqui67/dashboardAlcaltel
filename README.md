@@ -44,15 +44,15 @@ In client folder, you can find all the front end, all react code.
 
 `node C:/Dashboard/dashboardTS/server/server.js`
 
-### To start the client (React) :
+### To start the client (React):
 
-pour une version de dev :
+for a developpement version (dev):
 
 -   go to client folder (with `cd C:/Dashboard/dashboardTS/client`)
 -   then execute `npm start`
     this command will launch a server where modification will be shown directly
 
-pour une version de build :
+for a build version (prod):
 
 -   go to client folder (with `cd C:/Dashboard/dashboardTS/client`)
 -   then execute `npm run build`
