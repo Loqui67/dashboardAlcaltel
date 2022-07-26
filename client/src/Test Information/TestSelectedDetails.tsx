@@ -18,7 +18,6 @@ function TestSelectedDetails(props: TestSelectedDetailsProps) {
     const convertDate = useMemo(() => new Utils(), []);
     return (
         <div className="firstPart">
-            <Paragraph text={props.test.purpose} className="strong" />
             {props.client
                 .filter((client) => client.id_client === props.test.id_client)
                 .map((client, key) => (

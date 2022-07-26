@@ -31,11 +31,15 @@ import { faUser, faEye } from "@fortawesome/free-solid-svg-icons";
 
 import { variant } from "../toolbox/enum";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { LoginPageProps, Ilogin } from "../toolbox/typeAndInterface";
+import { Ilogin } from "../toolbox/typeAndInterface";
+import { useLoginContext } from "../toolbox/context";
 
-function LoginPage({ loginStatus, setLoginStatus }: LoginPageProps) {
+function LoginPage() {
+    const { loginStatus } = useLoginContext();
+    const { setLoginStatus } = useLoginContext();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);

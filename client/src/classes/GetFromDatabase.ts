@@ -240,11 +240,10 @@ class GetFromDatabase {
         //on cherche a savoir si l'utilisateur est encore connecté (à l'aide des cookies)
 
         const response = await Axios.get(`${this.address}login`);
-        if (!response.data.loggedIn && this.utils.isLoginPage()) {
+        if (!response.data.loggedIn && !this.utils.isLoginPage()) {
             //on redirige sur la page de connexion s'il n'est pas log
             this.utils.redirectLogin();
-        }
-        if (response.data.loggedIn === true && this.utils.isLoginPage()) {
+        } else if (response.data.loggedIn && this.utils.isLoginPage()) {
             //on redirige sur la page de stats s'il est log
             this.utils.redirectStats();
         }

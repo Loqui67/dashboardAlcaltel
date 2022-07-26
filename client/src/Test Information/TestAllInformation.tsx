@@ -9,6 +9,7 @@ import TestLogs from "./TestLogs";
 import TestSteps from "./TestSteps";
 import TestSelectedDetails from "./TestSelectedDetails";
 import TestTitle from "../Stats Structure/TestTitle";
+import Paragraph from "../HTML components/Paragraph";
 
 /* ------------------- Fonctions ------------------- */
 
@@ -107,6 +108,10 @@ function TestAllInformation() {
                             className="d-flex flex-column justify-content-start padding text-start"
                         >
                             <TestTitle test={test} TxtColor={TxtColor} />
+                            <Paragraph
+                                text={test.purpose.replaceAll("_", " ")}
+                                className="strong"
+                            />
                             <div className="d-flex flex-row space-between desc">
                                 <TestSelectedDetails
                                     test={test}

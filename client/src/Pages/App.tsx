@@ -26,9 +26,10 @@ import RegisterPage from "./RegisterPage";
 import GetFromDatabase from "../classes/GetFromDatabase";
 import Utils from "../classes/Utils";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
 import { loginStatusType, isLoggedType } from "../toolbox/typeAndInterface";
+import { LoginContext } from "../toolbox/context";
 
 /* ------------------- librairies tierces ------------------- */
 
@@ -81,38 +82,34 @@ function App() {
 
     return (
         //les routes affichent un composant en fonction de l'adresse de la page
-        <div className="App">
-            <NavBar loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
-            <Routes>
-                <Route path="*" element={<NoPage />} />
-                {loginStatus.admin ? (
-                    <Route path="/register" element={<RegisterPage />} />
-                ) : null}
-                <Route
-                    path="/login"
-                    element={
-                        <LoginPage
-                            loginStatus={loginStatus}
-                            setLoginStatus={setLoginStatus}
-                        />
-                    }
-                />
-                <Route
-                    path="/editPassword"
-                    element={<ChangePassword username={loginStatus.username} />}
-                />
-                <Route path="/stats" element={<Stats />}>
-                    <Route path=":client" element={<AllStatsOptions />}>
-                        <Route path=":id" element={<StatsPageStructure />}>
-                            <Route
-                                path=":testRunID"
-                                element={<TestAllInformation />}
-                            />
+        <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
+            <div className="App">
+                <NavBar />
+                <Routes>
+                    <Route path="*" element={<NoPage />} />
+                    {loginStatus.admin ? (
+                        <Route path="/register" element={<RegisterPage />} />
+                    ) : null}
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route
+                        path="/editPassword"
+                        element={
+                            <ChangePassword username={loginStatus.username} />
+                        }
+                    />
+                    <Route path="/stats" element={<Stats />}>
+                        <Route path=":client" element={<AllStatsOptions />}>
+                            <Route path=":id" element={<StatsPageStructure />}>
+                                <Route
+                                    path=":testRunID"
+                                    element={<TestAllInformation />}
+                                />
+                            </Route>
                         </Route>
                     </Route>
-                </Route>
-            </Routes>
-        </div>
+                </Routes>
+            </div>
+        </LoginContext.Provider>
     );
 }
 

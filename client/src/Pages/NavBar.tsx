@@ -11,15 +11,18 @@ import GetFromDatabase from "../classes/GetFromDatabase";
 
 import { variant } from "../toolbox/enum";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { NavBarProps } from "../toolbox/typeAndInterface";
+import { useLoginContext } from "../toolbox/context";
 
-function NavBar(props: NavBarProps) {
+function NavBar() {
+    const { loginStatus } = useLoginContext();
+    const { setLoginStatus } = useLoginContext();
+
     async function logout() {
         localStorage.removeItem("token"); //on supprime le token
         const query = new GetFromDatabase(0, "", "");
-        props.setLoginStatus({
+        setLoginStatus({
             username: "",
             isLogged: false,
             admin: false,
@@ -35,22 +38,22 @@ function NavBar(props: NavBarProps) {
                 <Navbar.Brand href="">Dashboard auto test</Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="/stats">Stats</Nav.Link>
-                    {props.loginStatus.admin ? (
+                    {loginStatus.admin ? (
                         <>
                             <Nav.Link href="/register">
                                 Register a new account
                             </Nav.Link>
                         </>
                     ) : null}
-                    {props.loginStatus.username !== "" && (
+                    {loginStatus.username !== "" && (
                         <Nav.Link href="/editPassword">Edit password</Nav.Link>
                     )}
                 </Nav>
-                {props.loginStatus.username !== "" && (
-                    <Navbar.Text>{`Logged as ${props.loginStatus.username}`}</Navbar.Text>
+                {loginStatus.username !== "" && (
+                    <Navbar.Text>{`Logged as ${loginStatus.username}`}</Navbar.Text>
                 )}
             </Container>
-            {props.loginStatus.username !== "" && (
+            {loginStatus.username !== "" && (
                 <Button
                     variant="outline-dark"
                     className="margin-right"
