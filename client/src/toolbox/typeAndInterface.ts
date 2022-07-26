@@ -93,7 +93,6 @@ export type clientChooseType = string;
 /* ------------------- Context Type ------------------- */
 
 export type StatsContextType = {
-    clientDistinct: clientDistinctType;
     clientChoose: string;
     setClientChoose: Dispatch<SetStateAction<string>>;
 };
@@ -196,11 +195,11 @@ export type clientVersionChooseType = number;
 
 export type allClientIDType = Array<number>;
 
-export type versionType = Array<{
+export type versionType = {
     id_version: number;
     version_name: string;
     patch: number;
-}>;
+};
 
 export type dateType = Array<{
     date: string;

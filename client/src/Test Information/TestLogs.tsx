@@ -45,13 +45,11 @@ function TestLogs() {
 
     const getLogs = useCallback(async () => {
         const query = new GetFromDatabase(0, "", "");
-        if (await query.checkJWT()) {
-            setVersionWithLogs(
-                await query.getVersionWithLogs(
-                    testRunID === undefined ? 0 : parseInt(testRunID)
-                )
-            );
-        }
+        setVersionWithLogs(
+            await query.getVersionWithLogs(
+                testRunID === undefined ? 0 : parseInt(testRunID)
+            )
+        );
     }, [testRunID]);
 
     useEffect(() => {

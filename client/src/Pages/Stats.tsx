@@ -9,10 +9,7 @@ import Utils from "../classes/Utils";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
-import {
-    clientDistinctType,
-    clientChooseType,
-} from "../toolbox/typeAndInterface";
+import { clientChooseType } from "../toolbox/typeAndInterface";
 
 import { StatsContext } from "../toolbox/context";
 
@@ -23,9 +20,6 @@ import { Outlet, useParams } from "react-router-dom";
 function Stats() {
     const { id, client } = useParams();
 
-    const [clientDistinct, setClientDistinct] = useState<clientDistinctType>(
-        []
-    );
     const [clientChoose, setClientChoose] = useState<clientChooseType>(
         client === undefined ? "Chrome" : client
     );
@@ -37,17 +31,9 @@ function Stats() {
 
     const getLastVersion = useCallback(async () => {
         const utils = new Utils();
-        if (await query.checkJWT()) {
-            const result = await query.getLastVersion();
-            utils.redirectTo(`/stats/${clientChoose}/${result[0].id_version}`);
-        }
+        const result = await query.getLastVersion();
+        utils.redirectTo(`/stats/${clientChoose}/${result[0].id_version}`);
     }, [query, clientChoose]);
-
-    const getClient = useCallback(async () => {
-        if (await query.checkJWT()) {
-            setClientDistinct(await query.getClientDistinct());
-        }
-    }, [query]);
 
     useEffect(() => {
         if (id === undefined) {
@@ -55,14 +41,8 @@ function Stats() {
         }
     }, [getLastVersion, id]);
 
-    useEffect(() => {
-        getClient();
-    }, [getClient]);
-
     return (
-        <StatsContext.Provider
-            value={{ clientDistinct, clientChoose, setClientChoose }}
-        >
+        <StatsContext.Provider value={{ clientChoose, setClientChoose }}>
             <div className="Stats d-flex flex-column">
                 <Outlet
                 //AllStatsOptions.tsx

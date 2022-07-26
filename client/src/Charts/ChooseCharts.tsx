@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import { useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 
 /* ------------------- Charts ------------------- */
 
@@ -15,26 +15,69 @@ import "./Styles/ChooseCharts.css";
 /* ------------------- Classes ------------------- */
 
 import UserDataChart from "../classes/UserDataChart";
+import GetFromDatabase from "../classes/GetFromDatabase";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
+import {
+    testStateCountType,
+    testStateCountWithDateType,
+} from "../toolbox/typeAndInterface";
 import { useStatsPageStructureContext } from "../toolbox/context";
+
+/* ------------------- librairies tierces ------------------- */
+
+import { useParams } from "react-router-dom";
 
 function ChooseCharts() {
     //choix du graph à afficher en fonction de la TS
 
+    let { id, client } = useParams<string>();
+
     const {
-        testStateCount,
         testSuiteFromVersion,
         testState,
         testSuiteChoose,
         dateChoose,
         testSuiteFromVersionWithDate,
-        testStateCountWithDate,
         allClientID,
         clientVersionChoose,
         modelChoose,
     } = useStatsPageStructureContext();
+
+    const [testStateCount, setTestStateCount] = useState<testStateCountType>(
+        []
+    );
+    const [testStateCountWithDate, setTestStateCountWithDate] =
+        useState<testStateCountWithDateType>([]);
+
+    const getTestStateCount = useCallback(async () => {
+        const query = new GetFromDatabase(
+            id === undefined ? 0 : parseInt(id),
+            client === undefined ? "" : client,
+            ""
+        );
+        setTestStateCount(await query.getTestStateCount());
+    }, [id, client]);
+
+    useEffect(() => {
+        getTestStateCount();
+    }, [getTestStateCount]);
+
+    const getTestStateCountWithDate = useCallback(async () => {
+        const query = new GetFromDatabase(
+            id === undefined ? 0 : parseInt(id),
+            client === undefined ? "" : client,
+            dateChoose
+        );
+        setTestStateCountWithDate(await query.getTestStateCountWithDate());
+    }, [id, client, dateChoose]);
+
+    useEffect(() => {
+        if (dateChoose !== "") {
+            getTestStateCountWithDate();
+        }
+    }, [getTestStateCountWithDate, dateChoose]);
 
     const userDataChart = useMemo(() => {
         return new UserDataChart(

@@ -19,13 +19,9 @@ import {
     testSuiteChooseType,
     testSuiteFromVersionType,
     testSuiteFromVersionWithDateType,
-    testStateCountType,
-    testStateCountWithDateType,
     testStateType,
     clientType,
-    clientVersionType,
     clientVersionChooseType,
-    versionType,
     allClientIDType,
     dateType,
     dateWithTSType,
@@ -48,68 +44,35 @@ function StatsPageStructure() {
         useState<testSuiteFromVersionType>([]);
     const [testSuiteFromVersionWithDate, setTestSuiteFromVersionWithDate] =
         useState<testSuiteFromVersionWithDateType>([]);
-    const [testStateCount, setTestStateCount] = useState<testStateCountType>(
-        []
-    );
-    const [testStateCountWithDate, setTestStateCountWithDate] =
-        useState<testStateCountWithDateType>([]);
     const [testState, setTestState] = useState<testStateType>([]);
     const [client, setClient] = useState<clientType>([]);
-    const [clientVersion, setClientVersion] = useState<clientVersionType>([]);
     const [clientVersionChoose, setClientVersionChoose] =
         useState<clientVersionChooseType>(0);
     const [allClientID, setAllClientID] = useState<allClientIDType>([]);
-    const [version, setVersion] = useState<versionType>([]);
     const [date, setDate] = useState<dateType>([]);
     const [dateWithTS, setDateWithTS] = useState<dateWithTSType>([]);
     const [dateChoose, setDateChoose] = useState<dateChooseType>("");
 
-    const [clientModel, setClientModel] = useState<Array<{ model: string }>>(
-        []
-    );
     const [modelChoose, setModelChoose] = useState<string>("");
-
-    const allDateRequest = useCallback(async () => {
-        let idNumber: number;
-        id !== undefined ? (idNumber = parseInt(id)) : (idNumber = 0);
-        const query = new GetFromDatabase(idNumber, clientChoose, dateChoose);
-        if (await query.checkJWT()) {
-            if (dateChoose !== "") {
-                setTestStateCountWithDate(
-                    await query.getTestStateCountWithDate()
-                );
-            }
-            setTestSuiteFromVersionWithDate(
-                await query.getTestSuitesFromVersionWithDate()
-            );
-            setDate(await query.getDate());
-        }
-    }, [dateChoose, id, clientChoose]);
 
     const allRequest = useCallback(async () => {
         let idNumber: number;
         id !== undefined ? (idNumber = parseInt(id)) : (idNumber = 0);
         const query = new GetFromDatabase(idNumber, clientChoose, "");
-        if (await query.checkJWT()) {
-            setClientVersion(await query.getClientVersion(clientChoose));
-            setTestSuiteFromVersion(await query.getTestSuitesFromVersion());
-            setTestStateCount(await query.getTestStateCount());
-            setTestState(await query.getTestState());
-            setClient(await query.getClient());
-            setVersion(await query.getVersion());
-            setTestSuite(await query.getTestSuites());
-            setDateWithTS(await query.getDateWithTS());
-            setClientModel(await query.getClientModel());
-        }
+        setTestSuiteFromVersion(await query.getTestSuitesFromVersion());
+        setTestState(await query.getTestState());
+        setClient(await query.getClient());
+        setTestSuite(await query.getTestSuites());
+        setDateWithTS(await query.getDateWithTS());
+        setTestSuiteFromVersionWithDate(
+            await query.getTestSuitesFromVersionWithDate()
+        );
+        setDate(await query.getDate());
     }, [id, clientChoose]);
 
     useEffect(() => {
         allRequest();
     }, [id, clientChoose, allRequest]);
-
-    useEffect(() => {
-        allDateRequest();
-    }, [dateChoose, id, clientChoose, allDateRequest]);
 
     useEffect(() => {
         const arr: Array<number> = [];
@@ -124,25 +87,20 @@ function StatsPageStructure() {
     return (
         <StatsPageStructureContext.Provider
             value={{
-                version,
                 testState,
                 client,
                 testSuite,
                 allClientID,
-                clientVersion,
                 setTestSuiteChoose,
                 testSuiteChoose,
-                testStateCount,
                 testSuiteFromVersion,
                 dateChoose,
                 setDateChoose,
                 date,
                 dateWithTS,
                 testSuiteFromVersionWithDate,
-                testStateCountWithDate,
                 clientVersionChoose,
                 setClientVersionChoose,
-                clientModel,
                 modelChoose,
                 setModelChoose,
             }}

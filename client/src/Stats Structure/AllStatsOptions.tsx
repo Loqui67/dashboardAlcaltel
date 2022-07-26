@@ -30,7 +30,7 @@ function AllStatsOptions() {
             <div className="d-flex flex-row">
                 <div className="selectClient padding">
                     <Label text="Choose a client" />
-                    <SelectClient client={client} />
+                    <SelectClient />
                 </div>
                 <div className="selectVersion padding">
                     <Label text="Choose a version" />

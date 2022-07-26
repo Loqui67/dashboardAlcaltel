@@ -1,10 +1,11 @@
 /* ------------------- React ------------------- */
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 /* ------------------- Classes ------------------- */
 
 import Utils from "../classes/Utils";
+import GetFromDatabase from "../classes/GetFromDatabase";
 
 /* ------------------- Composants Bootstrap ------------------- */
 
@@ -13,20 +14,36 @@ import Form from "react-bootstrap/Form";
 /* ------------------- Types Interfaces Contexts ------------------- */
 
 import { useStatsContext } from "../toolbox/context";
-import { SelectClientProps } from "../toolbox/typeAndInterface";
+import { clientDistinctType } from "../toolbox/typeAndInterface";
 
-function SelectClient(props: SelectClientProps) {
+/* ------------------- Librairies tierces ------------------- */
+
+import { useParams } from "react-router-dom";
+
+function SelectClient() {
     const [defaultValue, setDefaultValue] = useState<string>();
+    const [clientDistinct, setClientDistinct] = useState<clientDistinctType>(
+        []
+    );
 
-    const { clientDistinct } = useStatsContext();
-    const { clientChoose } = useStatsContext();
-    const { setClientChoose } = useStatsContext();
+    const { client } = useParams();
+    const { clientChoose, setClientChoose } = useStatsContext();
+
+    const query = useMemo(() => new GetFromDatabase(0, "", ""), []);
+
+    const getClient = useCallback(async () => {
+        setClientDistinct(await query.getClientDistinct());
+    }, [query]);
 
     useEffect(() => {
-        props.client === undefined
+        getClient();
+    }, [getClient]);
+
+    useEffect(() => {
+        client === undefined
             ? setDefaultValue("Chrome")
             : setDefaultValue(clientChoose);
-    }, [props.client, clientChoose]);
+    }, [client, clientChoose]);
 
     const utils = useMemo(() => new Utils(), []);
 

@@ -1,3 +1,11 @@
+/* ------------------- React ------------------- */
+
+import { useState, useCallback, useEffect } from "react";
+
+/* ------------------- Classes ------------------- */
+
+import GetFromDatabase from "../classes/GetFromDatabase";
+
 /* ------------------- Composants Bootstrap ------------------- */
 
 import Form from "react-bootstrap/Form";
@@ -5,10 +13,32 @@ import Form from "react-bootstrap/Form";
 /* ------------------- Types Interfaces Contexts ------------------- */
 
 import { useStatsPageStructureContext } from "../toolbox/context";
+import { clientVersionType } from "../toolbox/typeAndInterface";
+
+/* ------------------- librairies tierces ------------------- */
+
+import { useParams } from "react-router-dom";
 
 function SelectClientVersion() {
-    const { clientVersion, setClientVersionChoose } =
-        useStatsPageStructureContext();
+    const { setClientVersionChoose } = useStatsPageStructureContext();
+
+    let { id, client } = useParams<string>();
+    const [clientVersion, setClientVersion] = useState<clientVersionType>([]);
+
+    const getClientVersion = useCallback(async () => {
+        const query = new GetFromDatabase(
+            id === undefined ? 0 : parseInt(id),
+            "",
+            ""
+        );
+        setClientVersion(
+            await query.getClientVersion(client === undefined ? "" : client)
+        );
+    }, [id, client]);
+
+    useEffect(() => {
+        getClientVersion();
+    }, [getClientVersion]);
 
     return (
         <Form.Select

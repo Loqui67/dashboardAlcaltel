@@ -51,7 +51,7 @@ function App() {
         //on vérifie si l'utilisateur est connecté ou non
         const utils = new Utils();
         const query = new GetFromDatabase(0, "", "");
-        if (!loginStatus.isLogged && !utils.isLoginPage()) {
+        if (!loginStatus.isLogged) {
             setIsLogged(await query.isLogged());
             if (isLogged.loggedIn) {
                 setLoginStatus({
@@ -60,18 +60,7 @@ function App() {
                     isLogged: true,
                     message: "",
                 });
-            }
-        } else if (!loginStatus.isLogged && utils.isLoginPage()) {
-            const a: isLoggedType = await query.isLogged();
-            if (a.loggedIn) {
-                setIsLogged(a);
-                utils.redirectStats();
-                setLoginStatus({
-                    username: isLogged.user[0].username,
-                    admin: isLogged.user[0].isAdmin,
-                    isLogged: true,
-                    message: "",
-                });
+                if (utils.isLoginPage()) utils.redirectStats();
             }
         }
     }, [isLogged, loginStatus]);

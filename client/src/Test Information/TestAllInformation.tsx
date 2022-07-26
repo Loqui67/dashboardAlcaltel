@@ -68,7 +68,7 @@ function TestAllInformation() {
 
     const getStepAndHistory = useCallback(
         async (id: number) => {
-            if ((await query.checkJWT()) && testState[0] !== undefined) {
+            if (testState[0] !== undefined) {
                 const name = testState.filter((test) => test.id_testRun === id);
                 setTestHistory(await query.getHistory(name[0].name));
                 setTestStep(await query.getStep(id));

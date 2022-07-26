@@ -53,11 +53,7 @@ function RegisterPage() {
         let admin: boolean;
         if (isAdmin) admin = true;
         else admin = false;
-        if (await query.checkJWT()) {
-            setRegState(
-                await query.registerUser(usernameReg, passwordReg, admin)
-            );
-        }
+        setRegState(await query.registerUser(usernameReg, passwordReg, admin));
     }
 
     const check = useCallback(() => {

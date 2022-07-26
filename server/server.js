@@ -294,8 +294,9 @@ app.get("/testSuiteFromVersionWithDate", (req, res) => {
 
 
 app.get("/version", (req, res) => {
+    const id = req.query.id;
     console.log("version")
-    tests.query("CALL version();", (err, result) => {
+    tests.query("CALL version(?);",id, (err, result) => {
         if (err) {
             console.log(err);
         } else {

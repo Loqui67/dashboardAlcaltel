@@ -1,3 +1,11 @@
+/* ------------------- React ------------------- */
+
+import { useState, useCallback, useEffect } from "react";
+
+/* ------------------- Classes ------------------- */
+
+import GetFromDatabase from "../classes/GetFromDatabase";
+
 /* ------------------- Composants Bootstrap ------------------- */
 
 import Form from "react-bootstrap/Form";
@@ -5,9 +13,29 @@ import Form from "react-bootstrap/Form";
 /* ------------------- Types Interfaces Contexts ------------------- */
 
 import { useStatsPageStructureContext } from "../toolbox/context";
+import { clientModelType } from "../toolbox/typeAndInterface";
+
+/* ------------------- librairies tierces ------------------- */
+
+import { useParams } from "react-router-dom";
 
 function SelectModel() {
-    const { clientModel, setModelChoose } = useStatsPageStructureContext();
+    const { setModelChoose } = useStatsPageStructureContext();
+    let { id } = useParams<string>();
+    const [clientModel, setClientModel] = useState<clientModelType>([]);
+
+    const getClientModel = useCallback(async () => {
+        const query = new GetFromDatabase(
+            id === undefined ? 0 : parseInt(id),
+            "",
+            ""
+        );
+        setClientModel(await query.getClientModel());
+    }, [id]);
+
+    useEffect(() => {
+        getClientModel();
+    }, [getClientModel]);
 
     return (
         <Form.Select

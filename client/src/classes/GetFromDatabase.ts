@@ -2,9 +2,12 @@
 
 import Utils from "./Utils";
 
-/* ------------------- Librairies tierces ------------------- */
+/* ------------------- Outils ------------------- */
 
 import { serverAddress } from "../toolbox/address";
+
+/* ------------------- Librairies tierces ------------------- */
+
 import Axios from "axios";
 Axios.defaults.withCredentials = true;
 
@@ -174,8 +177,12 @@ class GetFromDatabase {
 
     async getVersion() {
         //récupère la liste des versions
-        const response = await Axios.get(`${this.address}version`);
-        return response.data[0];
+        const response = await Axios.get(`${this.address}version`, {
+            params: {
+                id: this.id,
+            },
+        });
+        return response.data[0][0];
     }
 
     async getLastVersion() {
@@ -264,7 +271,7 @@ class GetFromDatabase {
     }
 
     async checkJWT() {
-        //on vérifie l'identité de l'utilisateur (à faire avant chaque requete)
+        //on vérifie l'identité de l'utilisateur
         let a = localStorage.getItem("token");
         const response = await Axios.get(`${this.address}isUserAuth`, {
             headers: {
