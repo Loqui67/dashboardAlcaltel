@@ -21,104 +21,108 @@ import { useParams } from "react-router-dom";
 import { serverAddress } from "../toolbox/address";
 
 function TestLogs() {
-  const [modalShow, setModalShow] = useState<boolean>(false);
-  const [imageModale, setImageModale] = useState<string>("");
-  const [screenshotClient, setScreenshotClient] = useState<string>("");
-  const [versionWithLogs, setVersionWithLogs] = useState<versionWithLogsType>(
-    []
-  );
+    const [modalShow, setModalShow] = useState<boolean>(false);
+    const [imageModale, setImageModale] = useState<string>("");
+    const [screenshotClient, setScreenshotClient] = useState<string>("");
+    const [versionWithLogs, setVersionWithLogs] = useState<versionWithLogsType>(
+        []
+    );
 
-  const prefix = useMemo(() => `${serverAddress}SeleniumReports/`, []);
+    const prefix = useMemo(() => `${serverAddress}SeleniumReports/`, []);
 
-  function modale(
-    screenshotClient: string,
-    client: string,
-    date: string,
-    imageName: string
-  ) {
-    setModalShow(true);
-    setImageModale(`${prefix}${client}/${date}/${imageName}`);
-    setScreenshotClient(screenshotClient);
-  }
-
-  const { client, testRunID } = useParams();
-
-  const getLogs = useCallback(async () => {
-    const query = new GetFromDatabase(0, "", "");
-    if (await query.checkJWT()) {
-      setVersionWithLogs(
-        await query.getVersionWithLogs(
-          testRunID === undefined ? 0 : parseInt(testRunID)
-        )
-      );
+    function modale(
+        screenshotClient: string,
+        client: string,
+        date: string,
+        imageName: string
+    ) {
+        setModalShow(true);
+        setImageModale(`${prefix}${client}/${date}/${imageName}`);
+        setScreenshotClient(screenshotClient);
     }
-  }, [testRunID]);
 
-  useEffect(() => {
-    getLogs();
-  }, [getLogs]);
+    const { client, testRunID } = useParams();
 
-  return (
-    <>
-      {versionWithLogs.map((logs, key) => {
-        const date = `${logs.date.slice(0, 4)}.${logs.date.slice(
-          5,
-          7
-        )}.${logs.date.slice(8, 10)}`;
-        return (
-          <div key={key}>
-            <div className="divider div-transparent" />
-            <div className="d-flex flex-column padding">
-              <div className="errorMessage">
-                <h6>Error message :</h6>
-                <Paragraph text={logs.error_message} />
-              </div>
-              <div className="d-flex flex-row imageContainer">
-                <div className="screenCell d-flex flex-column padding">
-                  <h6>Luke client screenshot :</h6>
-                  <img
-                    src={`${prefix}${client}/${date}/${logs.screenshot_luke}`}
-                    alt="screenshot luke"
-                    className="image"
-                    onClick={() =>
-                      modale(
-                        "Luke",
-                        client === undefined ? "" : client,
-                        date,
-                        logs.screenshot_luke
-                      )
-                    }
-                  />
-                </div>
-                <div className="screenCell d-flex flex-column padding">
-                  <h6>Rey client screenshot :</h6>
-                  <img
-                    src={`${prefix}${client}/${date}/${logs.screenshot_rey}`}
-                    alt="screenshot rey"
-                    className="image"
-                    onClick={() =>
-                      modale(
-                        "Rey",
-                        client === undefined ? "" : client,
-                        date,
-                        logs.screenshot_rey
-                      )
-                    }
-                  />
-                </div>
-              </div>
-              <Modale
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                imageModale={imageModale}
-                screenshotClient={screenshotClient}
-              />
-            </div>
-          </div>
-        );
-      })}
-    </>
-  );
+    const getLogs = useCallback(async () => {
+        const query = new GetFromDatabase(0, "", "");
+        if (await query.checkJWT()) {
+            setVersionWithLogs(
+                await query.getVersionWithLogs(
+                    testRunID === undefined ? 0 : parseInt(testRunID)
+                )
+            );
+        }
+    }, [testRunID]);
+
+    useEffect(() => {
+        getLogs();
+    }, [getLogs]);
+
+    return (
+        <>
+            {versionWithLogs.map((logs, key) => {
+                const date = `${logs.date.slice(0, 4)}.${logs.date.slice(
+                    5,
+                    7
+                )}.${logs.date.slice(8, 10)}`;
+                return (
+                    <div key={key}>
+                        <div className="divider div-transparent" />
+                        <div className="d-flex flex-column padding">
+                            <div className="errorMessage">
+                                <h6>Error message :</h6>
+                                <Paragraph text={logs.error_message} />
+                            </div>
+                            <div className="d-flex flex-row imageContainer">
+                                <div className="screenCell d-flex flex-column padding">
+                                    <h6>Luke client screenshot :</h6>
+                                    <img
+                                        src={`${prefix}${client}/${date}/${logs.screenshot_luke}`}
+                                        alt="screenshot luke"
+                                        className="image"
+                                        onClick={() =>
+                                            modale(
+                                                "Luke",
+                                                client === undefined
+                                                    ? ""
+                                                    : client,
+                                                date,
+                                                logs.screenshot_luke
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <div className="screenCell d-flex flex-column padding">
+                                    <h6>Rey client screenshot :</h6>
+                                    <img
+                                        src={`${prefix}${client}/${date}/${logs.screenshot_rey}`}
+                                        alt="screenshot rey"
+                                        className="image"
+                                        onClick={() =>
+                                            modale(
+                                                "Rey",
+                                                client === undefined
+                                                    ? ""
+                                                    : client,
+                                                date,
+                                                logs.screenshot_rey
+                                            )
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <Modale
+                                show={modalShow}
+                                onHide={() => setModalShow(false)}
+                                imageModale={imageModale}
+                                screenshotClient={screenshotClient}
+                            />
+                        </div>
+                    </div>
+                );
+            })}
+        </>
+    );
 }
 
 export default TestLogs;

@@ -3,11 +3,11 @@ export enum variant {
     danger = "danger",
     dark = "dark",
     info = "info",
-    primary = "primary"
+    primary = "primary",
 }
 
 export enum dataChartTypeName {
     doughnut = "doughnut",
     bar = "bar",
-    bar100 = "bar"
+    bar100 = "bar",
 }

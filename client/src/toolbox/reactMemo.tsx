@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState, useCallback } from "react";
 import React from "react";
 
 function reactMemo() {
-  return <div>reactMemo</div>;
+    return <div>reactMemo</div>;
 }
 
 export default reactMemo;
@@ -33,7 +33,7 @@ console.log(exemple); //second value
 //? useEffect permet d'executer des fonctions dès que le chargement du composants, ou après son actualisation
 
 useEffect(() => {
-  console.log("bonjour");
+    console.log("bonjour");
 }, []);
 
 //? le tableau de dépendance permet de n'executer la fonction que si les valeurs à l'intérieur ont changé :
@@ -41,7 +41,7 @@ useEffect(() => {
 const [a, setA] = useState<string>("initial value");
 
 useEffect(() => {
-  console.log(a); //affiché une seule fois, tant que la valeur de a ne change pas
+    console.log(a); //affiché une seule fois, tant que la valeur de a ne change pas
 }, [a]);
 
 //! useMemo :
@@ -59,5 +59,5 @@ const memo = useMemo(() => 18 + c, [c]);
 //? c'est la même chose que useMemo, mais sur les fonctions :
 
 const e = useCallback(() => {
-  return memo + c;
+    return memo + c;
 }, [memo, c]);

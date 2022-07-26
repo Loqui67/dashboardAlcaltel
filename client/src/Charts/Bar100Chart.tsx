@@ -20,65 +20,65 @@ import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
 Chart.register(ChartjsPluginStacked100);
 
 function Bar100Chart({ chartData }: Bar100ChartProps) {
-  const options: ChartOptions<dataChartTypeName.bar100> = useMemo(() => {
-    //voir la docu pour les options
-    return {
-      indexAxis: "x",
-      plugins: {
-        stacked100: {
-          enable: true,
-          replaceTooltipLabel: true,
-        },
-        legend: {
-          position: "top",
-          labels: {
-            boxHeight: 20,
-            font: {
-              size: 16,
+    const options: ChartOptions<dataChartTypeName.bar100> = useMemo(() => {
+        //voir la docu pour les options
+        return {
+            indexAxis: "x",
+            plugins: {
+                stacked100: {
+                    enable: true,
+                    replaceTooltipLabel: true,
+                },
+                legend: {
+                    position: "top",
+                    labels: {
+                        boxHeight: 20,
+                        font: {
+                            size: 16,
+                        },
+                        usePointStyle: true,
+                    },
+                },
+                tooltip: {
+                    titleFont: {
+                        size: 18,
+                    },
+                    bodyFont: {
+                        size: 14,
+                    },
+                },
             },
-            usePointStyle: true,
-          },
-        },
-        tooltip: {
-          titleFont: {
-            size: 18,
-          },
-          bodyFont: {
-            size: 14,
-          },
-        },
-      },
-      layout: {
-        padding: 0,
-      },
-      maintainAspectRatio: false,
-      responsive: true,
-      scales: {
-        x: {
-          stacked: true,
-          ticks: {
-            font: {
-              size: 14,
+            layout: {
+                padding: 0,
             },
-          },
-        },
-        y: {
-          max: 100,
-          min: 0,
-          stacked: true,
-          beginAtZero: true,
-          ticks: {
-            precision: 0,
-            font: {
-              size: 12,
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: {
+                        font: {
+                            size: 14,
+                        },
+                    },
+                },
+                y: {
+                    max: 100,
+                    min: 0,
+                    stacked: true,
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0,
+                        font: {
+                            size: 12,
+                        },
+                    },
+                },
             },
-          },
-        },
-      },
-    };
-  }, []);
+        };
+    }, []);
 
-  return <Bar data={chartData} options={options} />;
+    return <Bar data={chartData} options={options} />;
 }
 
 export default Bar100Chart;

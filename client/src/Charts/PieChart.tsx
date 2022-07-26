@@ -17,27 +17,27 @@ import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 
 function PieChart({ chartData }: PieChartProps) {
-  const options: ChartOptions<dataChartTypeName.doughnut> = useMemo(() => {
-    //voir la docu pour les options
-    return {
-      plugins: {
-        legend: {
-          position: "top",
-          labels: {
-            boxHeight: 20,
-            font: {
-              size: 16,
+    const options: ChartOptions<dataChartTypeName.doughnut> = useMemo(() => {
+        //voir la docu pour les options
+        return {
+            plugins: {
+                legend: {
+                    position: "top",
+                    labels: {
+                        boxHeight: 20,
+                        font: {
+                            size: 16,
+                        },
+                        usePointStyle: true,
+                    },
+                },
             },
-            usePointStyle: true,
-          },
-        },
-      },
-      maintainAspectRatio: false,
-      responsive: true,
-    };
-  }, []);
+            maintainAspectRatio: false,
+            responsive: true,
+        };
+    }, []);
 
-  return <Doughnut data={chartData} options={options} />;
+    return <Doughnut data={chartData} options={options} />;
 }
 
 export default PieChart;
