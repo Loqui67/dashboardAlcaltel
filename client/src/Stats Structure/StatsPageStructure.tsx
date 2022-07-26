@@ -1,6 +1,6 @@
 /* ------------------- React ------------------- */
 
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 /* ------------------- Composants ------------------- */
 
@@ -12,11 +12,7 @@ import VersionTitle from "./VersionTitle";
 
 import GetFromDatabase from "../classes/GetFromDatabase";
 
-/* ------------------- Fonctions ------------------- */
-
-import { useOutletCntxtStats } from "../Pages/Stats";
-
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
 import {
     testSuiteType,
@@ -33,21 +29,17 @@ import {
     allClientIDType,
     dateType,
     dateWithTSType,
-    stateType,
     dateChooseType,
-    StatsPageStructureContextType,
 } from "../toolbox/typeAndInterface";
+import { useStatsContext, StatsPageStructureContext } from "../toolbox/context";
 
 /* ------------------- Librairies tierces ------------------- */
 
-import { Outlet, useParams, useOutletContext } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
 function StatsPageStructure() {
     let { id } = useParams<string>();
-
-    const { clientDistinct } = useOutletCntxtStats();
-    const { clientChoose } = useOutletCntxtStats();
-    const { setClientChoose } = useOutletCntxtStats();
+    const { clientChoose } = useStatsContext();
 
     const [testSuite, setTestSuite] = useState<testSuiteType>([]);
     const [testSuiteChoose, setTestSuiteChoose] =
@@ -71,7 +63,6 @@ function StatsPageStructure() {
     const [date, setDate] = useState<dateType>([]);
     const [dateWithTS, setDateWithTS] = useState<dateWithTSType>([]);
     const [dateChoose, setDateChoose] = useState<dateChooseType>("");
-    const [state, setState] = useState<stateType>([]);
 
     const [clientModel, setClientModel] = useState<Array<{ model: string }>>(
         []
@@ -108,7 +99,6 @@ function StatsPageStructure() {
             setVersion(await query.getVersion());
             setTestSuite(await query.getTestSuites());
             setDateWithTS(await query.getDateWithTS());
-            setState(await query.getState());
             setClientModel(await query.getClientModel());
         }
     }, [id, clientChoose]);
@@ -132,66 +122,47 @@ function StatsPageStructure() {
     }, [client, clientChoose]);
 
     return (
-        <div className="StatsPageStructure">
-            <div className="divider div-transparent" />
-            <VersionTitle
-                version={version}
-                id={id !== undefined ? parseInt(id) : 0}
-                clientChoose={clientChoose}
-            />
-            <div className="divider div-transparent" />
-
-            <StatsGraphPartStructure
-                clientDistinct={clientDistinct}
-                allClientID={allClientID}
-                setClientChoose={setClientChoose}
-                clientVersion={clientVersion}
-                setTestSuiteChoose={setTestSuiteChoose}
-                testSuiteChoose={testSuiteChoose}
-                testState={testState}
-                testStateCount={testStateCount}
-                testSuiteFromVersion={testSuiteFromVersion}
-                dateChoose={dateChoose}
-                setDateChoose={setDateChoose}
-                date={date}
-                dateWithTS={dateWithTS}
-                testSuiteFromVersionWithDate={testSuiteFromVersionWithDate}
-                testStateCountWithDate={testStateCountWithDate}
-                clientVersionChoose={clientVersionChoose}
-                setClientVersionChoose={setClientVersionChoose}
-                clientModel={clientModel}
-                modelChoose={modelChoose}
-                setModelChoose={setModelChoose}
-            />
-
-            <div className="divider div-transparent" />
-            <div className="d-flex flex-row DownPart padding">
-                <TestInfoStructure
-                    allClientID={allClientID}
-                    clientVersionChoose={clientVersionChoose}
-                    testSuiteChoose={testSuiteChoose}
-                    testState={testState}
-                    dateChoose={dateChoose}
-                    state={state}
-                    modelChoose={modelChoose}
-                />
-                <div className="dividerVertical div-transparentVertical" />
-                <Outlet
-                    context={{
-                        //TestAllInformation.tsx
-                        testState,
-                        client,
-                        clientChoose,
-                        testSuite,
-                    }}
-                />
+        <StatsPageStructureContext.Provider
+            value={{
+                version,
+                testState,
+                client,
+                testSuite,
+                allClientID,
+                clientVersion,
+                setTestSuiteChoose,
+                testSuiteChoose,
+                testStateCount,
+                testSuiteFromVersion,
+                dateChoose,
+                setDateChoose,
+                date,
+                dateWithTS,
+                testSuiteFromVersionWithDate,
+                testStateCountWithDate,
+                clientVersionChoose,
+                setClientVersionChoose,
+                clientModel,
+                modelChoose,
+                setModelChoose,
+            }}
+        >
+            <div className="StatsPageStructure">
+                <div className="divider div-transparent" />
+                <VersionTitle />
+                <div className="divider div-transparent" />
+                <StatsGraphPartStructure />
+                <div className="divider div-transparent" />
+                <div className="d-flex flex-row DownPart padding">
+                    <TestInfoStructure />
+                    <div className="dividerVertical div-transparentVertical" />
+                    <Outlet
+                    //TestAllInformation.tsx
+                    />
+                </div>
             </div>
-        </div>
+        </StatsPageStructureContext.Provider>
     );
 }
 
 export default StatsPageStructure;
-
-export function useOutletCntxt() {
-    return useOutletContext<StatsPageStructureContextType>();
-}

@@ -10,16 +10,19 @@ import { useMemo } from "react";
 
 import Form from "react-bootstrap/Form";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { SelectTSProps } from "../toolbox/typeAndInterface";
+import { useStatsPageStructureContext } from "../toolbox/context";
 
-function SelectTS(props: SelectTSProps) {
+function SelectTS() {
     const space = useMemo(() => new Utils(), []);
 
+    const { setTestSuiteChoose, testSuiteFromVersion, setDateChoose } =
+        useStatsPageStructureContext();
+
     const onChange = (e: any) => {
-        props.setTestSuiteChoose(e.target.value);
-        props.setDateChoose("");
+        setTestSuiteChoose(e.target.value);
+        setDateChoose("");
     };
 
     return (
@@ -32,9 +35,7 @@ function SelectTS(props: SelectTSProps) {
             <option value={""}>All</option>
             {Array.from(
                 new Set(
-                    props.testSuiteFromVersion.map(
-                        (item) => item.testsSuites_name
-                    )
+                    testSuiteFromVersion.map((item) => item.testsSuites_name)
                 )
             ).map((testSuite, key) => {
                 let result = space.formatStringToUpperAndLowerCase(testSuite);

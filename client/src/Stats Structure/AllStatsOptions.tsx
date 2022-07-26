@@ -7,9 +7,9 @@ import { useEffect } from "react";
 import DropdownVersionPatchContent from "../Search Options-Results/DropdownVersionPatchContent";
 import Label from "../HTML components/Label";
 
-/* ------------------- Fonctions ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { useOutletCntxtStats } from "../Pages/Stats";
+import { useStatsContext } from "../toolbox/context";
 
 /* ------------------- Librairies tierces ------------------- */
 
@@ -19,9 +19,7 @@ import SelectClient from "../Search Options-Results/SelectClient";
 function AllStatsOptions() {
     const { client } = useParams();
 
-    const { clientDistinct } = useOutletCntxtStats();
-    const { clientChoose } = useOutletCntxtStats();
-    const { setClientChoose } = useOutletCntxtStats();
+    const { setClientChoose } = useStatsContext();
 
     useEffect(() => {
         if (client !== undefined) setClientChoose(client);
@@ -32,26 +30,16 @@ function AllStatsOptions() {
             <div className="d-flex flex-row">
                 <div className="selectClient padding">
                     <Label text="Choose a client" />
-                    <SelectClient
-                        clientDistinct={clientDistinct}
-                        setClientChoose={setClientChoose}
-                        clientChoose={clientChoose}
-                        client={client}
-                    />
+                    <SelectClient client={client} />
                 </div>
                 <div className="selectVersion padding">
                     <Label text="Choose a version" />
-                    <DropdownVersionPatchContent clientChoose={clientChoose} />
+                    <DropdownVersionPatchContent />
                 </div>
             </div>
             <div>
                 <Outlet
-                    context={{
-                        //StatsPageStructure.tsx
-                        clientDistinct,
-                        clientChoose,
-                        setClientChoose,
-                    }}
+                //StatsPageStructure.tsx
                 />
             </div>
         </div>

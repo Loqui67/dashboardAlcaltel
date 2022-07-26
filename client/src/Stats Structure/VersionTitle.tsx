@@ -1,16 +1,31 @@
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { VersionTitleProps } from "../toolbox/typeAndInterface";
+import {
+    useStatsContext,
+    useStatsPageStructureContext,
+} from "../toolbox/context";
 
-function VersionTitle(props: VersionTitleProps) {
+/* ------------------- librairies tierces ------------------- */
+
+import { useParams } from "react-router-dom";
+
+function VersionTitle() {
+    let { id } = useParams<string>();
+    const { clientChoose } = useStatsContext();
+    const { version } = useStatsPageStructureContext();
+
     return (
         <>
-            {props.version
-                .filter((name) => name.id_version === props.id)
+            {version
+                .filter(
+                    (name) =>
+                        name.id_version ===
+                        (id !== undefined ? parseInt(id) : 0)
+                )
                 .map((name, key) => {
                     return (
                         <div key={key} className="title">
-                            <h2>{`Client ${props.clientChoose} ${name.version_name}.${name.patch}`}</h2>
+                            <h2>{`Client ${clientChoose} ${name.version_name}.${name.patch}`}</h2>
                         </div>
                     );
                 })}

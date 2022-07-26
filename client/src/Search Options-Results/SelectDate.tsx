@@ -10,27 +10,30 @@ import Utils from "../classes/Utils";
 
 import Form from "react-bootstrap/Form";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { SelectDateProps } from "../toolbox/typeAndInterface";
+import { useStatsPageStructureContext } from "../toolbox/context";
 
-function SelectDate(props: SelectDateProps) {
+function SelectDate() {
+    const { dateWithTS, testSuiteChoose, setDateChoose, dateChoose, date } =
+        useStatsPageStructureContext();
+
     const convertDate = useMemo(() => new Utils(), []);
     useEffect(() => {
         (document.getElementById("date") as HTMLInputElement).value =
-            props.dateChoose;
-    }, [props.dateChoose]);
+            dateChoose;
+    }, [dateChoose]);
 
     return (
         <Form.Select
             id="date"
             defaultValue=""
             className="select-date form-select margin-top"
-            onChange={(e: any) => props.setDateChoose(e.target.value)}
+            onChange={(e: any) => setDateChoose(e.target.value)}
         >
             <option value="">All</option>
-            {props.testSuiteChoose === ""
-                ? props.date.map((date, key) => {
+            {testSuiteChoose === ""
+                ? date.map((date, key) => {
                       return (
                           <option
                               key={`${date.date}-${key}`}
@@ -44,10 +47,9 @@ function SelectDate(props: SelectDateProps) {
                           </option>
                       );
                   })
-                : props.dateWithTS
+                : dateWithTS
                       .filter(
-                          (date) =>
-                              date.testsSuites_name === props.testSuiteChoose
+                          (date) => date.testsSuites_name === testSuiteChoose
                       )
                       .map((date, key) => {
                           return (

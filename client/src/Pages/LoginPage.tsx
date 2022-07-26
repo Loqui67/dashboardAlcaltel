@@ -37,8 +37,7 @@ import { Ilogin } from "../toolbox/typeAndInterface";
 import { useLoginContext } from "../toolbox/context";
 
 function LoginPage() {
-    const { loginStatus } = useLoginContext();
-    const { setLoginStatus } = useLoginContext();
+    const { loginStatus, setLoginStatus } = useLoginContext();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");

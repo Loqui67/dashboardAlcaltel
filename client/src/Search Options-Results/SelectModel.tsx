@@ -2,20 +2,22 @@
 
 import Form from "react-bootstrap/Form";
 
-/* ------------------- Types and interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { SelectModelProps } from "../toolbox/typeAndInterface";
+import { useStatsPageStructureContext } from "../toolbox/context";
 
-function SelectModel(props: SelectModelProps) {
+function SelectModel() {
+    const { clientModel, setModelChoose } = useStatsPageStructureContext();
+
     return (
         <Form.Select
             defaultValue={""}
             id="model"
             className="select-model form-select margin-top"
-            onChange={(e: any) => props.setModelChoose(e.target.value)}
+            onChange={(e: any) => setModelChoose(e.target.value)}
         >
             <option value={""}>All</option>
-            {props.clientModel
+            {clientModel
                 .filter((element) => element.model !== null)
                 .map((element, key) => (
                     <option key={key} value={element.model}>

@@ -12,19 +12,25 @@ import Label from "../HTML components/Label";
 
 import Utils from "../classes/Utils";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import {
-    TestInfoStructureProps,
-    stateChooseType,
-    searchType,
-} from "../toolbox/typeAndInterface";
+import { stateChooseType, searchType } from "../toolbox/typeAndInterface";
+import { useStatsPageStructureContext } from "../toolbox/context";
 
 /* ------------------- Librairies tierces ------------------- */
 
 import ReactPaginate from "react-paginate";
 
-function TestInfoStructure(props: TestInfoStructureProps) {
+function TestInfoStructure() {
+    const {
+        testSuiteChoose,
+        testState,
+        clientVersionChoose,
+        allClientID,
+        dateChoose,
+        modelChoose,
+    } = useStatsPageStructureContext();
+
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(0);
     const [stateChoose, setStateChoose] = useState<stateChooseType>(0);
@@ -32,14 +38,14 @@ function TestInfoStructure(props: TestInfoStructureProps) {
     const utils = useMemo(() => new Utils(), []);
 
     const testSuiteFilter: any = useMemo(() => {
-        if (props.testSuiteChoose === "") {
-            return props.testState;
+        if (testSuiteChoose === "") {
+            return testState;
         } else {
-            return props.testState.filter(
-                (filter) => filter.testsSuites_name === props.testSuiteChoose
+            return testState.filter(
+                (filter) => filter.testsSuites_name === testSuiteChoose
             );
         }
-    }, [props.testState, props.testSuiteChoose]);
+    }, [testState, testSuiteChoose]);
 
     const searchTermFilter: any = useMemo(() => {
         if (searchTerm === "") {
@@ -56,34 +62,32 @@ function TestInfoStructure(props: TestInfoStructureProps) {
     const clientVersionFilter: any = useMemo(() => {
         return searchTermFilter.filter(
             (clientVersion: { id_client: number }) => {
-                if (props.clientVersionChoose === 0) {
-                    return props.allClientID.map((test) => {
+                if (clientVersionChoose === 0) {
+                    return allClientID.map((test) => {
                         if (test === clientVersion.id_client) {
                             return clientVersion;
                         }
                         return null;
                     });
-                } else if (
-                    clientVersion.id_client === props.clientVersionChoose
-                ) {
+                } else if (clientVersion.id_client === clientVersionChoose) {
                     return clientVersion;
                 }
                 return null;
             }
         );
-    }, [searchTermFilter, props.allClientID, props.clientVersionChoose]);
+    }, [searchTermFilter, allClientID, clientVersionChoose]);
 
     const dateFilter: any = useMemo(() => {
-        if (props.dateChoose === "") {
+        if (dateChoose === "") {
             return clientVersionFilter;
         } else {
             return clientVersionFilter.filter(
                 (date: { date: string }) =>
-                    props.dateChoose ===
+                    dateChoose ===
                     utils.getDateAndDeleteHourOnDbFormat(date.date)
             );
         }
-    }, [clientVersionFilter, props.dateChoose, utils]);
+    }, [clientVersionFilter, dateChoose, utils]);
 
     const stateFilter: any = useMemo(() => {
         if (stateChoose === 0) {
@@ -96,14 +100,14 @@ function TestInfoStructure(props: TestInfoStructureProps) {
     }, [dateFilter, stateChoose]);
 
     const modelFilter: any = useMemo(() => {
-        if (props.modelChoose === "") {
+        if (modelChoose === "") {
             return stateFilter;
         } else {
             return stateFilter.filter(
-                (model: { model: string }) => props.modelChoose === model.model
+                (model: { model: string }) => modelChoose === model.model
             );
         }
-    }, [stateFilter, props.modelChoose]);
+    }, [stateFilter, modelChoose]);
 
     const search: searchType = useMemo(() => {
         return modelFilter;
@@ -138,10 +142,7 @@ function TestInfoStructure(props: TestInfoStructureProps) {
             <div className="d-flex flex-row select padding3 padding filter justify-content-space-between">
                 <div className="d-flex flex-column justify-content-start selectState">
                     <Label text="Choose a state" />
-                    <SelectState
-                        setStateChoose={setStateChoose}
-                        state={props.state}
-                    />
+                    <SelectState setStateChoose={setStateChoose} />
                 </div>
             </div>
             <TestSearchResult

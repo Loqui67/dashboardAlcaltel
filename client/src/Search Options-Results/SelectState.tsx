@@ -17,20 +17,9 @@ function SelectState(props: SelectStateProps) {
             }
         >
             <option value={0}>All</option>
-            {props.state.map((state, key) => {
-                if (state.currentState !== "not run") {
-                    return (
-                        <option
-                            key={`${state.currentState}-${key}`}
-                            value={state.id_state}
-                        >
-                            {state.currentState}
-                        </option>
-                    );
-                } else {
-                    return null;
-                }
-            })}
+            <option value={1}>passed</option>
+            <option value={2}>failed</option>
+            <option value={3}>skipped</option>
         </Form.Select>
     );
 }

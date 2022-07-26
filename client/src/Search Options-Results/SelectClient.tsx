@@ -10,18 +10,23 @@ import Utils from "../classes/Utils";
 
 import Form from "react-bootstrap/Form";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
+import { useStatsContext } from "../toolbox/context";
 import { SelectClientProps } from "../toolbox/typeAndInterface";
 
 function SelectClient(props: SelectClientProps) {
     const [defaultValue, setDefaultValue] = useState<string>();
 
+    const { clientDistinct } = useStatsContext();
+    const { clientChoose } = useStatsContext();
+    const { setClientChoose } = useStatsContext();
+
     useEffect(() => {
         props.client === undefined
             ? setDefaultValue("Chrome")
-            : setDefaultValue(props.clientChoose);
-    }, [props.client, props.clientChoose]);
+            : setDefaultValue(clientChoose);
+    }, [props.client, clientChoose]);
 
     const utils = useMemo(() => new Utils(), []);
 
@@ -32,11 +37,11 @@ function SelectClient(props: SelectClientProps) {
             id="client"
             value={defaultValue}
             onChange={(e: any) => {
-                props.setClientChoose(e.target.value);
+                setClientChoose(e.target.value);
                 utils.redirectTo(`${utils.statsPath()}/${e.target.value}`);
             }}
         >
-            {props.clientDistinct.map((client, key) => {
+            {clientDistinct.map((client, key) => {
                 return (
                     <option
                         key={`${client.id_client}-${key}`}

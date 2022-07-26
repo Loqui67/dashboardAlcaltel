@@ -37,7 +37,6 @@ export interface PieChartProps {
 }
 
 export interface ChooseChartsProps {
-    testSuiteChoose: string;
     userDataBarChart: ChartData<dataChartTypeName.bar>;
     userDataPieChart: ChartData<dataChartTypeName.doughnut>;
     userDataBar100Chart: ChartData<dataChartTypeName.bar100>;
@@ -118,7 +117,6 @@ export interface StatsGraphPartStructureProps {
     testStateCountWithDate: testStateCountWithDateType;
     allClientID: allClientIDType;
     clientVersionChoose: clientVersionChooseType;
-    clientDistinct: clientDistinctType;
     clientModel: clientModelType;
     clientVersion: clientVersionType;
     date: dateType;
@@ -126,7 +124,6 @@ export interface StatsGraphPartStructureProps {
     modelChoose: modelChooseType;
     setModelChoose: Dispatch<SetStateAction<modelChooseType>>;
     setClientVersionChoose: Dispatch<SetStateAction<clientVersionChooseType>>;
-    setClientChoose: Dispatch<SetStateAction<clientChooseType>>;
     setTestSuiteChoose: Dispatch<SetStateAction<testSuiteChooseType>>;
     setDateChoose: Dispatch<SetStateAction<dateChooseType>>;
 }
@@ -233,8 +230,6 @@ export interface TestTitleProps {
 
 export interface VersionTitleProps {
     version: versionType;
-    id: number;
-    clientChoose: clientChooseType;
 }
 
 /* ------------------- Modale ------------------- */
@@ -307,9 +302,6 @@ export interface DropdownVersionPatchContentProps {
 }
 
 export interface SelectClientProps {
-    clientDistinct: clientDistinctType;
-    setClientChoose: Dispatch<SetStateAction<clientChooseType>>;
-    clientChoose: clientChooseType;
     client: string | undefined;
 }
 
@@ -327,7 +319,6 @@ export interface SelectDateProps {
 }
 
 export interface SelectStateProps {
-    state: stateType;
     setStateChoose: Dispatch<SetStateAction<stateChooseType>>;
 }
 
@@ -339,7 +330,6 @@ export interface SelectTSProps {
 
 export interface TestInfoStructureProps {
     testState: testStateType;
-    state: stateType;
     testSuiteChoose: testSuiteChooseType;
     allClientID: allClientIDType;
     clientVersionChoose: clientVersionChooseType;

@@ -14,22 +14,24 @@ import GetFromDatabase from "../classes/GetFromDatabase";
 
 import { variant } from "../toolbox/enum";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { DropdownVersionPatchContentProps } from "../toolbox/typeAndInterface";
+import { useStatsContext } from "../toolbox/context";
 
 /* ------------------- Librairies tierces ------------------- */
 
 import { Link } from "react-router-dom";
 
-function DropdownVersionPatchContent(props: DropdownVersionPatchContentProps) {
+function DropdownVersionPatchContent() {
+    const { clientChoose } = useStatsContext();
+
     const [versionFromClient, setVersionFromClient] = useState<
         Array<{ id_version: number; version_name: string; patch: number }>
     >([]);
 
     const query = useMemo(
-        () => new GetFromDatabase(0, props.clientChoose, ""),
-        [props.clientChoose]
+        () => new GetFromDatabase(0, clientChoose, ""),
+        [clientChoose]
     );
     let name = "";
 

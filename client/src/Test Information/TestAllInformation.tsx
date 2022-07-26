@@ -11,10 +11,6 @@ import TestSelectedDetails from "./TestSelectedDetails";
 import TestTitle from "../Stats Structure/TestTitle";
 import Paragraph from "../HTML components/Paragraph";
 
-/* ------------------- Fonctions ------------------- */
-
-import { useOutletCntxt } from "../Stats Structure/StatsPageStructure";
-
 /* ------------------- Composants Bootstrap ------------------- */
 
 import InputGroup from "react-bootstrap/InputGroup";
@@ -34,9 +30,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faClipboardList, faCheck } from "@fortawesome/free-solid-svg-icons";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
 import { testHistoryType, testStepType } from "../toolbox/typeAndInterface";
+import {
+    useStatsPageStructureContext,
+    useStatsContext,
+} from "../toolbox/context";
 
 /* ------------------- Librairies tierces ------------------- */
 
@@ -47,11 +47,8 @@ function TestAllInformation() {
     library.add(faClipboardList, faCheck);
 
     const { testRunID } = useParams<string>();
-
-    const { testState } = useOutletCntxt();
-    const { client } = useOutletCntxt();
-    const { clientChoose } = useOutletCntxt();
-    const { testSuite } = useOutletCntxt();
+    const { testState, client, testSuite } = useStatsPageStructureContext();
+    const { clientChoose } = useStatsContext();
 
     const [testHistory, setTestHistory] = useState<testHistoryType>([]);
     const [testStep, setTestStep] = useState<testStepType>([]);

@@ -2,22 +2,25 @@
 
 import Form from "react-bootstrap/Form";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
-import { SelectClientVersionProps } from "../toolbox/typeAndInterface";
+import { useStatsPageStructureContext } from "../toolbox/context";
 
-function SelectClientVersion(props: SelectClientVersionProps) {
+function SelectClientVersion() {
+    const { clientVersion, setClientVersionChoose } =
+        useStatsPageStructureContext();
+
     return (
         <Form.Select
             defaultValue="Chrome"
             className="select-client-version form-select margin-top"
             id="clientVersion"
             onChange={(e: any) =>
-                props.setClientVersionChoose(parseInt(e.target.value))
+                setClientVersionChoose(parseInt(e.target.value))
             }
         >
             <option value={0}>All</option>
-            {props.clientVersion.map((client, key) => {
+            {clientVersion.map((client, key) => {
                 return (
                     <option
                         key={`${client.id_client}-${key}`}

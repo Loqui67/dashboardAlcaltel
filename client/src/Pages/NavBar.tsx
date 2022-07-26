@@ -16,8 +16,7 @@ import { variant } from "../toolbox/enum";
 import { useLoginContext } from "../toolbox/context";
 
 function NavBar() {
-    const { loginStatus } = useLoginContext();
-    const { setLoginStatus } = useLoginContext();
+    const { loginStatus, setLoginStatus } = useLoginContext();
 
     async function logout() {
         localStorage.removeItem("token"); //on supprime le token

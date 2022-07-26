@@ -7,17 +7,18 @@ import { useEffect, useCallback, useMemo, useState } from "react";
 import GetFromDatabase from "../classes/GetFromDatabase";
 import Utils from "../classes/Utils";
 
-/* ------------------- Types And Interfaces ------------------- */
+/* ------------------- Types Interfaces Contexts ------------------- */
 
 import {
     clientDistinctType,
-    StatsContextType,
     clientChooseType,
 } from "../toolbox/typeAndInterface";
 
+import { StatsContext } from "../toolbox/context";
+
 /* ------------------- Librairies tierces ------------------- */
 
-import { Outlet, useOutletContext, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
 function Stats() {
     const { id, client } = useParams();
@@ -59,21 +60,16 @@ function Stats() {
     }, [getClient]);
 
     return (
-        <div className="Stats d-flex flex-column">
-            <Outlet
-                context={{
-                    //AllStatsOptions.tsx
-                    clientDistinct,
-                    clientChoose,
-                    setClientChoose,
-                }}
-            />
-        </div>
+        <StatsContext.Provider
+            value={{ clientDistinct, clientChoose, setClientChoose }}
+        >
+            <div className="Stats d-flex flex-column">
+                <Outlet
+                //AllStatsOptions.tsx
+                />
+            </div>
+        </StatsContext.Provider>
     );
 }
 
 export default Stats;
-
-export function useOutletCntxtStats() {
-    return useOutletContext<StatsContextType>();
-}
