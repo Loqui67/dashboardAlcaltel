@@ -404,7 +404,7 @@ class GetFromDatabase {
         }
     }
 
-    getToken() {
+    getToken(): string {
         return localStorage.getItem("token") || "";
     }
 }
