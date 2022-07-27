@@ -98,11 +98,11 @@ function TestAllInformation(): JSX.Element {
                                 )}
                             </div>
                             <LinkToTest />
-                            {/* <div>
+                            <div>
                                 {testHistory[0] !== undefined && (
                                     <TestHistory testHistory={testHistory} />
                                 )}
-                            </div> */}
+                            </div>
                             <div>
                                 <TestLogs />
                             </div>

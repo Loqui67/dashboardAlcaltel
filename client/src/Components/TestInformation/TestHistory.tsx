@@ -18,21 +18,15 @@ function TestHistory(props: TestHistoryProps): JSX.Element {
     const [versionUnique, setVersionUnique] = useState<Array<any>>([]);
     const [patchUnique, setPatchUnique] = useState<Array<Array<any>>>([]);
 
-    //TODO Opti a faire, pq pas un foreach version puis foreach patch (en créant un tableau avec les valeurs uniques)
     const utils = useMemo(() => new Utils(), []);
 
     const VersionUnique = useCallback(() => {
-        setVersionUnique(
-            utils.getUniqueValueFromArrayOfObject(
-                props.testHistory,
-                "version_name"
-            )
+        const a: Array<any> = utils.getUniqueValueFromArrayOfObject(
+            props.testHistory,
+            "version_name"
         );
-    }, [utils, props.testHistory]);
-
-    const PatchUnique = useCallback(() => {
         setPatchUnique(
-            versionUnique.map((version) => {
+            a.map((version) => {
                 return utils.getUniqueValueFromArrayOfObject(
                     props.testHistory.filter(
                         (element) =>
@@ -42,12 +36,12 @@ function TestHistory(props: TestHistoryProps): JSX.Element {
                 );
             })
         );
-    }, [versionUnique, props.testHistory, utils]);
+        setVersionUnique(a);
+    }, [utils, props.testHistory]);
 
     useEffect((): void => {
         VersionUnique();
-        PatchUnique();
-    }, [VersionUnique, PatchUnique]);
+    }, [VersionUnique]);
 
     return (
         <div className="margin-top">
