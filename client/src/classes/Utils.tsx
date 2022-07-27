@@ -9,7 +9,7 @@ class Utils {
     statsURL: string = `${clientAddress}stats`;
     loginURL: string = `${clientAddress}login`;
 
-    testToColor(toTest: string) {
+    testToColor(toTest: string): string {
         //en fonction de l'état, on retourne une couleur (pour la classe)
         switch (toTest) {
             case "passed":
@@ -26,7 +26,9 @@ class Utils {
         }
     }
 
-    testCaseIdentifier(testName: string) {
+    testCaseIdentifier(
+        testName: string
+    ): { identifier: string; name: string } | undefined {
         for (let i: number = 2; i < testName.length; i++) {
             if (testName[i].length === 1 && testName[i].match(/[a-z]/i)) {
                 return {
@@ -37,56 +39,53 @@ class Utils {
         }
     }
 
-    convertDateFromDbToRightFormat(date: string) {
+    convertDateFromDbToRightFormat(date: string): string {
         //convertit le format de la date retournée par la base dans un format plus conventionnel
         return `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(2, 4)}`;
     }
 
-    getDateAndDeleteHourOnDbFormat(date: string | undefined) {
+    getDateAndDeleteHourOnDbFormat(date: string | undefined): string {
         //supprime la partie de l'heure sur le format de la date ==> plus besoin ?
         return date !== undefined ? date.slice(0, 10) : "";
     }
 
-    hasSpecialCharacters(string: string) {
+    hasSpecialCharacters(string: string): boolean {
         //verifie si une string possède un ou plusieurs charactères spéciaux
         const format = /[ !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
 
         if (format.test(string)) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    isNumber(value: string) {
+    isNumber(value: string): boolean {
         return value != null && value !== "" && !isNaN(Number(value));
     }
 
-    verifUsername(username: string) {
+    verifUsername(username: string): boolean {
         //verifie les prérequis d'un username
         if (
             username.length >= this.usernameMinSize &&
             username.length <= this.usernameMaxSize
         ) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    verifPassword(password: string) {
+    verifPassword(password: string): boolean {
         //verifie les prérequis d'un password
         if (
             password.length >= this.passwordMinSize &&
             password.length <= this.passwordMaxSize
         ) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    isUpperCase(toTest: string) {
+    isUpperCase(toTest: string): boolean {
         //verifie si le caractère est une majuscule
         if (toTest !== undefined) {
             if (toTest === toTest.toUpperCase()) {
@@ -96,7 +95,7 @@ class Utils {
         return false;
     }
 
-    isLowerCase(toTest: string) {
+    isLowerCase(toTest: string): boolean {
         //verifie si le caractère est une minuscule
         if (toTest !== undefined) {
             if (toTest === toTest.toLowerCase()) {
@@ -106,7 +105,7 @@ class Utils {
         return false;
     }
 
-    formatStringToUpperAndLowerCase(toEdit: string) {
+    formatStringToUpperAndLowerCase(toEdit: string): string {
         //formatte les noms
         //return toEdit.replace(/[A-Z]/g, ' $&').trim().toLowerCase().replace(toEdit.charAt(0), toEdit.charAt(0).toUpperCase());
         let result = "";
@@ -141,34 +140,34 @@ class Utils {
         return result;
     }
 
-    statsPath() {
+    statsPath(): string {
         return this.statsURL;
     }
 
-    loginPath() {
+    loginPath(): string {
         return this.loginURL;
     }
 
-    redirectStats() {
+    redirectStats(): void {
         window.location.href = this.statsPath();
     }
 
-    redirectLogin() {
+    redirectLogin(): void {
         window.location.href = this.loginPath();
     }
 
-    redirectTo(URL: string) {
+    redirectTo(URL: string): void {
         window.location.href = URL;
     }
 
-    isStatsPage() {
+    isStatsPage(): boolean {
         if (window.location.href === this.statsPath()) {
             return true;
         }
         return false;
     }
 
-    isLoginPage() {
+    isLoginPage(): boolean {
         if (window.location.href === this.loginPath()) {
             return true;
         }

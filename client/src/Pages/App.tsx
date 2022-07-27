@@ -24,11 +24,10 @@ import RegisterPage from "./RegisterPage";
 /* ------------------- Classes ------------------- */
 
 import GetFromDatabase from "../classes/GetFromDatabase";
-import Utils from "../classes/Utils";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
-import { loginStatusType, isLoggedType } from "../toolbox/typeAndInterface";
+import { loginStatusType } from "../toolbox/typeAndInterface";
 import { LoginContext } from "../toolbox/context";
 
 /* ------------------- librairies tierces ------------------- */
@@ -42,32 +41,26 @@ function App() {
         admin: false,
         message: "",
     });
-    const [isLogged, setIsLogged] = useState<isLoggedType>({
-        loggedIn: false,
-        user: [],
-    });
 
     const isLoggedIn = useCallback(async () => {
         //on vérifie si l'utilisateur est connecté ou non
-        const utils = new Utils();
         const query = new GetFromDatabase(0, "", "");
         if (!loginStatus.isLogged) {
-            setIsLogged(await query.isLogged());
-            if (isLogged.loggedIn) {
+            const res = await query.isLogged();
+            if (res.loggedIn) {
                 setLoginStatus({
-                    username: isLogged.user[0].username,
-                    admin: isLogged.user[0].isAdmin,
+                    username: res.user[0].username,
+                    admin: res.user[0].isAdmin,
                     isLogged: true,
                     message: "",
                 });
-                if (utils.isLoginPage()) utils.redirectStats();
             }
         }
-    }, [isLogged, loginStatus]);
+    }, [loginStatus]);
 
     useEffect(() => {
         isLoggedIn();
-    }, [isLoggedIn, isLogged, loginStatus]);
+    }, [isLoggedIn]);
 
     return (
         //les routes affichent un composant en fonction de l'adresse de la page

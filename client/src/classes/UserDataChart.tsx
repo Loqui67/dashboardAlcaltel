@@ -80,13 +80,15 @@ class UserDataChart {
         this.testSuiteFromVersionWithDate = testSuiteFromVersionWithDate;
     }
 
-    getValuesPie(params: Array<any>) {
+    getValuesPie(
+        params: testStateCountType | testStateCountWithDateType
+    ): Array<Array<number>> {
         return this.state.map((state) => {
-            return params.map((data) => data[state]);
+            return params.map((data) => data[state as keyof typeof data]);
         });
     }
 
-    getUserDataPieChart() {
+    getUserDataPieChart(): any {
         let value: Array<any>;
         this.dateChoose === ""
             ? (value = this.getValuesPie(this.testStateCount))
@@ -105,10 +107,13 @@ class UserDataChart {
                 },
             ],
         };
+        console.log(userDataPieChart);
         return userDataPieChart;
     }
 
-    getBar100Values(params: Array<any>) {
+    getBar100Values(
+        params: testSuiteFromVersionType | testSuiteFromVersionWithDateType
+    ): Array<Array<number>> {
         //pour chaque etat (state), on filtre en fonction des valeurs des filtres et on retourne le nombre de valeur de chaque état
         type dataMap = {
             currentState?: string;
@@ -136,7 +141,7 @@ class UserDataChart {
                     }
                 })
                 .filter(
-                    (data) =>
+                    (data: dataMap) =>
                         this.dateChoose === data.date || this.dateChoose === ""
                 )
                 .map((element: dataMap) => {
@@ -147,26 +152,23 @@ class UserDataChart {
                                 data.id_testsSuites === element.id_testsSuites
                         )
                         .filter(
-                            (data) =>
+                            (data: dataMap) =>
                                 this.dateChoose === data.date ||
                                 this.dateChoose === ""
                         )
-                        .filter((data: dataMap) => {
-                            if (
+                        .filter(
+                            (data: dataMap) =>
                                 this.modelChoose === "" ||
                                 this.modelChoose === data.model
-                            ) {
-                                return data;
-                            } else {
-                                return null;
-                            }
-                        });
+                        );
                 })
                 .map((data) => data.length);
         });
     }
 
-    getBar100Labels(params: Array<any>) {
+    getBar100Labels(
+        params: testSuiteFromVersionType | testSuiteFromVersionWithDateType
+    ): Array<string | undefined> {
         type dataMap = {
             testsSuites_name?: string;
             date?: string;
@@ -197,7 +199,7 @@ class UserDataChart {
             );
     }
 
-    getUserDataBar100Chart() {
+    getUserDataBar100Chart(): any {
         let value: Array<any>;
         this.dateChoose === ""
             ? (value = this.getBar100Values(this.testSuiteFromVersion))
@@ -222,7 +224,7 @@ class UserDataChart {
         return userDataLineChart;
     }
 
-    getBarValues() {
+    getBarValues(): Array<number> {
         //retourne les valeurs du graphique en bar, le nombre de tests sur chaque état en fonction de la TS
         type dataMap = {
             currentState?: string;
@@ -271,7 +273,7 @@ class UserDataChart {
         });
     }
 
-    getUserDataBarChart() {
+    getUserDataBarChart(): any {
         let value: Array<any> = this.getBarValues();
         const userDataBarChart = {
             labels: [this.testSuiteChoose], //le nom de la TS

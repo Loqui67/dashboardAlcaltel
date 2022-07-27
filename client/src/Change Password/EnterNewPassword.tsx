@@ -25,15 +25,18 @@ import { variant } from "../toolbox/enum";
 
 /* ------------------- Types And Interfaces ------------------- */
 
-import { EnterNewPasswordProps } from "../toolbox/typeAndInterface";
+import {
+    EnterNewPasswordProps,
+    isUpdatedType,
+} from "../toolbox/typeAndInterface";
 
 function EnterNewPassword(props: EnterNewPasswordProps) {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [isUpdated, setIsUpdated] = useState<{
-        state: boolean;
-        message: string;
-    }>({ state: false, message: "" });
+    const [isUpdated, setIsUpdated] = useState<isUpdatedType>({
+        state: false,
+        message: "",
+    });
     const [isPasswordOk, setIsPasswordOk] = useState(false);
 
     const changeUserPassword = useCallback(async () => {

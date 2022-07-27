@@ -16,6 +16,7 @@ import { variant } from "../toolbox/enum";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
+import { versionFromClientType } from "../toolbox/typeAndInterface";
 import { useStatsContext } from "../toolbox/context";
 
 /* ------------------- Librairies tierces ------------------- */
@@ -25,9 +26,8 @@ import { Link } from "react-router-dom";
 function DropdownVersionPatchContent() {
     const { clientChoose } = useStatsContext();
 
-    const [versionFromClient, setVersionFromClient] = useState<
-        Array<{ id_version: number; version_name: string; patch: number }>
-    >([]);
+    const [versionFromClient, setVersionFromClient] =
+        useState<versionFromClientType>([]);
 
     const query = useMemo(
         () => new GetFromDatabase(0, clientChoose, ""),

@@ -81,6 +81,11 @@ export type regStateType = {
     state: boolean;
 };
 
+export type isUpdatedType = {
+    state: boolean;
+    message: string;
+};
+
 /* ------------------- Stats ------------------- */
 
 export type clientDistinctType = Array<{
@@ -218,6 +223,12 @@ export type dateChooseType = string;
 export type stateType = Array<{
     id_state: number;
     currentState: string;
+}>;
+
+export type versionFromClientType = Array<{
+    id_version: number;
+    version_name: string;
+    patch: number;
 }>;
 
 /* ------------------- Title ------------------- */

@@ -49,6 +49,23 @@ app.use(
 
 app.use(express.json());
 
+
+const verifyJWT = (req, res, next) => {
+    const token = req.headers["x-access-token"]
+    if (!token || token === "") {
+        return;
+    } else {
+        jwt.verify(token, jwtPassword, (err, decoded) => {
+            if (err) {
+                return;
+            } else {
+                req.userId = decoded.id;
+                next();
+            }
+        })
+    }
+}
+
 app.get("/logout", (req, res) => {
     console.log("logout")
     req.session.destroy();
@@ -57,7 +74,7 @@ app.get("/logout", (req, res) => {
 
 
 
-app.get("/client", (req, res) => {
+app.get("/client", verifyJWT, (req, res) => {
     console.log("client")
     tests.query("CALL client();"
         , (err, result) => {
@@ -71,7 +88,7 @@ app.get("/client", (req, res) => {
 });
 
 
-app.get("/clientDistinct", (req, res) => {
+app.get("/clientDistinct", verifyJWT, (req, res) => {
     console.log("clientDistinct")
     tests.query("CALL clientDistinct();"
         , (err, result) => {
@@ -84,7 +101,7 @@ app.get("/clientDistinct", (req, res) => {
     );
 });
 
-app.get("/clientModel", (req, res) => {
+app.get("/clientModel", verifyJWT, (req, res) => {
     const id = req.query.id;
     console.log("clientModel")
     tests.query("CALL clientModel(?);"
@@ -99,7 +116,7 @@ app.get("/clientModel", (req, res) => {
 });
 
 
-app.get("/clientVersion", (req, res) => {
+app.get("/clientVersion", verifyJWT, (req, res) => {
     const clientChoose = req.query.clientChoose;
     const id = req.query.id;
     console.log("clientVersion")
@@ -115,7 +132,7 @@ app.get("/clientVersion", (req, res) => {
 });
 
 
-app.get("/date", (req, res) => {
+app.get("/date", verifyJWT, (req, res) => {
     const id = req.query.id;
     console.log("date")
     tests.query("CALL date(?);"
@@ -130,7 +147,7 @@ app.get("/date", (req, res) => {
 });
 
 
-app.get("/dateWithTS", (req, res) => {
+app.get("/dateWithTS", verifyJWT, (req, res) => {
     const id = req.query.id;
     console.log("dateWithTS")
     tests.query("CALL dateWithTS(?);"
@@ -145,7 +162,7 @@ app.get("/dateWithTS", (req, res) => {
 });
 
 
-app.get("/lastVersion", (req, res) => {
+app.get("/lastVersion", verifyJWT, (req, res) => {
     const client = req.query.client;
     console.log("lastVersion")
     tests.query("CALL lastVersion(?);",client, (err, result) => {
@@ -158,7 +175,7 @@ app.get("/lastVersion", (req, res) => {
 });
 
 
-app.get("/state", (req, res) => {
+app.get("/state", verifyJWT, (req, res) => {
     console.log("state")
     tests.query("CALL state();", (err, result) => {
         if (err) {
@@ -170,7 +187,7 @@ app.get("/state", (req, res) => {
 });
 
 
-app.get("/step", (req, res) => {
+app.get("/step", verifyJWT, (req, res) => {
     const id = req.query.id;
     console.log("step")
     tests.query("CALL step(?);"
@@ -186,7 +203,7 @@ app.get("/step", (req, res) => {
 });
 
 
-app.get("/testHistory", (req, res) => {
+app.get("/testHistory", verifyJWT, (req, res) => {
     const name = req.query.name;
     const id = req.query.id;
     const client = req.query.client;
@@ -204,7 +221,7 @@ app.get("/testHistory", (req, res) => {
 });
 
 
-app.get("/testState", (req, res) => {
+app.get("/testState", verifyJWT, (req, res) => {
     const id = req.query.id;
     const client = req.query.client;
     console.log("testState")
@@ -220,7 +237,7 @@ app.get("/testState", (req, res) => {
 });
 
 
-app.get("/testStateCount", (req, res) => {
+app.get("/testStateCount", verifyJWT, (req, res) => {
     const id = req.query.id;
     const client = req.query.client;
     console.log("testStateCount")
@@ -235,7 +252,7 @@ app.get("/testStateCount", (req, res) => {
     );
 });
 
-app.get("/testStateCountWithDate", (req, res) => {
+app.get("/testStateCountWithDate", verifyJWT, (req, res) => {
     const id = req.query.id;
     const client = req.query.client;
     const date = req.query.date;
@@ -252,7 +269,7 @@ app.get("/testStateCountWithDate", (req, res) => {
 });
 
 
-app.get("/testSuite", (req, res) => {
+app.get("/testSuite", verifyJWT, (req, res) => {
     console.log("testSuite")
     tests.query("CALL testSuite();", (err, result) => {
         if (err) {
@@ -264,7 +281,7 @@ app.get("/testSuite", (req, res) => {
 });
 
 
-app.get("/testSuiteFromVersion", (req, res) => {
+app.get("/testSuiteFromVersion", verifyJWT, (req, res) => {
     console.log("testSuiteFromVersion")
     const id = req.query.id;
     tests.query("CALL testSuiteFromVersion(?);"
@@ -278,7 +295,7 @@ app.get("/testSuiteFromVersion", (req, res) => {
 });
 
 
-app.get("/testSuiteFromVersionWithDate", (req, res) => {
+app.get("/testSuiteFromVersionWithDate", verifyJWT, (req, res) => {
     const id = req.query.id;
     console.log("testSuiteFromVersionWithDate")
     tests.query("CALL testSuiteFromVersionWithDate(?);"
@@ -293,7 +310,7 @@ app.get("/testSuiteFromVersionWithDate", (req, res) => {
 });
 
 
-app.get("/version", (req, res) => {
+app.get("/version", verifyJWT, (req, res) => {
     const id = req.query.id;
     console.log("version")
     tests.query("CALL version(?);",id, (err, result) => {
@@ -306,7 +323,7 @@ app.get("/version", (req, res) => {
 });
 
 
-app.get("/versionFromClient", (req, res) => {
+app.get("/versionFromClient", verifyJWT, (req, res) => {
     const client = req.query.client;
     console.log("versionFromClient")
     tests.query("CALL versionFromClient(?);",
@@ -320,7 +337,7 @@ app.get("/versionFromClient", (req, res) => {
 });
 
 
-app.get("/versionWithLogs", (req, res) => {
+app.get("/versionWithLogs", verifyJWT, (req, res) => {
     const id = req.query.id;
     console.log("versionWithLogs")
     tests.query("CALL VersionWithLogs(?);"
@@ -350,21 +367,6 @@ app.get("/SeleniumReports/:client/:folder/:image", (req, res) => {
     res.sendFile(img, { root: logImagesRootFolder })
 });
 
-const verifyJWT = (req, res, next) => {
-    const token = req.headers["x-access-token"]
-    if (!token) {
-        res.send({ auth: false })
-    } else {
-        jwt.verify(token, jwtPassword, (err, decoded) => {
-            if (err) {
-                res.send({ auth: false })
-            } else {
-                req.userId = decoded.id;
-                next();
-            }
-        })
-    }
-}
 
 app.get('/isUserAuth', verifyJWT, (req, res) => {
     res.send({ auth: true })
@@ -372,6 +374,7 @@ app.get('/isUserAuth', verifyJWT, (req, res) => {
 
 
 app.get("/login", (req, res) => {
+    console.log("login : get")
     if (req.session.user) {
         res.send({ loggedIn: true, user: req.session.user });
     } else {
@@ -390,6 +393,7 @@ app.post("/login", (req, res) => {
         (err, result) => {
             if (err) {
                 console.log(err);
+                return;
             }
             else {
                 if (result.length > 0) {
@@ -397,7 +401,7 @@ app.post("/login", (req, res) => {
                         if (response) {
                             const id = result[0].id_users;
                             const token = jwt.sign({ id }, jwtPassword, {
-                                expiresIn: "1d"
+                                expiresIn: "24h"
                             })
                             req.session.user = result;
                             res.send({ username: result[0].username, admin: result[0].isAdmin, message: "", auth: true, token: token });
@@ -414,7 +418,7 @@ app.post("/login", (req, res) => {
 });
 
 
-app.post("/confirmPassword", (req, res) => {
+app.post("/confirmPassword", verifyJWT, (req, res) => {
 
     const username = req.body.username;
     const password = req.body.password;
@@ -438,7 +442,7 @@ app.post("/confirmPassword", (req, res) => {
     )
 });
 
-app.put("/updatePassword", (req, res) => {
+app.put("/updatePassword", verifyJWT, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     console.log("updatePassword")
@@ -461,7 +465,7 @@ app.put("/updatePassword", (req, res) => {
     });
 });
 
-app.post("/register", (req, res) => {
+app.post("/register", verifyJWT, (req, res) => {
 
     const username = req.body.username;
     const password = req.body.password;
