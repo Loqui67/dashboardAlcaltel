@@ -9,7 +9,7 @@ import Utils from "../classes/Utils";
 
 /* ------------------- Composants ------------------- */
 
-import Paragraph from "../HTML components/Paragraph";
+import Paragraph from "../Components/HTML components/Paragraph";
 
 /* ------------------- Composants Bootstrap ------------------- */
 
@@ -29,12 +29,12 @@ import { faUser, faEye } from "@fortawesome/free-solid-svg-icons";
 
 /* ------------------- Enum ------------------- */
 
-import { variant } from "../toolbox/enum";
+import { variant } from "../tools/enum";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
-import { Ilogin } from "../toolbox/typeAndInterface";
-import { useLoginContext } from "../toolbox/context";
+import { Ilogin } from "../tools/typeAndInterface";
+import { useLoginContext } from "../tools/context";
 
 function LoginPage() {
     const { loginStatus, setLoginStatus } = useLoginContext();

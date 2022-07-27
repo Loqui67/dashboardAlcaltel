@@ -9,9 +9,9 @@ import Utils from "../classes/Utils";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
-import { clientChooseType } from "../toolbox/typeAndInterface";
+import { clientChooseType } from "../tools/typeAndInterface";
 
-import { StatsContext } from "../toolbox/context";
+import { StatsContext } from "../tools/context";
 
 /* ------------------- Librairies tierces ------------------- */
 

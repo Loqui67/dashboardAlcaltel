@@ -9,11 +9,11 @@ import GetFromDatabase from "../classes/GetFromDatabase";
 
 /* ------------------- Enum ------------------- */
 
-import { variant } from "../toolbox/enum";
+import { variant } from "../tools/enum";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
-import { useLoginContext } from "../toolbox/context";
+import { useLoginContext } from "../tools/context";
 
 function NavBar() {
     const { loginStatus, setLoginStatus } = useLoginContext();

@@ -4,8 +4,8 @@ import { useState } from "react";
 
 /* ------------------- Composants ------------------- */
 
-import EnterNewPassword from "../Change Password/EnterNewPassword";
-import ConfirmPassword from "../Change Password/ConfirmPassword";
+import EnterNewPassword from "../Components/Change Password/EnterNewPassword";
+import ConfirmPassword from "../Components/Change Password/ConfirmPassword";
 
 interface Props {
     username: string;

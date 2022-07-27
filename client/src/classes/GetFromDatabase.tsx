@@ -4,7 +4,7 @@ import Utils from "./Utils";
 
 /* ------------------- Outils ------------------- */
 
-import { serverAddress } from "../toolbox/address";
+import { serverAddress } from "../tools/address";
 
 /* ------------------- Librairies tierces ------------------- */
 
@@ -33,7 +33,7 @@ import {
     versionFromClientType,
     versionType,
     versionWithLogsType,
-} from "../toolbox/typeAndInterface";
+} from "../tools/typeAndInterface";
 Axios.defaults.withCredentials = true;
 
 class GetFromDatabase {

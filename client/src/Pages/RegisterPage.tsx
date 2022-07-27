@@ -4,8 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 /* ------------------- Composants ------------------- */
 
-import Paragraph from "../HTML components/Paragraph";
-import Small from "../HTML components/Small";
+import Paragraph from "../Components/HTML components/Paragraph";
+import Small from "../Components/HTML components/Small";
 
 /* ------------------- Composants Bootstrap ------------------- */
 
@@ -29,11 +29,11 @@ import { faUser, faEye } from "@fortawesome/free-solid-svg-icons";
 
 /* ------------------- Enum ------------------- */
 
-import { variant } from "../toolbox/enum";
+import { variant } from "../tools/enum";
 
 /* ------------------- Types And Interfaces ------------------- */
 
-import { regStateType } from "../toolbox/typeAndInterface";
+import { regStateType } from "../tools/typeAndInterface";
 
 function RegisterPage() {
     library.add(faUser, faEye);

@@ -8,9 +8,9 @@ import "./Styles/App.css";
 
 /* ------------------- Composants ------------------- */
 
-import StatsPageStructure from "../Stats Structure/StatsPageStructure";
-import TestAllInformation from "../Test Information/TestAllInformation";
-import AllStatsOptions from "../Stats Structure/AllStatsOptions";
+import StatsPageStructure from "../Components/Stats Structure/StatsPageStructure";
+import TestAllInformation from "../Components/TestInformation/TestAllInformation";
+import AllStatsOptions from "../Components/Stats Structure/AllStatsOptions";
 import NavBar from "./NavBar";
 
 /* ------------------- Pages ------------------- */
@@ -27,8 +27,8 @@ import GetFromDatabase from "../classes/GetFromDatabase";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
-import { loginStatusType } from "../toolbox/typeAndInterface";
-import { LoginContext } from "../toolbox/context";
+import { loginStatusType } from "../tools/typeAndInterface";
+import { LoginContext } from "../tools/context";
 
 /* ------------------- librairies tierces ------------------- */
 

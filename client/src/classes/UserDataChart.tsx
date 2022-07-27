@@ -15,7 +15,7 @@ import {
     testSuiteFromVersionType,
     testSuiteFromVersionWithDateType,
     modelChooseType,
-} from "../toolbox/typeAndInterface";
+} from "../tools/typeAndInterface";
 
 class UserDataChart {
     state = ["passed", "failed", "skipped"];
@@ -71,10 +71,10 @@ class UserDataChart {
         const key = "testsSuites_name";
 
         //on récupère les valeurs unique de chaque TS en fonction de leurs noms
-        this.testSuiteFromVersion = Array.from(
-            new Map(
-                testSuiteFromVersion.map((item) => [item[key], item])
-            ).values()
+        const utils = new Utils();
+        this.testSuiteFromVersion = utils.getUniqueValueFromArrayOfObject(
+            this.testSuiteFromVersion,
+            key
         );
 
         this.testSuiteFromVersionWithDate = testSuiteFromVersionWithDate;
@@ -107,7 +107,6 @@ class UserDataChart {
                 },
             ],
         };
-        console.log(userDataPieChart);
         return userDataPieChart;
     }
 

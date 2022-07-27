@@ -1,4 +1,4 @@
-import { clientAddress } from "../toolbox/address";
+import { clientAddress } from "../tools/address";
 
 class Utils {
     usernameMinSize: number = 5;
@@ -172,6 +172,15 @@ class Utils {
             return true;
         }
         return false;
+    }
+
+    getUniqueValueFromArrayOfObject(
+        array: Array<any>,
+        key: string | number
+    ): Array<any> {
+        return Array.from(
+            new Map(array.map((item) => [item[key], item])).values()
+        );
     }
 }
 
