@@ -12,16 +12,19 @@ import Utils from "../../classes/Utils";
 
 /* ------------------- Types And Interfaces ------------------- */
 
-import { TestHistoryProps } from "../../tools/typeAndInterface";
+import {
+    TestHistoryProps,
+    testHistoryType,
+} from "../../tools/typeAndInterface";
 
 function TestHistory(props: TestHistoryProps): JSX.Element {
-    const [versionUnique, setVersionUnique] = useState<Array<any>>([]);
-    const [patchUnique, setPatchUnique] = useState<Array<Array<any>>>([]);
+    const [versionUnique, setVersionUnique] = useState<testHistoryType>([]);
+    const [patchUnique, setPatchUnique] = useState<Array<testHistoryType>>([]);
 
     const utils = useMemo(() => new Utils(), []);
 
     const VersionUnique = useCallback(() => {
-        const a: Array<any> = utils.getUniqueValueFromArrayOfObject(
+        const a: testHistoryType = utils.getUniqueValueFromArrayOfObject(
             props.testHistory,
             "version_name"
         );

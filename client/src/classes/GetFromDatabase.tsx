@@ -390,20 +390,6 @@ class GetFromDatabase {
         Axios.get(`${this.address}logout`);
     }
 
-    async checkJWT(): Promise<boolean> {
-        //on vérifie l'identité de l'utilisateur
-        const response = await Axios.get(`${this.address}isUserAuth`, {
-            headers: {
-                "x-access-token": this.getToken(),
-            },
-        });
-        if (response.data.auth === true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     getToken(): string {
         return localStorage.getItem("token") || "";
     }

@@ -180,6 +180,22 @@ export type testStateType = Array<{
     model: string;
 }>;
 
+export type thisTestType =
+    | {
+          id_test: number;
+          id_state: number;
+          currentState: string;
+          id_testsSuites: number;
+          testsSuites_name: string;
+          date: string;
+          id_client: number;
+          id_testRun: number;
+          name: string;
+          purpose: string;
+          model: string;
+      }
+    | undefined;
+
 export type clientType = Array<{
     version: string;
     id_client: number;

@@ -27,10 +27,13 @@ class Utils {
     }
 
     testCaseIdentifier(
+        //différencie le nom et le numéro d'un test
         testName: string
     ): { identifier: string; name: string } | undefined {
         for (let i: number = 2; i < testName.length; i++) {
+            //i = 2 pour ne pas prendre en compte les lettres "TC" (pour les tests asal)
             if (testName[i].length === 1 && testName[i].match(/[a-z]/i)) {
+                //on regarde si le caractère est une lettre
                 return {
                     identifier: testName.slice(0, i - 1),
                     name: testName.slice(i),

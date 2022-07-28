@@ -41,9 +41,7 @@ function EnterNewPassword(props: EnterNewPasswordProps): JSX.Element {
 
     const changeUserPassword = useCallback(async () => {
         const query = new GetFromDatabase(0, "", "");
-        if (await query.checkJWT()) {
-            setIsUpdated(await query.UpdatePassword(props.username, password)); //on demande le changement de mot de passe
-        }
+        setIsUpdated(await query.UpdatePassword(props.username, password)); //on demande le changement de mot de passe
     }, [props, password]);
 
     const check = useCallback(() => {

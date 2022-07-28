@@ -35,7 +35,7 @@ import { variant } from "../tools/enum";
 
 import { regStateType } from "../tools/typeAndInterface";
 
-function RegisterPage() {
+function RegisterPage(): JSX.Element {
     library.add(faUser, faEye);
 
     const [usernameReg, setUsernameReg] = useState("");
@@ -81,7 +81,7 @@ function RegisterPage() {
         check();
     });
 
-    const renderUsernameTooltip = (props: any) => (
+    const renderUsernameTooltip = (props: any): JSX.Element => (
         <Tooltip id="button-tooltip" {...props}>
             <Small
                 id="usernameTooltip"
@@ -90,7 +90,7 @@ function RegisterPage() {
         </Tooltip>
     );
 
-    const renderPasswordTooltip = (props: any) => (
+    const renderPasswordTooltip = (props: any): JSX.Element => (
         <Tooltip id="button-tooltip" {...props}>
             <Small
                 id="passwordTooltip"
@@ -99,7 +99,7 @@ function RegisterPage() {
         </Tooltip>
     );
 
-    const renderConfirmPasswordTooltip = (props: any) => (
+    const renderConfirmPasswordTooltip = (props: any): JSX.Element => (
         <Tooltip id="button-tooltip" {...props}>
             <Small
                 id="confirmPasswordTooltip"
@@ -107,6 +107,8 @@ function RegisterPage() {
             />
         </Tooltip>
     );
+
+    //TODO : découpez la page en composants
 
     return (
         <div className="Register d-flex flex-column margin-top-xl">

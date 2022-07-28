@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Modale from "./modale";
 import Paragraph from "../HTML components/Paragraph";
+import Image from "../HTML components/Image";
 
 /* ------------------- Classes ------------------- */
 
@@ -28,7 +29,17 @@ function TestLogs(): JSX.Element {
         []
     );
 
+    const clientName = ["luke", "rey"];
     const prefix = useMemo(() => `${serverAddress}SeleniumReports/`, []);
+    const logs = useMemo(
+        () =>
+            versionWithLogs[0] !== undefined ? versionWithLogs[0] : undefined,
+        [versionWithLogs]
+    );
+    const date = useMemo(
+        () => (logs !== undefined ? logs.date.replaceAll("-", ".") : ""),
+        [logs]
+    );
 
     function modale(
         screenshotClient: string,
@@ -56,70 +67,52 @@ function TestLogs(): JSX.Element {
         getLogs();
     }, [getLogs]);
 
-    return (
-        <>
-            {versionWithLogs.map((logs, key) => {
-                const date = `${logs.date.slice(0, 4)}.${logs.date.slice(
-                    5,
-                    7
-                )}.${logs.date.slice(8, 10)}`;
-                return (
-                    <div key={key}>
-                        <div className="divider div-transparent" />
-                        <div className="d-flex flex-column padding">
-                            <div className="errorMessage">
-                                <h6>Error message :</h6>
-                                <Paragraph text={logs.error_message} />
+    return logs !== undefined ? (
+        <div>
+            <div className="divider div-transparent" />
+            <div className="d-flex flex-column padding">
+                <div className="errorMessage">
+                    <h6>Error message :</h6>
+                    <Paragraph text={logs.error_message} />
+                </div>
+                <div className="d-flex flex-row imageContainer">
+                    {clientName.map((name) => {
+                        return (
+                            <div className="screenCell d-flex flex-column padding">
+                                <h6>{`${name} client screenshot :`}</h6>
+                                <Image
+                                    src={`${prefix}${client}/${date}/${
+                                        logs[
+                                            `screenshot_${name}` as keyof typeof logs
+                                        ]
+                                    }`}
+                                    alt={`screenshot ${name}`}
+                                    className="image"
+                                    OnClick={() =>
+                                        modale(
+                                            name,
+                                            client === undefined ? "" : client,
+                                            date,
+                                            logs[
+                                                `screenshot_${name}` as keyof typeof logs
+                                            ] as string
+                                        )
+                                    }
+                                />
                             </div>
-                            <div className="d-flex flex-row imageContainer">
-                                <div className="screenCell d-flex flex-column padding">
-                                    <h6>Luke client screenshot :</h6>
-                                    <img
-                                        src={`${prefix}${client}/${date}/${logs.screenshot_luke}`}
-                                        alt="screenshot luke"
-                                        className="image"
-                                        onClick={() =>
-                                            modale(
-                                                "Luke",
-                                                client === undefined
-                                                    ? ""
-                                                    : client,
-                                                date,
-                                                logs.screenshot_luke
-                                            )
-                                        }
-                                    />
-                                </div>
-                                <div className="screenCell d-flex flex-column padding">
-                                    <h6>Rey client screenshot :</h6>
-                                    <img
-                                        src={`${prefix}${client}/${date}/${logs.screenshot_rey}`}
-                                        alt="screenshot rey"
-                                        className="image"
-                                        onClick={() =>
-                                            modale(
-                                                "Rey",
-                                                client === undefined
-                                                    ? ""
-                                                    : client,
-                                                date,
-                                                logs.screenshot_rey
-                                            )
-                                        }
-                                    />
-                                </div>
-                            </div>
-                            <Modale
-                                show={modalShow}
-                                onHide={() => setModalShow(false)}
-                                imageModale={imageModale}
-                                screenshotClient={screenshotClient}
-                            />
-                        </div>
-                    </div>
-                );
-            })}
-        </>
+                        );
+                    })}
+                </div>
+                <Modale
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    imageModale={imageModale}
+                    screenshotClient={screenshotClient}
+                />
+            </div>
+        </div>
+    ) : (
+        <></>
     );
 }
 

@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState, useCallback } from "react";
 
 //* Petit Mémo React, sur les principales fonctions utiles et utilisées
 
+//! Vidéo explicative : https://www.youtube.com/watch?v=LlvBzyy-558
+
 //! créer un composant :
 //? créer un fichier .tsx, l'ouvrir, tappez rfce puis "enter". la base du composant devrait se créer.
 
@@ -61,3 +63,7 @@ const memo = useMemo(() => 18 + c, [c]);
 const e = useCallback(() => {
     return memo + c;
 }, [memo, c]);
+
+//! useContext :
+//? useContext se couple a d'autre fonctions React, et permet d'accéder a un state depuis un autre composant enfant
+// voir exemples dans le fichier context.tsx

@@ -18,7 +18,11 @@ import GetFromDatabase from "../../classes/GetFromDatabase";
 
 /* ------------------- Types Interfaces Contexts ------------------- */
 
-import { testHistoryType, testStepType } from "../../tools/typeAndInterface";
+import {
+    testHistoryType,
+    testStepType,
+    thisTestType,
+} from "../../tools/typeAndInterface";
 import {
     useStatsPageStructureContext,
     useStatsContext,
@@ -36,6 +40,8 @@ function TestAllInformation(): JSX.Element {
 
     const [testHistory, setTestHistory] = useState<testHistoryType>([]);
     const [testStep, setTestStep] = useState<testStepType>([]);
+
+    const [thisTest, setThisTest] = useState<thisTestType>();
 
     const { id } = useParams();
 
@@ -66,50 +72,51 @@ function TestAllInformation(): JSX.Element {
 
     const utils = useMemo(() => new Utils(), []);
 
-    return (
+    useEffect((): void => {
+        setThisTest(
+            testState.find((tests: { id_testRun: number }) =>
+                testRunID !== undefined
+                    ? tests.id_testRun === parseInt(testRunID)
+                    : tests.id_testRun === 0
+            )
+        );
+    }, [testState, testRunID]);
+
+    return thisTest !== undefined ? (
         <div className="details">
-            {testState
-                .filter((tests: { id_testRun: number }) =>
-                    testRunID !== undefined
-                        ? tests.id_testRun === parseInt(testRunID)
-                        : tests.id_testRun === 0
-                )
-                .map((test, key: number) => {
-                    let TxtColor = utils.testToColor(test.currentState);
-                    return (
-                        <div
-                            key={key}
-                            className="d-flex flex-column justify-content-start padding text-start"
-                        >
-                            <TestTitle test={test} TxtColor={TxtColor} />
-                            <Paragraph
-                                text={test.purpose.replaceAll("_", " ")}
-                                className="strong"
-                            />
-                            <div className="d-flex flex-row space-between desc">
-                                <TestSelectedDetails
-                                    test={test}
-                                    client={client}
-                                    testSuite={testSuite}
-                                />
-                                <div className="dividerVertical div-transparentVertical" />
-                                {testStep[0] !== undefined && (
-                                    <TestSteps testStep={testStep} />
-                                )}
-                            </div>
-                            <LinkToTest />
-                            <div>
-                                {testHistory[0] !== undefined && (
-                                    <TestHistory testHistory={testHistory} />
-                                )}
-                            </div>
-                            <div>
-                                <TestLogs />
-                            </div>
-                        </div>
-                    );
-                })}
+            <div className="d-flex flex-column justify-content-start padding text-start">
+                <TestTitle
+                    test={thisTest}
+                    TxtColor={utils.testToColor(thisTest.currentState)}
+                />
+                <Paragraph
+                    text={thisTest.purpose.replaceAll("_", " ")}
+                    className="strong"
+                />
+                <div className="d-flex flex-row space-between desc">
+                    <TestSelectedDetails
+                        test={thisTest}
+                        client={client}
+                        testSuite={testSuite}
+                    />
+                    <div className="dividerVertical div-transparentVertical" />
+                    {testStep[0] !== undefined && (
+                        <TestSteps testStep={testStep} />
+                    )}
+                </div>
+                <LinkToTest />
+                <div>
+                    {testHistory[0] !== undefined && (
+                        <TestHistory testHistory={testHistory} />
+                    )}
+                </div>
+                <div>
+                    <TestLogs />
+                </div>
+            </div>
         </div>
+    ) : (
+        <></>
     );
 }
 
